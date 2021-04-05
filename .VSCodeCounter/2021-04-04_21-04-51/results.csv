@@ -1,0 +1,14 @@
+"filename", "language", "C++", "Swift", "XML", "JSON", "Markdown", "comment", "blank", "total"
+"/Users/Projects/Flutter/grow_run_v1/ios/Flutter/AppFrameworkInfo.plist", "XML", 0, 0, 26, 0, 0, 0, 1, 27
+"/Users/Projects/Flutter/grow_run_v1/ios/GoogleService-Info.plist", "XML", 0, 0, 34, 0, 0, 0, 0, 34
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist", "XML", 0, 0, 8, 0, 0, 0, 1, 9
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist", "XML", 0, 0, 8, 0, 0, 0, 1, 9
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/AppDelegate.swift", "Swift", 0, 12, 0, 0, 0, 0, 2, 14
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json", "JSON", 0, 0, 0, 122, 0, 0, 1, 123
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json", "JSON", 0, 0, 0, 23, 0, 0, 1, 24
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md", "Markdown", 0, 0, 0, 0, 3, 0, 2, 5
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Base.lproj/LaunchScreen.storyboard", "XML", 0, 0, 36, 0, 0, 1, 1, 38
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Base.lproj/Main.storyboard", "XML", 0, 0, 25, 0, 0, 1, 1, 27
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Info.plist", "XML", 0, 0, 45, 0, 0, 0, 1, 46
+"/Users/Projects/Flutter/grow_run_v1/ios/Runner/Runner-Bridging-Header.h", "C++", 1, 0, 0, 0, 0, 0, 1, 2
+"Total", "-", 1, 12, 182, 145, 3, 2, 13, 358

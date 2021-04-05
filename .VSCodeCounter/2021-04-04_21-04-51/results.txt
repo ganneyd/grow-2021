@@ -1,0 +1,51 @@
+Date : 2021-04-04 21:04:51
+Directory : /Users/Projects/Flutter/grow_run_v1/ios
+Total : 12 files,  343 codes, 2 comments, 13 blanks, all 358 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| XML      |          7 |        182 |          2 |          6 |        190 |
+| JSON     |          2 |        145 |          0 |          2 |        147 |
+| Swift    |          1 |         12 |          0 |          2 |         14 |
+| Markdown |          1 |          3 |          0 |          2 |          5 |
+| C++      |          1 |          1 |          0 |          1 |          2 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                               | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                  |         12 |        343 |          2 |         13 |        358 |
+| Flutter                                                                                                            |          1 |         26 |          0 |          1 |         27 |
+| Runner                                                                                                             |          8 |        267 |          2 |         10 |        279 |
+| Runner.xcodeproj                                                                                                   |          1 |          8 |          0 |          1 |          9 |
+| Runner.xcodeproj/project.xcworkspace                                                                               |          1 |          8 |          0 |          1 |          9 |
+| Runner.xcodeproj/project.xcworkspace/xcshareddata                                                                  |          1 |          8 |          0 |          1 |          9 |
+| Runner.xcworkspace                                                                                                 |          1 |          8 |          0 |          1 |          9 |
+| Runner.xcworkspace/xcshareddata                                                                                    |          1 |          8 |          0 |          1 |          9 |
+| Runner/Assets.xcassets                                                                                             |          3 |        148 |          0 |          4 |        152 |
+| Runner/Assets.xcassets/AppIcon.appiconset                                                                          |          1 |        122 |          0 |          1 |        123 |
+| Runner/Assets.xcassets/LaunchImage.imageset                                                                        |          2 |         26 |          0 |          3 |         29 |
+| Runner/Base.lproj                                                                                                  |          2 |         61 |          2 |          2 |         65 |
++--------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                           | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/Projects/Flutter/grow_run_v1/ios/Flutter/AppFrameworkInfo.plist                                             | XML      |         26 |          0 |          1 |         27 |
+| /Users/Projects/Flutter/grow_run_v1/ios/GoogleService-Info.plist                                                   | XML      |         34 |          0 |          0 |         34 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist | XML      |          8 |          0 |          1 |          9 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist                   | XML      |          8 |          0 |          1 |          9 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/AppDelegate.swift                                                   | Swift    |         12 |          0 |          2 |         14 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json                    | JSON     |        122 |          0 |          1 |        123 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json                  | JSON     |         23 |          0 |          1 |         24 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md                      | Markdown |          3 |          0 |          2 |          5 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Base.lproj/LaunchScreen.storyboard                                  | XML      |         36 |          1 |          1 |         38 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Base.lproj/Main.storyboard                                          | XML      |         25 |          1 |          1 |         27 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Info.plist                                                          | XML      |         45 |          0 |          1 |         46 |
+| /Users/Projects/Flutter/grow_run_v1/ios/Runner/Runner-Bridging-Header.h                                            | C++      |          1 |          0 |          1 |          2 |
+| Total                                                                                                              |          |        343 |          2 |         13 |        358 |
++--------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

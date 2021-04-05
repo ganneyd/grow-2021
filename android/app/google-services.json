@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "92947305471",
+    "project_id": "grow-run",
+    "storage_bucket": "grow-run.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92947305471:android:badf29e94dc0fe4d888dca",
+        "android_client_info": {
+          "package_name": "com.ganneyd.growRunV1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92947305471-hr9jncgc6r0074pcinlj6ponv73968so.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjFqk5UVFw-bkPzTx0aAziRMzg0oWltUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92947305471-hr9jncgc6r0074pcinlj6ponv73968so.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "92947305471-m9ei4pjldotkqapm6pq2pgd2rilqat37.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ganneyd.growRunV1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
