@@ -111,8 +111,8 @@ void main() {
       print('This is before the update');
       print(firestoreInstance.dump());
       print('---------------------------');
-      final Either<Failure, void> result = await repository.editChildUser(
-          child0.uid, child0.copyWith(username: 'updated username'));
+      final Either<Failure, void> result = await repository
+          .editChildUser(child0.copyWith(username: 'updated username'));
       // assert
       print('This is after the update');
       print(firestoreInstance.dump());
@@ -208,7 +208,7 @@ void main() {
 
         // act
         final Either<Failure, void> result =
-            await repositoryWithMockDS.editChildUser(child0.uid, child0);
+            await repositoryWithMockDS.editChildUser(child0);
         // assert
         expect(result, Left<Failure, void>(UpdateDataFailure()));
       },

@@ -11,8 +11,7 @@ abstract class ChildRepository {
   ///Edits a [Child] account by using the [userID] passed
   ///and using the changed [childEntity] to make the  neccessary changes.
   ///returns void  if successful and [Failure] if unsuccessful
-  Future<Either<Failure, void>> editChildUser(
-      String childID, ChildEntity child);
+  Future<Either<Failure, void>> editChildUser(ChildEntity child);
 
   ///Returns a stream of [ChildEntity] by searching through the database
   ///and returning all the [ChildModel] in the children

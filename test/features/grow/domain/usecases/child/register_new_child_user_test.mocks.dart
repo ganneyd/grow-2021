@@ -87,8 +87,8 @@ class MockChildRepository extends _i1.Mock implements _i7.ChildRepository {
           as _i4.Future<_i2.Either<_i5.Failure, void>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, void>> editChildUser(
-          String? childID, _i8.ChildEntity? child) =>
-      (super.noSuchMethod(Invocation.method(#editChildUser, [childID, child]),
+          _i8.ChildEntity? child) =>
+      (super.noSuchMethod(Invocation.method(#editChildUser, [child]),
               returnValue: Future.value(_FakeEither<_i5.Failure, void>()))
           as _i4.Future<_i2.Either<_i5.Failure, void>>);
   @override

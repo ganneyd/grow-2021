@@ -51,11 +51,10 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
   }
 
   @override
-  Future<Either<Failure, void>> editChildUser(
-      String childID, ChildEntity child) async {
+  Future<Either<Failure, void>> editChildUser(ChildEntity child) async {
     try {
       return Right<Failure, void>(await _remoteDataSource.updateData(
-          collectionName, _convertEntityToJson(child), childID));
+          collectionName, _convertEntityToJson(child), child.uid!));
     } on UpdateDataException {
       return Left<Failure, void>(UpdateDataFailure());
     } catch (e) {
