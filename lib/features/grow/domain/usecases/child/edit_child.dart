@@ -20,20 +20,17 @@ class UpdateChildData implements UseCase<void, Params> {
 
   @override
   Future<Either<Failure, void>> call(Params params) async {
-    return _childRepository.editChildUser(params.childID, params.child);
+    return _childRepository.editChildUser(params.child);
   }
 }
 
 ///Parameters required by the [UpdateChildData] UseCase
 class Params extends Equatable {
   ///Constructor
-  const Params({required this.childID, required this.child});
+  const Params({required this.child});
 
   ///The child entity
   final ChildEntity child;
-
-  ///The id of the child user
-  final String childID;
   @override
-  List<Object> get props => <Object>[childID, child];
+  List<Object> get props => <Object>[child];
 }
