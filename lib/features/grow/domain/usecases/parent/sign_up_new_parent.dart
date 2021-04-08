@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.dart';
@@ -9,7 +8,7 @@ import '../../../../../core/usecases/usecases.dart';
 import '../mixins.dart';
 
 ///When a new parent user's account is being made this is the usecase
-class SignUpNewParentUser implements UseCase<void, Params> {
+class SignUpNewParentUser implements UseCase<UserEntity, Params> {
   ///Constructor
   SignUpNewParentUser(
       {required AuthenticationRepository authenticationRepository,
@@ -20,23 +19,24 @@ class SignUpNewParentUser implements UseCase<void, Params> {
   final AuthenticationRepository _authenticationRepository;
   final ParentRepository _parentRepository;
   @override
-  Future<Either<Failure, void>> call(Params params) async {
+  Future<Either<Failure, UserEntity>> call(Params params) async {
     //attemp to authenticate the user and store it in a variable
     final Either<Failure, UserEntity> userCredential =
         await _authenticationRepository.signUpUser(
             params.email, params.password);
-    userCredential.fold((Failure l) {
-      // if an error occured when trying to authenticate the user
-      // an failure is returned with the message
-      return Left<Failure, dynamic>(RegistrationFailure());
-    }, (UserEntity user) {
-      //if successful try to poppulate the children collection with the
-      //child's information
-      return _parentRepository
-          .createParentData(toParentEntityWithID(params.parent, user.userID));
-    });
-    //if an error occured and was not foreseen then return this
-    return Left<Failure, dynamic>(RegistrationFailure());
+    if (userCredential.isRight()) {
+      final UserEntity user = userCredential.getOrElse(
+          () => const UserEntity(userEmail: 'test-email', userID: 'test-id '));
+      final ParentEntity parentWithID =
+          toParentEntityWithID(params.parent, user.userID);
+      final Either<Failure, void> createData =
+          await _parentRepository.createParentData(parentWithID);
+
+      if (createData.isRight()) {
+        return Right<Failure, UserEntity>(user);
+      }
+    }
+    return Left<Failure, UserEntity>(SignUpFailure());
   }
 }
 
