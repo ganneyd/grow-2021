@@ -46,15 +46,11 @@ class SignUpNewChildUser implements UseCase<UserEntity, Params> {
       //return the UserEntity object
       if (createData.isRight()) {
         return Right<Failure, UserEntity>(user);
-      } else {
-        //if an error occured and was not foreseen then return this
-        return Left<Failure, UserEntity>(SignUpFailure());
       }
-    } else {
-      //if userCredential isn't an instance of Right then it must be left
-      //so we return a failure
-      return Left<Failure, UserEntity>(SignUpFailure());
     }
+    //if userCredential isn't an instance of Right then it must be left
+    //so we return a failure
+    return Left<Failure, UserEntity>(SignUpFailure());
   }
 }
 
