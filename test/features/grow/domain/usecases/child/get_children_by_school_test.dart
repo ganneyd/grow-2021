@@ -95,7 +95,7 @@ void main() {
         // arrange
         // act
         final Either<Failure, List<ChildEntity>> result = await usecase
-            .call(const Params(requestedBy: ' ', schoolID: 'school01'));
+            .call(const Params(requestedBy: ' ', schoolID: 'school08'));
         // assert
         final List<ChildEntity> resultList =
             result.getOrElse(() => <ChildEntity>[]);
