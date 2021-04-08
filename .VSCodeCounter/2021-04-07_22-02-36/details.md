@@ -1,10 +1,10 @@
 # Details
 
-Date : 2021-04-04 21:04:28
+Date : 2021-04-07 22:02:36
 
 Directory /Users/Projects/Flutter/grow_run_v1/lib
 
-Total : 78 files,  3759 codes, 625 comments, 627 blanks, all 5011 lines
+Total : 78 files,  3760 codes, 613 comments, 625 blanks, all 4998 lines
 
 [summary](results.md)
 
@@ -42,7 +42,7 @@ Total : 78 files,  3759 codes, 625 comments, 627 blanks, all 5011 lines
 | [lib/features/grow/data/models/user/user_model.dart](/lib/features/grow/data/models/user/user_model.dart) | Dart | 9 | 6 | 3 | 18 |
 | [lib/features/grow/data/models/user/user_model.freezed.dart](/lib/features/grow/data/models/user/user_model.freezed.dart) | Dart | 120 | 14 | 26 | 160 |
 | [lib/features/grow/data/repositories/authentication_repository.dart](/lib/features/grow/data/repositories/authentication_repository.dart) | Dart | 87 | 16 | 13 | 116 |
-| [lib/features/grow/data/repositories/child_repository.dart](/lib/features/grow/data/repositories/child_repository.dart) | Dart | 97 | 20 | 14 | 131 |
+| [lib/features/grow/data/repositories/child_repository.dart](/lib/features/grow/data/repositories/child_repository.dart) | Dart | 96 | 20 | 14 | 130 |
 | [lib/features/grow/data/repositories/grow_repository.dart](/lib/features/grow/data/repositories/grow_repository.dart) | Dart | 10 | 4 | 3 | 17 |
 | [lib/features/grow/data/repositories/parent_repository.dart](/lib/features/grow/data/repositories/parent_repository.dart) | Dart | 85 | 17 | 11 | 113 |
 | [lib/features/grow/data/repositories/repository_mixins.dart](/lib/features/grow/data/repositories/repository_mixins.dart) | Dart | 18 | 6 | 3 | 27 |
@@ -66,25 +66,25 @@ Total : 78 files,  3759 codes, 625 comments, 627 blanks, all 5011 lines
 | [lib/features/grow/domain/entities/trophy/trophy_entity.g.dart](/lib/features/grow/domain/entities/trophy/trophy_entity.g.dart) | Dart | 62 | 4 | 9 | 75 |
 | [lib/features/grow/domain/entities/user/user_entity.dart](/lib/features/grow/domain/entities/user/user_entity.dart) | Dart | 9 | 7 | 4 | 20 |
 | [lib/features/grow/domain/repositories/authentication_repository.dart](/lib/features/grow/domain/repositories/authentication_repository.dart) | Dart | 13 | 18 | 7 | 38 |
-| [lib/features/grow/domain/repositories/child_repository.dart](/lib/features/grow/domain/repositories/child_repository.dart) | Dart | 13 | 15 | 7 | 35 |
+| [lib/features/grow/domain/repositories/child_repository.dart](/lib/features/grow/domain/repositories/child_repository.dart) | Dart | 12 | 15 | 7 | 34 |
 | [lib/features/grow/domain/repositories/grow_repository.dart](/lib/features/grow/domain/repositories/grow_repository.dart) | Dart | 8 | 3 | 2 | 13 |
 | [lib/features/grow/domain/repositories/parent_repository.dart](/lib/features/grow/domain/repositories/parent_repository.dart) | Dart | 10 | 13 | 6 | 29 |
 | [lib/features/grow/domain/usecases/child/disable_child_acc.dart](/lib/features/grow/domain/usecases/child/disable_child_acc.dart) | Dart | 24 | 8 | 7 | 39 |
-| [lib/features/grow/domain/usecases/child/edit_child.dart](/lib/features/grow/domain/usecases/child/edit_child.dart) | Dart | 25 | 8 | 7 | 40 |
+| [lib/features/grow/domain/usecases/child/edit_child.dart](/lib/features/grow/domain/usecases/child/edit_child.dart) | Dart | 24 | 7 | 6 | 37 |
 | [lib/features/grow/domain/usecases/child/enable_child_acc.dart](/lib/features/grow/domain/usecases/child/enable_child_acc.dart) | Dart | 25 | 8 | 7 | 40 |
 | [lib/features/grow/domain/usecases/child/get_children.dart](/lib/features/grow/domain/usecases/child/get_children.dart) | Dart | 21 | 7 | 6 | 34 |
 | [lib/features/grow/domain/usecases/child/get_children_by_id.dart](/lib/features/grow/domain/usecases/child/get_children_by_id.dart) | Dart | 23 | 8 | 8 | 39 |
 | [lib/features/grow/domain/usecases/child/get_children_by_school.dart](/lib/features/grow/domain/usecases/child/get_children_by_school.dart) | Dart | 24 | 10 | 8 | 42 |
 | [lib/features/grow/domain/usecases/child/register_new_child_user.dart](/lib/features/grow/domain/usecases/child/register_new_child_user.dart) | Dart | 48 | 22 | 12 | 82 |
-| [lib/features/grow/domain/usecases/child/sign_up_new_child_user.dart](/lib/features/grow/domain/usecases/child/sign_up_new_child_user.dart) | Dart | 48 | 19 | 12 | 79 |
+| [lib/features/grow/domain/usecases/child/sign_up_new_child_user.dart](/lib/features/grow/domain/usecases/child/sign_up_new_child_user.dart) | Dart | 45 | 18 | 12 | 75 |
 | [lib/features/grow/domain/usecases/mixins.dart](/lib/features/grow/domain/usecases/mixins.dart) | Dart | 24 | 0 | 3 | 27 |
 | [lib/features/grow/domain/usecases/parent/disable_parent_account.dart](/lib/features/grow/domain/usecases/parent/disable_parent_account.dart) | Dart | 20 | 7 | 7 | 34 |
-| [lib/features/grow/domain/usecases/parent/edit_parent.dart](/lib/features/grow/domain/usecases/parent/edit_parent.dart) | Dart | 23 | 8 | 7 | 38 |
+| [lib/features/grow/domain/usecases/parent/edit_parent.dart](/lib/features/grow/domain/usecases/parent/edit_parent.dart) | Dart | 21 | 7 | 6 | 34 |
 | [lib/features/grow/domain/usecases/parent/enable_parent_account.dart](/lib/features/grow/domain/usecases/parent/enable_parent_account.dart) | Dart | 22 | 7 | 7 | 36 |
 | [lib/features/grow/domain/usecases/parent/get_parent_by_id.dart](/lib/features/grow/domain/usecases/parent/get_parent_by_id.dart) | Dart | 23 | 8 | 6 | 37 |
 | [lib/features/grow/domain/usecases/parent/get_parents.dart](/lib/features/grow/domain/usecases/parent/get_parents.dart) | Dart | 21 | 5 | 5 | 31 |
-| [lib/features/grow/domain/usecases/parent/register_new_parent_user.dart](/lib/features/grow/domain/usecases/parent/register_new_parent_user.dart) | Dart | 39 | 14 | 9 | 62 |
-| [lib/features/grow/domain/usecases/parent/sign_up_new_parent.dart](/lib/features/grow/domain/usecases/parent/sign_up_new_parent.dart) | Dart | 40 | 13 | 8 | 61 |
+| [lib/features/grow/domain/usecases/parent/register_new_parent_user.dart](/lib/features/grow/domain/usecases/parent/register_new_parent_user.dart) | Dart | 44 | 10 | 8 | 62 |
+| [lib/features/grow/domain/usecases/parent/sign_up_new_parent.dart](/lib/features/grow/domain/usecases/parent/sign_up_new_parent.dart) | Dart | 44 | 8 | 9 | 61 |
 | [lib/features/grow/domain/usecases/user_login.dart](/lib/features/grow/domain/usecases/user_login.dart) | Dart | 22 | 6 | 8 | 36 |
 | [lib/features/grow/domain/usecases/user_sign_out.dart](/lib/features/grow/domain/usecases/user_sign_out.dart) | Dart | 19 | 4 | 5 | 28 |
 | [lib/features/grow/presentation/pages/sign_up_page_child.dart](/lib/features/grow/presentation/pages/sign_up_page_child.dart) | Dart | 0 | 0 | 1 | 1 |
