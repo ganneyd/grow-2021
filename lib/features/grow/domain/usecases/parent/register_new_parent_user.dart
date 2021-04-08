@@ -9,7 +9,7 @@ import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
 
 ///When a new parent is being registered by another user, only admin and dev tho
-class RegisterNewParentUser implements UseCase<void, Params> {
+class RegisterNewParentUser implements UseCase<UserEntity, Params> {
   ///Constructor
   RegisterNewParentUser(
       {required AuthenticationRepository authenticationRepository,
@@ -20,24 +20,24 @@ class RegisterNewParentUser implements UseCase<void, Params> {
   final AuthenticationRepository _authenticationRepository;
   final ParentRepository _parentRepository;
   @override
-  Future<Either<Failure, void>> call(Params params) async {
+  Future<Either<Failure, UserEntity>> call(Params params) async {
     //attemp to authenticate the user and store it in a variable
     final Either<Failure, UserEntity> userCredential =
         await _authenticationRepository.registerUser(
             params.email, Params.defaultPassword);
-    userCredential.fold((Failure l) {
-      // if an error occured when trying to authenticate the user
-      // an failure is returned with the message
-      return Left<Failure, dynamic>(RegistrationFailure());
-    }, (UserEntity user) {
-      //if successful try to poppulate the parent collection with the
-      //parent's information
-
-      return _parentRepository
-          .createParentData(toParentEntityWithID(params.parent, user.userID));
-    });
+    if (userCredential.isRight()) {
+      final UserEntity user = userCredential
+          .getOrElse(() => const UserEntity(userEmail: '', userID: ''));
+      final ParentEntity parentWithID =
+          toParentEntityWithID(params.parent, user.userID);
+      final Either<Failure, void> createData =
+          await _parentRepository.createParentData(parentWithID);
+      if (createData.isRight()) {
+        return Right<Failure, UserEntity>(user);
+      }
+    }
     //if an error occured and was not foreseen then return this
-    return Left<Failure, dynamic>(RegistrationFailure());
+    return Left<Failure, UserEntity>(RegistrationFailure());
   }
 }
 
