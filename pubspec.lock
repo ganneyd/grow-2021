@@ -610,7 +610,7 @@ packages:
       name: reactive_forms
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "10.0.3"
+    version: "10.0.4"
   rive:
     dependency: "direct main"
     description:
