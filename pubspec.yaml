@@ -38,7 +38,7 @@ dependencies:
   # Local cache
   shared_preferences: ^2.0.3
   #form validation and handling
-  reactive_forms: ^10.0.3
+  reactive_forms: ^10.0.4
   #phone-number input
   intl_phone_number_input: ^0.7.0+1
    # Bloc for state management
