@@ -21,7 +21,7 @@ class _$ChildTearOff {
   const _$ChildTearOff();
 
   _ChildModel call(
-      {String uid = 'no-id',
+      {String? uid = 'no-id',
       String username = 'username',
       String firstname = 'firstname',
       String lastname = 'lastname',
@@ -53,7 +53,7 @@ const $Child = _$ChildTearOff();
 
 /// @nodoc
 mixin _$Child {
-  String get uid => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String get lastname => throw _privateConstructorUsedError;
@@ -73,7 +73,7 @@ abstract class $ChildCopyWith<$Res> {
   factory $ChildCopyWith(Child value, $Res Function(Child) then) =
       _$ChildCopyWithImpl<$Res>;
   $Res call(
-      {String uid,
+      {String? uid,
       String username,
       String firstname,
       String lastname,
@@ -108,7 +108,7 @@ class _$ChildCopyWithImpl<$Res> implements $ChildCopyWith<$Res> {
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -152,7 +152,7 @@ abstract class _$ChildModelCopyWith<$Res> implements $ChildCopyWith<$Res> {
       __$ChildModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String uid,
+      {String? uid,
       String username,
       String firstname,
       String lastname,
@@ -189,7 +189,7 @@ class __$ChildModelCopyWithImpl<$Res> extends _$ChildCopyWithImpl<$Res>
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -246,7 +246,7 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
 
   @JsonKey(defaultValue: 'no-id')
   @override
-  final String uid;
+  final String? uid;
   @JsonKey(defaultValue: 'username')
   @override
   final String username;
@@ -349,7 +349,7 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
 
 abstract class _ChildModel implements Child {
   factory _ChildModel(
-      {String uid,
+      {String? uid,
       String username,
       String firstname,
       String lastname,
@@ -363,7 +363,7 @@ abstract class _ChildModel implements Child {
       _$_ChildModel.fromJson;
 
   @override
-  String get uid => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
   @override
   String get username => throw _privateConstructorUsedError;
   @override
