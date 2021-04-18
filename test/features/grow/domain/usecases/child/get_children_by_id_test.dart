@@ -56,7 +56,7 @@ void main() {
       schoolID: 'school03');
 
   final Params typicalParams =
-      Params(childIDs: <String>[child0.uid, child2.uid], requestedBy: ' ');
+      Params(childIDs: <String>[child0.uid!, child2.uid!], requestedBy: ' ');
   void populateDatabaseWithAllChildren() {
     mockFirestoreInstance
         .collection(collectionName)

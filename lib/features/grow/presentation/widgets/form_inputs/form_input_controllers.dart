@@ -4,8 +4,9 @@ import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_inputs/form_input_types.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class FormInputs {
-  static const String passwordRegExp = r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+///Returns various controllers to be used in form groups
+class FormInputsControllers {
+  static const String _passwordRegExp = r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
   String _fieldNameToDisplayName(FORM_INPUT_NAMES fieldName) {
     switch (fieldName) {
       case FORM_INPUT_NAMES.age:
@@ -36,7 +37,7 @@ class FormInputs {
   }
 
   ///Returns a reactive text field input
-  FormControl<String> getTextFieldControl() {
+  static FormControl<String> getTextFieldInputController() {
     return FormControl<String>(
       validators: [
         Validators.required,
@@ -45,15 +46,16 @@ class FormInputs {
   }
 
   ///Returns a reactive password field input
-  FormControl<String> getPasswordFieldInput() {
+  static FormControl<String> getPasswordFieldInputController() {
     return FormControl<String>(validators: [
       Validators.required,
-      Validators.pattern(RegExp(FormInputs.passwordRegExp)),
+      Validators.pattern(RegExp(FormInputsControllers._passwordRegExp)),
     ]);
   }
 
   ///Form Control for the email input
-  FormControl<String> getEmailFieldInput({bool isRequired = true}) {
+  static FormControl<String> getEmailFieldInputController(
+      {bool isRequired = true}) {
     final List<Map<String, Object>? Function(AbstractControl<dynamic> control)>
         validators =
         <Map<String, Object>? Function(AbstractControl<dynamic> control)>[
@@ -71,22 +73,24 @@ class FormInputs {
   }
 
   ///Form control for the gender input
-  FormControl<Gender> getGenderFieldInput() {
+  static FormControl<Gender> getGenderFieldInputController() {
     return FormControl<Gender>(value: Gender.not_specified);
   }
 
   ///Form controls for age inputs
-  FormControl<int> getAgeFieldInputController() {
+  static FormControl<int> getAgeFieldInputController() {
     return FormControl<int>(validators: [
       Validators.requiredTrue,
     ]);
   }
 
-  FormControl<SchoolModel> getSchoolFieldInputController() {
+  ///Form control for school dropdown
+  static FormControl<SchoolModel> getSchoolFieldInputController() {
     return FormControl<SchoolModel>(validators: [Validators.required]);
   }
 
-  FormControl<int> getMinAndMaxNumberInputController({
+  ///Form control for inputs with a min and max number range
+  static FormControl<int> getMinAndMaxNumberInputController({
     required int min,
     required int max,
   }) {

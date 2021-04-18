@@ -1,0 +1,57 @@
+Date : 2021-04-17 12:51:53
+Directory : /Users/Projects/Flutter/grow_run_v1/test
+Total : 24 files,  1724 codes, 262 comments, 193 blanks, all 2179 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         24 |      1,724 |        262 |        193 |      2,179 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                 | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                    |         24 |      1,724 |        262 |        193 |      2,179 |
+| features                                                                                                             |         24 |      1,724 |        262 |        193 |      2,179 |
+| features/grow                                                                                                        |         24 |      1,724 |        262 |        193 |      2,179 |
+| features/grow/data                                                                                                   |          4 |        413 |        136 |         63 |        612 |
+| features/grow/data/repositories                                                                                      |          4 |        413 |        136 |         63 |        612 |
+| features/grow/domain                                                                                                 |         20 |      1,311 |        126 |        130 |      1,567 |
+| features/grow/domain/repositories                                                                                    |          1 |          0 |          0 |          1 |          1 |
+| features/grow/domain/usecases                                                                                        |         19 |      1,311 |        126 |        129 |      1,566 |
+| features/grow/domain/usecases/child                                                                                  |         11 |        771 |         76 |         79 |        926 |
+| features/grow/domain/usecases/parent                                                                                 |          8 |        540 |         50 |         50 |        640 |
++----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                             | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/data/repositories/authentication_repository_test.dart         | Dart     |         54 |         12 |         11 |         77 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/data/repositories/child_repository_test.dart                  | Dart     |        205 |         36 |         26 |        267 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/data/repositories/grow_repository_test.dart                   | Dart     |          0 |         60 |          9 |         69 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/data/repositories/parent_repository_test.dart                 | Dart     |        154 |         28 |         17 |        199 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/repositories/database_repository.test.dart             | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/disable_child_acc_test.dart             | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/edit_child_test.dart                    | Dart     |         97 |          6 |          8 |        111 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/enable_child_test.dart                  | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/get_children_by_id_test.dart            | Dart     |        115 |          9 |          8 |        132 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/get_children_by_school_test.dart        | Dart     |        114 |          9 |          6 |        129 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/get_children_test.dart                  | Dart     |          6 |          0 |          2 |          8 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/get_children_test.mocks.dart            | Dart     |         49 |          8 |          7 |         64 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/register_new_child_user_test.dart       | Dart     |         89 |          9 |         12 |        110 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/register_new_child_user_test.mocks.dart | Dart     |         98 |         11 |          9 |        118 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/sign_up_new_child_user_test.dart        | Dart     |        105 |         13 |         16 |        134 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/child/sign_up_new_child_user_test.mocks.dart  | Dart     |         98 |         11 |          9 |        118 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/disable_parent_account_test.dart       | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/edit_parent_test.dart                  | Dart     |         80 |          7 |          8 |         95 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/enable_parent_account_test.dart        | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/get_parent_by_id_test.dart             | Dart     |         87 |          7 |          8 |        102 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/get_parents_test.dart                  | Dart     |         85 |          7 |          7 |         99 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/register_new_parent_user_test.dart     | Dart     |         97 |          9 |          8 |        114 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/sign_up_new_parent_test.dart           | Dart     |        101 |          9 |          8 |        118 |
+| /Users/Projects/Flutter/grow_run_v1/test/features/grow/domain/usecases/parent/sign_up_new_parent_test.mocks.dart     | Dart     |         90 |         11 |          9 |        110 |
+| Total                                                                                                                |          |      1,724 |        262 |        193 |      2,179 |
++----------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

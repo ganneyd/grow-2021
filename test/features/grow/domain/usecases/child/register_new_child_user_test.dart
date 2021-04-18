@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/core/util/gender.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
-import 'package:grow_run_v1/features/grow/domain/entities/child/child_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
@@ -28,7 +27,7 @@ void main() {
       schoolID: 'school01');
 
   final UserEntity expectedUserEntity =
-      UserEntity(userEmail: email1, userID: childModel.uid);
+      UserEntity(userEmail: email1, userID: childModel.uid!);
 
   final MockChildRepository mockChildRepository = MockChildRepository();
 

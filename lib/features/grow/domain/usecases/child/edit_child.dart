@@ -1,12 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grow_run_v1/core/util/util.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
 import '../../entities/child/child_entity.dart';
-import '../../repositories/grow_repository.dart';
 
 ///when a user is trying to edit a child's data
 ///they just need the child id and the changed variables

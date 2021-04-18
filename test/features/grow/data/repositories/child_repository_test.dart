@@ -148,7 +148,7 @@ void main() {
         final List<Child> expectedList = <Child>[child0, child1];
         // act
         final Either<Failure, List<ChildEntity>> result = await repository
-            .getChildrenByID(<String>[child0.uid, child1.uid], 'requestedBy');
+            .getChildrenByID(<String>[child0.uid!, child1.uid!], 'requestedBy');
         result.fold((Failure l) => null, (List<ChildEntity> list) {
           for (final ChildEntity childEntity in list) {
             actualList.add(Child.toChild(childEntity));
@@ -239,7 +239,7 @@ void main() {
         // act
         final Either<Failure, List<ChildEntity>> result =
             await repositoryWithMockDS
-                .getChildrenByID(<String>[child0.uid], 'requestedBy');
+                .getChildrenByID(<String>[child0.uid!], 'requestedBy');
 
         // assert
         expect(result, Left<Failure, List<ChildEntity>>(FetchDataFailure()));
