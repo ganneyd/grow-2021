@@ -49,32 +49,40 @@ class Child extends ChildEntity with _$Child {
 
   factory Child.initialChild() => Child();
 
-  factory Child.copyFromJson(Map<String, dynamic> json, Child child) {
-    final Child initialJsonChild = Child.fromJson(json);
-    return initialJsonChild.copyWith(
-      uid: child.uid != initialJsonChild.uid ? child.uid : initialJsonChild.uid,
-      username: child.username != initialJsonChild.username
-          ? child.username
-          : initialJsonChild.username,
-      firstname: child.firstname != initialJsonChild.firstname
-          ? child.firstname
-          : initialJsonChild.firstname,
-      lastname: child.lastname != initialJsonChild.lastname
-          ? child.lastname
-          : initialJsonChild.lastname,
-      gender: child.gender != initialJsonChild.gender
-          ? child.gender
-          : initialJsonChild.gender,
-      dateOfBirth: child.dateOfBirth,
-      gradeLevel: child.gradeLevel != initialJsonChild.gender
-          ? child.gradeLevel
-          : initialJsonChild.gradeLevel,
-      parentID: child.parentID != initialJsonChild.parentID
-          ? child.parentID
-          : initialJsonChild.parentID,
-      schoolID: child.schoolID != initialJsonChild.schoolID
-          ? child.schoolID
-          : initialJsonChild.schoolID,
+  factory Child.copyFromJson(Map<String, dynamic> json, Child initChild) {
+    final Child formChild = Child.fromJson(json);
+    print('Init child username is ${initChild.username}');
+    print('form child username is ${formChild.username}');
+    final Child newChild = initChild.copyWith(
+      uid: formChild.uid != Child.initialChild().uid
+          ? formChild.uid
+          : initChild.uid,
+      username: formChild.username != Child.initialChild().username
+          ? formChild.username
+          : initChild.username,
+      firstname: formChild.firstname != Child.initialChild().firstname
+          ? formChild.firstname
+          : initChild.firstname,
+      lastname: formChild.lastname != Child.initialChild().lastname
+          ? formChild.lastname
+          : initChild.lastname,
+      gender: formChild.gender != Child.initialChild().gender
+          ? formChild.gender
+          : initChild.gender,
+      dateOfBirth: formChild.dateOfBirth != Child.initialChild().dateOfBirth
+          ? formChild.dateOfBirth
+          : initChild.dateOfBirth,
+      gradeLevel: formChild.gradeLevel != Child.initialChild().gradeLevel
+          ? formChild.gradeLevel
+          : initChild.gradeLevel,
+      parentID: formChild.parentID != Child.initialChild().parentID
+          ? formChild.parentID
+          : initChild.parentID,
+      schoolID: formChild.schoolID != Child.initialChild().schoolID
+          ? formChild.schoolID
+          : initChild.schoolID,
     );
+
+    return newChild;
   }
 }
