@@ -14,7 +14,6 @@ import 'register_new_child_user_test.mocks.dart';
 @GenerateMocks(<Type>[AuthenticationRepository, ChildRepository])
 void main() {
   const String email1 = 'ganneyd@gmail.com';
-  const String acceptablePassword = '123456';
 
   final Child childModel = Child(
       username: 'ganneyd15',
