@@ -112,4 +112,46 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
           AuthenticationFailure(errMsg: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> authenticateUser(
+      String email, String password) async {
+    ///variable to hold the newly created user
+    UserCredential userCredential;
+    try {
+      ///new [FirebaseApp] instance
+      final FirebaseApp app = await Firebase.initializeApp(
+          name: 'Secondary', options: Firebase.app().options);
+
+      ///create the new user using the email and password provided
+      userCredential = await FirebaseAuth.instanceFor(app: app)
+          .signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instanceFor(app: app).signOut();
+      //delete the app
+      await app.delete();
+      //return the UserModel for the newly registered user
+
+      return Right<Failure, UserEntity>(_getUserEntity(userCredential));
+    } on FirebaseAuthException catch (e) {
+      // Do something with exception. This try/catch is here to make sure
+      // that even if the user creation fails, app.delete() runs, if is not,
+      // next time Firebase.initializeApp() will fail as the previous one was
+      // not deleted.
+      return Left<Failure, UserEntity>(
+          AuthenticationFailure(errMsg: e.message!));
+    } catch (e) {
+      return Left<Failure, UserEntity>(AuthenticationFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getAuthenticatedUser() async {
+    if (_firebaseAuth.currentUser != null) {
+      return Right<Failure, UserEntity>(UserEntity(
+          userEmail: _firebaseAuth.currentUser!.email!,
+          userID: _firebaseAuth.currentUser!.uid));
+    } else {
+      return Left<Failure, UserEntity>(AuthenticationFailure());
+    }
+  }
 }

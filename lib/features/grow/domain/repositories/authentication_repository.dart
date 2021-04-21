@@ -10,6 +10,13 @@ import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart'
 /// [signUpWithEmailAndPassword()]
 /// [registerUser()]
 abstract class AuthenticationRepository {
+  ///Returns an UserEntity for the currently signed in user
+  Future<Either<Failure, UserEntity>> getAuthenticatedUser();
+
+  ///Authenticates a user's account using a second instance of firebase auth
+  Future<Either<Failure, UserEntity>> authenticateUser(
+      String email, String password);
+
   ///Signs up a new user using the [email] and [password] passsed
   Future<Either<Failure, UserEntity>> signUpUser(String email, String password);
 
