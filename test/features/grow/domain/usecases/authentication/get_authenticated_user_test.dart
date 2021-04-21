@@ -40,24 +40,21 @@ void main() {
   });
 
   group('Tests that should return a failure, ', () {
-    test(
-      'should return a AuthenticationFailure when an error occurs',
-      () async {
-        // arrange
-        when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
-            (_) async => Left<Failure, UserEntity>(AuthenticationFailure()));
+    test('should return a AuthenticationFailure when an error occurs',
+        () async {
+      // arrange
+      when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+          (_) async => Left<Failure, UserEntity>(AuthenticationFailure()));
 
-        // act
-        final Either<Failure, UserEntity> result =
-            await usecase.call(NoParams());
-        // assert
-        verify(mockAuthenticationRepository.getAuthenticatedUser()).called(1);
+      // act
+      final Either<Failure, UserEntity> result = await usecase.call(NoParams());
+      // assert
+      verify(mockAuthenticationRepository.getAuthenticatedUser()).called(1);
 
-        final Failure resultUserEntity =
-            result.swap().getOrElse(() => SignUpFailure());
+      final Failure resultUserEntity =
+          result.swap().getOrElse(() => SignUpFailure());
 
-        expect(resultUserEntity, AuthenticationFailure());
-      },
-    );
+      expect(resultUserEntity, AuthenticationFailure());
+    });
   });
 }
