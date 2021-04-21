@@ -5,7 +5,9 @@ import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart'
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:dartz/dartz.dart';
+import 'package:mockito/annotations.dart';
 
+@GenerateMocks(<Type>[AuthenticationRepository])
 void main() {
   const String email1 = 'ganneyd@gmail.com';
   const String acceptablePassword = '123456';
