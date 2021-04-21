@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/core/usecases/usecases.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
@@ -8,6 +7,7 @@ import 'package:grow_run_v1/features/grow/domain/repositories/authentication_rep
 ///Usecase that returns an UserEntity instance for the currently signed in user
 
 class GetAuthenticatedUser implements UseCase<UserEntity, NoParams> {
+  ///
   GetAuthenticatedUser(
       {required AuthenticationRepository authenticationRepository})
       : _authenticationRepository = authenticationRepository;
