@@ -1,3 +1,19 @@
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  test(
+    'should ',
+    () async {
+      // arrange
+
+      // act
+
+      // assert
+      expect('', '');
+    },
+  );
+}
+
 // //@dart=2.9
 // import 'package:grow_v1/core/error/exceptions.dart';
 // import 'package:grow_v1/core/error/failures.dart';
