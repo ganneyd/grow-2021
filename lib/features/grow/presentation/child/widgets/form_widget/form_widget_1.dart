@@ -12,7 +12,7 @@ class ChildSignUpFormOne extends StatelessWidget {
     return ReactiveForm(
         formGroup: ChildSignUpForm.buildChildSignUpPage1(),
         child: Column(
-          children: [
+          children: <Widget>[
             ReactiveTextField<String>(
               formControlName: 'username',
             ),
@@ -20,12 +20,12 @@ class ChildSignUpFormOne extends StatelessWidget {
               formControlName: 'email',
             ),
             Row(
-              children: [
+              children: <ReactiveTextField<String>>[
                 ReactiveTextField<String>(
-                  formControlName: 'first_name',
+                  formControlName: 'firstname',
                 ),
                 ReactiveTextField<String>(
-                  formControlName: 'last_name',
+                  formControlName: 'lastname',
                 ),
               ],
             ),

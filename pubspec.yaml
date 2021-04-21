@@ -44,6 +44,7 @@ dependencies:
    # Bloc for state management
   bloc: ^7.0.0
   flutter_bloc: ^7.0.0
+  bloc_test: ^8.0.0
   #freezed
   freezed_annotation: ^0.14.1
 

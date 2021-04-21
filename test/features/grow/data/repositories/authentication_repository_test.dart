@@ -31,7 +31,21 @@ void main() {
         expect(result, isInstanceOf<Right<Failure, UserEntity>>());
       },
     );
+    test(
+      'should return a UserEntity with the authenticated user',
+      () async {
+        // arrange
 
+        // act
+        final Either<Failure, UserEntity> result =
+            await authenticationRepository.authenticateUser(
+                'email', 'password');
+
+        // assert
+
+        expect(result, '');
+      },
+    );
     test(
       'should return a Failure since firebased cannot be initialzed',
       () async {
