@@ -48,8 +48,10 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
     final Either<Failure, UserEntity> result = await _signUpNewChildUser.call(
         sign_up_new_child_user_usecase.Params(
             child: state.childModel,
-            password: childPassword,
-            email: childEmail));
+            childPassword: childPassword,
+            childEmail: childEmail,
+            parentEmail: parentEmail,
+            parentPassword: parentPassword));
 
     emit(result.fold(
         (Failure l) => state.copyWith(

@@ -5,7 +5,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 ///[username]
 ///[first_name]
 ///[last_name]
-///[email]
+///[childEmail]
 ///[gender]
 ///
 ///page 2:
