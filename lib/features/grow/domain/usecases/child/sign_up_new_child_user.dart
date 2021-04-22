@@ -21,31 +21,39 @@ class SignUpNewChildUser implements UseCase<UserEntity, Params> {
   final ChildRepository _childRepository;
   @override
   Future<Either<Failure, UserEntity>> call(Params params) async {
-    //attemp to authenticate the user and store it in a variable
-
-    //call the sign up method and then wait for the UserEntity that contains the
-    // user's uid and email
-    final Either<Failure, UserEntity> userCredential =
-        await _authenticationRepository.signUpUser(
-            params.email, params.password);
-
-    //check to see if the userCredential returns successfully, which is right
-    // and then create the user data in the db
-    if (userCredential.isRight()) {
-      final UserEntity user = userCredential.getOrElse(
+    final Either<Failure, UserEntity> authBy = await _authenticationRepository
+        .authenticateUser(params.parentEmail, params.parentPassword);
+    if (authBy.isRight()) {
+      //get the auth_id for the parent
+      final UserEntity parent = authBy.getOrElse(
           () => const UserEntity(userEmail: 'test-email', userID: 'test-id '));
-      final ChildEntity childWithID =
-          toChilEntityWithID(params.child, user.userID);
 
-      //if successful try to poppulate the children collection with the
-      //child's information
-      final Either<Failure, void> createData =
-          await _childRepository.createChildData(childWithID);
+      //attemp to authenticate the user and store it in a variable
 
-      //if the user data was created successfully then
-      //return the UserEntity object
-      if (createData.isRight()) {
-        return Right<Failure, UserEntity>(user);
+      //call the sign up method and then wait for the UserEntity that contains the
+      // user's uid and email
+      final Either<Failure, UserEntity> userCredential =
+          await _authenticationRepository.signUpUser(
+              params.childEmail, params.childPassword);
+
+      //check to see if the userCredential returns successfully, which is right
+      // and then create the user data in the db
+      if (userCredential.isRight()) {
+        final UserEntity user = userCredential.getOrElse(() =>
+            const UserEntity(userEmail: 'test-email', userID: 'test-id '));
+        final ChildEntity childWithID =
+            toChilEntityWithID(params.child, user.userID, parent.userID);
+
+        //if successful try to poppulate the children collection with the
+        //child's information
+        final Either<Failure, void> createData =
+            await _childRepository.createChildData(childWithID);
+
+        //if the user data was created successfully then
+        //return the UserEntity object
+        if (createData.isRight()) {
+          return Right<Failure, UserEntity>(user);
+        }
       }
     }
     //if userCredential isn't an instance of Right then it must be left
@@ -56,19 +64,21 @@ class SignUpNewChildUser implements UseCase<UserEntity, Params> {
 
 ///Parameters for the usecase
 class Params extends Equatable {
-  ///Constructor takes an [email], [password], and the [child] entity
+  ///Constructor takes an [childEmail], [childPassword], and the [child] entity
   const Params(
-      {required this.email, required this.password, required this.child});
+      {required this.childEmail,
+      required this.childPassword,
+      required this.parentEmail,
+      required this.parentPassword,
+      required this.child});
 
   ///Email of the child being signed  up
-  final String email;
-
-  ///Password of the child being signed up
-  final String password;
+  final String childEmail, childPassword, parentEmail, parentPassword;
 
   ///Child entity with all other information for the child being signed up
   final ChildEntity child;
 
   @override
-  List<Object> get props => [email, password, child];
+  List<Object> get props =>
+      [childEmail, childPassword, parentEmail, parentPassword, child];
 }

@@ -26,40 +26,35 @@ class RegisterNewChildUser implements UseCase<UserEntity, Params> {
 
   @override
   Future<Either<Failure, UserEntity>> call(Params params) async {
-    //attemp to authenticate the user and store it in a variable
+    final Either<Failure, UserEntity> parentCredential =
+        await _authenticationRepository.getAuthenticatedUser();
 
-    //call the registerUser() method and then wait for the
-    //UserEntity that contains the  user's uid and email
-    final Either<Failure, UserEntity> userCredential =
-        await _authenticationRepository.registerUser(
-            params.email, Params.defaultPassword);
+    return await parentCredential
+        .fold((_) => Left<Failure, UserEntity>(AuthenticationFailure()),
+            (UserEntity parent) async {
+      final Either<Failure, UserEntity> userCredential =
+          await _authenticationRepository.registerUser(
+              params.email, Params.defaultPassword);
+      return await userCredential
+          .fold((_) => Left<Failure, UserEntity>(AuthenticationFailure()),
+              (UserEntity child) async {
+        final ChildEntity childWithID =
+            toChilEntityWithID(params.child, child.userID, parent.userID);
 
-    //check to see if the userCredential returns successfully, which is right
-    // and then create the user data in the db
-    if (userCredential.isRight()) {
-      final UserEntity user = userCredential.getOrElse(
-          () => const UserEntity(userEmail: 'test-email', userID: 'test-id '));
-      final ChildEntity childWithID =
-          toChilEntityWithID(params.child, user.userID);
+        //if successful try to poppulate the children collection with the
+        //child's information
+        final Either<Failure, void> createData =
+            await _childRepository.createChildData(childWithID);
 
-      //if successful try to poppulate the children collection with the
-      //child's information
-      final Either<Failure, void> createData =
-          await _childRepository.createChildData(childWithID);
-
-      //if the user data was created successfully then
-      //return the UserEntity object
-      if (createData.isRight()) {
-        return Right<Failure, UserEntity>(user);
-      } else {
-        //if an error occured and was not foreseen then return this
-        return Left<Failure, UserEntity>(RegistrationFailure());
-      }
-    } else {
-      //if userCredential isn't an instance of Right then it must be left
-      //so we return a failure
-      return Left<Failure, UserEntity>(RegistrationFailure());
-    }
+        //if the user data was created successfully then
+        //return the UserEntity object
+        if (createData.isRight()) {
+          return Right<Failure, UserEntity>(child);
+        } else {
+          return Left<Failure, UserEntity>(CreateDataFailure());
+        }
+      });
+    });
   }
 }
 
