@@ -53,29 +53,31 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
             parentEmail: parentEmail,
             parentPassword: parentPassword));
 
-    emit(result.fold(
-        (Failure l) => state.copyWith(
-            error: l.message, status: FormStatus.submissionFailure),
-        (UserEntity r) => state.copyWith(
-            childModel: state.childModel.copyWith(uid: r.userID),
-            error: '',
-            status: FormStatus.submissionSuccess)));
+    emit(result.fold((Failure l) {
+      return state.copyWith(
+          error: l.message, status: FormStatus.submissionFailure);
+    }, (UserEntity r) {
+      return state.copyWith(
+          childModel: state.childModel.copyWith(uid: r.userID),
+          error: null,
+          status: FormStatus.submissionSuccess);
+    }));
   }
 
-  Future<void> registerChildUser(
-      String childEmail, String parentEmail, String parentPassword) async {
-    emit(state.copyWith(status: FormStatus.submissionInProgress));
+  // Future<void> registerChildUser(
+  //     String childEmail, String parentEmail, String parentPassword) async {
+  //   emit(state.copyWith(status: FormStatus.submissionInProgress));
 
-    final Either<Failure, UserEntity> result = await _registerNewChildUser.call(
-        register_new_child_user_usecase.Params(
-            child: state.childModel, email: childEmail));
+  //   final Either<Failure, UserEntity> result = await _registerNewChildUser.call(
+  //       register_new_child_user_usecase.Params(
+  //           child: state.childModel, email: childEmail));
 
-    emit(result.fold(
-        (Failure l) => state.copyWith(
-            error: l.message, status: FormStatus.submissionFailure),
-        (UserEntity r) => state.copyWith(
-            childModel: state.childModel.copyWith(uid: r.userID),
-            error: '',
-            status: FormStatus.submissionSuccess)));
-  }
+  //   emit(result.fold(
+  //       (Failure l) => state.copyWith(
+  //           error: l.message, status: FormStatus.submissionFailure),
+  //       (UserEntity r) => state.copyWith(
+  //           childModel: state.childModel.copyWith(uid: r.userID),
+  //           error: '',
+  //           status: FormStatus.submissionSuccess)));
+  // }
 }
