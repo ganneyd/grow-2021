@@ -1,7 +1,7 @@
 import 'package:grow_run_v1/features/grow/domain/entities/child/child_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/parent/parent_entity.dart';
 
-ChildEntity toChilEntityWithID(ChildEntity child, String id) {
+ChildEntity toChilEntityWithID(ChildEntity child, String id, String parentID) {
   return ChildEntity(
       uid: id,
       username: child.username,
@@ -10,7 +10,7 @@ ChildEntity toChilEntityWithID(ChildEntity child, String id) {
       gender: child.gender,
       dateOfBirth: child.dateOfBirth,
       gradeLevel: child.gradeLevel,
-      parentID: child.parentID,
+      parentID: parentID,
       schoolID: child.schoolID);
 }
 
