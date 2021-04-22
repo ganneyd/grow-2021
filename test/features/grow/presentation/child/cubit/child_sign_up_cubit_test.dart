@@ -1,11 +1,15 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/core/util/gender.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/cubit/child_sign_up_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/cubit/child_sign_up_state.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:test/test.dart';
+import 'package:mockito/mockito.dart';
 import '../../../domain/usecases/child/sign_up_new_child_user_test.mocks.dart';
 
 class MockChildSignUpCubit extends MockCubit<ChildSignUpState>
@@ -15,7 +19,12 @@ void main() {
   final MockChildRepository mockChildRepository = MockChildRepository();
   final MockAuthenticationRepository mockAuthenticationRepository =
       MockAuthenticationRepository();
-
+  const String childEmail = 'ganneyd@gmail.com';
+  const String childPassword = '123456';
+  const String parentEmail = 'parent@email.com';
+  const String parentPassword = 'parent-password';
+  const UserEntity expectedUserEntity =
+      UserEntity(userEmail: childEmail, userID: 'cubit-test');
   final Map<String, dynamic> formPage1JSON = {
     'username': 'GanneyD501',
     'email': 'ganneyd@gmail.com',
@@ -31,7 +40,7 @@ void main() {
   };
   setUpAll(() {});
 
-  group('nj', () {
+  group('Tests for the formSubmitted() method', () {
     blocTest<ChildSignUpCubit, ChildSignUpState>(
         'emits state with all values from form page 1',
         build: () => ChildSignUpCubit(
@@ -90,6 +99,36 @@ void main() {
                       schoolID: 'martin-1'),
                   error: null,
                   status: FormStatus.pure)
+            ]);
+  });
+
+  group('Tests for the ', () {
+    blocTest<ChildSignUpCubit, ChildSignUpState>(
+        'emits state with all values from form page 1',
+        build: () => ChildSignUpCubit(
+            childRepository: mockChildRepository,
+            authenticationRepository: mockAuthenticationRepository),
+        act: (ChildSignUpCubit cubit) {
+          when(mockAuthenticationRepository.authenticateUser(any, any))
+              .thenAnswer((_) async =>
+                  const Right<Failure, UserEntity>(expectedUserEntity));
+          when(mockAuthenticationRepository.signUpUser(any, any)).thenAnswer(
+              (_) async =>
+                  const Right<Failure, UserEntity>(expectedUserEntity));
+          when(mockChildRepository.createChildData(any))
+              .thenAnswer((_) async => Right<Failure, void>(_));
+          cubit.signUpChildUser(
+              childEmail, childPassword, parentEmail, parentPassword);
+        },
+        expect: () => [
+              ChildSignUpState(
+                  childModel: Child.initialChild(),
+                  status: FormStatus.submissionInProgress),
+              ChildSignUpState(
+                  childModel: Child(
+                    uid: 'cubit-test',
+                  ),
+                  status: FormStatus.submissionSuccess)
             ]);
   });
 }
