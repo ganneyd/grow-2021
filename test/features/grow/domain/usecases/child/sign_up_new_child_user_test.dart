@@ -20,6 +20,8 @@ import '../child/sign_up_new_child_user_test.mocks.dart';
 void main() {
   const String email1 = 'ganneyd@gmail.com';
   const String acceptablePassword = '123456';
+  const String parentEmail = 'parent@email.com';
+  const String parentPassword = 'parent-password';
   final MockUser user = MockUser(
     uid: 'userid',
     email: email1,
@@ -63,11 +65,18 @@ void main() {
       ' SignUpNewChildUser is called',
       () async {
         // arrange
+        when(mockAuthenticationRepository.authenticateUser(any, any))
+            .thenAnswer(
+                (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.signUpUser(any, any)).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         // act
         final Either<Failure, UserEntity> result = await usecase.call(Params(
-            child: childModel, email: email1, password: acceptablePassword));
+            child: childModel,
+            childEmail: email1,
+            childPassword: acceptablePassword,
+            parentEmail: parentEmail,
+            parentPassword: parentPassword));
         // assert
         verify(mockAuthenticationRepository.signUpUser(
             email1, acceptablePassword));
@@ -81,7 +90,9 @@ void main() {
       'the Auth service throws an exception',
       () async {
         // arrange
-
+        when(mockAuthenticationRepository.authenticateUser(any, any))
+            .thenAnswer(
+                (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.signUpUser(any, any)).thenAnswer(
             (_) async => Left<Failure, UserEntity>(AuthenticationFailure()));
 
@@ -89,8 +100,10 @@ void main() {
         final Either<Failure, UserEntity> result = await usecaseWithMocks.call(
             Params(
                 child: childModel,
-                email: email1,
-                password: acceptablePassword));
+                childEmail: email1,
+                childPassword: acceptablePassword,
+                parentEmail: parentEmail,
+                parentPassword: parentPassword));
         // after the mock auth is called and returns a failure,
         //the child repo should never be called
         verifyNever(mockChildRepository.createChildData(childModel));
@@ -107,6 +120,9 @@ void main() {
       'failure',
       () async {
         // arrange
+        when(mockAuthenticationRepository.authenticateUser(any, any))
+            .thenAnswer(
+                (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.signUpUser(any, any)).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockChildRepository.createChildData(any))
@@ -115,8 +131,10 @@ void main() {
         final Either<Failure, UserEntity> result = await usecaseWithMocks.call(
             Params(
                 child: childModel,
-                email: email1,
-                password: acceptablePassword));
+                childEmail: email1,
+                parentEmail: parentEmail,
+                parentPassword: parentPassword,
+                childPassword: acceptablePassword));
         final Failure resultFailure =
             result.swap().getOrElse(() => FetchDataFailure());
 

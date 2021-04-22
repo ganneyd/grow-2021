@@ -42,6 +42,8 @@ void main() {
       'should return a UserEntity insatance when call() is evoked',
       () async {
         // arrange
+        when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+            (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.registerUser(any, any)).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockChildRepository.createChildData(any))
@@ -67,6 +69,8 @@ void main() {
       ' returned from the AuthenticationRepository',
       () async {
         // arrange
+        when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+            (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.registerUser(any, any)).thenAnswer(
             (_) async => Left<Failure, UserEntity>(AuthenticationFailure()));
         // act
@@ -79,7 +83,7 @@ void main() {
             .called(1);
         verifyNever(mockChildRepository.createChildData(any));
 
-        expect(resultFailure, isInstanceOf<RegistrationFailure>());
+        expect(resultFailure, isInstanceOf<AuthenticationFailure>());
       },
     );
     test(
@@ -87,6 +91,8 @@ void main() {
       ' returned from the ChildRepository',
       () async {
         // arrange
+        when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+            (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.registerUser(any, any)).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockChildRepository.createChildData(any))
@@ -101,7 +107,7 @@ void main() {
             .called(1);
         verify(mockChildRepository.createChildData(any)).called(1);
 
-        expect(resultFailure, isInstanceOf<RegistrationFailure>());
+        expect(resultFailure, isInstanceOf<CreateDataFailure>());
       },
     );
   });
