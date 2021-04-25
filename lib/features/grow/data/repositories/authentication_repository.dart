@@ -21,7 +21,8 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   UserEntity _getUserEntity(UserCredential userCredential) {
     return UserEntity(
         userEmail: userCredential.user!.email!,
-        userID: userCredential.user!.uid);
+        userID: userCredential.user!.uid,
+        name: userCredential.user!.displayName!);
   }
 
   @override
@@ -149,9 +150,22 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
     if (_firebaseAuth.currentUser != null) {
       return Right<Failure, UserEntity>(UserEntity(
           userEmail: _firebaseAuth.currentUser!.email!,
-          userID: _firebaseAuth.currentUser!.uid));
+          userID: _firebaseAuth.currentUser!.uid,
+          name: _firebaseAuth.currentUser!.displayName!));
     } else {
       return Left<Failure, UserEntity>(AuthenticationFailure());
     }
+  }
+
+  @override
+  Stream<UserEntity> get user => _firebaseAuth.authStateChanges().map(
+      (User? firebaseUser) => firebaseUser == null
+          ? const UserEntity(userID: ' ', userEmail: ' ', name: ' ')
+          : firebaseUser.toUser);
+}
+
+extension on User {
+  UserEntity get toUser {
+    return UserEntity(userID: uid, userEmail: email!, name: displayName!);
   }
 }
