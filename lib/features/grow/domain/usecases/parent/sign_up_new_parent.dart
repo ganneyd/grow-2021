@@ -25,8 +25,8 @@ class SignUpNewParentUser implements UseCase<UserEntity, Params> {
         await _authenticationRepository.signUpUser(
             params.email, params.password);
     if (userCredential.isRight()) {
-      final UserEntity user = userCredential.getOrElse(
-          () => const UserEntity(userEmail: 'test-email', userID: 'test-id '));
+      final UserEntity user = userCredential.getOrElse(() => const UserEntity(
+          userEmail: 'test-email', userID: 'test-id ', name: 'test-name'));
       final ParentEntity parentWithID =
           toParentEntityWithID(params.parent, user.userID);
       final Either<Failure, void> createData =

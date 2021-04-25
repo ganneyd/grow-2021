@@ -25,8 +25,8 @@ void main() {
       parentID: 'parent01',
       schoolID: 'school01');
 
-  final UserEntity expectedUserEntity =
-      UserEntity(userEmail: email1, userID: childModel.uid!);
+  final UserEntity expectedUserEntity = UserEntity(
+      userEmail: email1, userID: childModel.uid!, name: childModel.username);
 
   final MockChildRepository mockChildRepository = MockChildRepository();
 
@@ -56,8 +56,9 @@ void main() {
             .called(1);
         verify(mockChildRepository.createChildData(any)).called(1);
 
-        final UserEntity resultUserEntity = result.getOrElse(
-            () => const UserEntity(userID: 'userID', userEmail: 'userEmail'));
+        final UserEntity resultUserEntity = result.getOrElse(() =>
+            const UserEntity(
+                userID: 'userID', userEmail: 'userEmail', name: 'name'));
 
         expect(resultUserEntity, expectedUserEntity);
       },

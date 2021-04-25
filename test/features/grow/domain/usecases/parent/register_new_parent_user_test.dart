@@ -11,8 +11,6 @@ import 'sign_up_new_parent_test.mocks.dart';
 void main() {
   const String email1 = 'ganneyd@gmail.com';
   const String acceptablePassword = '123456';
-  const UserEntity user =
-      UserEntity(userID: 'userID', userEmail: 'exampleEmail@gmail.com');
 
   final ParentModel parent = ParentModel(
       firstname: 'Phillip',
@@ -21,7 +19,10 @@ void main() {
       phonenumber: '407-576-7199',
       dateOfBirth: DateTime.utc(1969, 9, 3),
       gender: Gender.male);
-
+  final UserEntity user = UserEntity(
+      userID: 'userID',
+      userEmail: 'exampleEmail@gmail.com',
+      name: '${parent.firstname} ${parent.lastname}');
   final ParentEntity expectedParentEntity = ParentEntity(
       uid: user.userID,
       firstname: parent.firstname,
@@ -45,7 +46,7 @@ void main() {
       () async {
         // arrange
         when(mockAuthenticationRepository.registerUser(any, any))
-            .thenAnswer((_) async => const Right<Failure, UserEntity>(user));
+            .thenAnswer((_) async => Right<Failure, UserEntity>(user));
         when(mockParentRepository.createParentData(any))
             .thenAnswer((_) async => Right<Failure, void>(() {}));
         // act
@@ -56,8 +57,8 @@ void main() {
                 user.userEmail, 'parent12'))
             .called(1);
         verify(mockParentRepository.createParentData(any)).called(1);
-        final UserEntity actualEntity =
-            result.getOrElse(() => const UserEntity(userID: '', userEmail: ''));
+        final UserEntity actualEntity = result.getOrElse(
+            () => const UserEntity(userID: '', userEmail: '', name: ''));
         expect(actualEntity, user);
       },
     );
@@ -93,7 +94,7 @@ void main() {
       () async {
         // arrange
         when(mockAuthenticationRepository.registerUser(any, any))
-            .thenAnswer((_) async => const Right<Failure, UserEntity>(user));
+            .thenAnswer((_) async => Right<Failure, UserEntity>(user));
         when(mockParentRepository.createParentData(any))
             .thenAnswer((_) async => Left<Failure, void>(CreateDataFailure()));
         // act

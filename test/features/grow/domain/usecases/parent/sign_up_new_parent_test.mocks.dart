@@ -68,6 +68,11 @@ class MockAuthenticationRepository extends _i1.Mock
   }
 
   @override
+  _i4.Stream<_i8.UserEntity> get user =>
+      (super.noSuchMethod(Invocation.getter(#user),
+              returnValue: Stream<_i8.UserEntity>.empty())
+          as _i4.Stream<_i8.UserEntity>);
+  @override
   _i4.Future<_i2.Either<_i5.Failure, _i8.UserEntity>> getAuthenticatedUser() =>
       (super.noSuchMethod(Invocation.method(#getAuthenticatedUser, []),
               returnValue:

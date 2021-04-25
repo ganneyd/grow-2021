@@ -10,8 +10,8 @@ import '../child/register_new_child_user_test.mocks.dart';
 void main() {
   const String email1 = 'ganneyd@gmail.com';
   const String acceptablePassword = '1234456';
-  const UserEntity expectedUserEntity =
-      UserEntity(userEmail: 'expected@email.com', userID: 'expected-id');
+  const UserEntity expectedUserEntity = UserEntity(
+      userEmail: 'expected@email.com', userID: 'expected-id', name: 'ganney');
   final MockAuthenticationRepository mockAuthenticationRepository =
       MockAuthenticationRepository();
   final AuthenticateUser usecase =
@@ -33,8 +33,9 @@ void main() {
                 email1, acceptablePassword))
             .called(1);
 
-        final UserEntity resultUserEntity = result.getOrElse(
-            () => const UserEntity(userID: 'userID', userEmail: 'userEmail'));
+        final UserEntity resultUserEntity = result.getOrElse(() =>
+            const UserEntity(
+                userID: 'userID', userEmail: 'userEmail', name: 'name'));
 
         expect(resultUserEntity, expectedUserEntity);
       },

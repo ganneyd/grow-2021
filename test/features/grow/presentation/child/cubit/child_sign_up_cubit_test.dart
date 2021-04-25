@@ -23,8 +23,8 @@ void main() {
   const String childPassword = '123456';
   const String parentEmail = 'parent@email.com';
   const String parentPassword = 'parent-password';
-  const UserEntity expectedUserEntity =
-      UserEntity(userEmail: childEmail, userID: 'cubit-test');
+  const UserEntity expectedUserEntity = UserEntity(
+      userEmail: childEmail, userID: 'cubit-test', name: 'cubi†-test');
   final Map<String, dynamic> formPage1JSON = {
     'username': 'GanneyD501',
     'email': 'ganneyd@gmail.com',

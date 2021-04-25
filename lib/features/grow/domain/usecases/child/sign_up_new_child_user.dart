@@ -25,8 +25,8 @@ class SignUpNewChildUser implements UseCase<UserEntity, Params> {
         .authenticateUser(params.parentEmail, params.parentPassword);
     if (authBy.isRight()) {
       //get the auth_id for the parent
-      final UserEntity parent = authBy.getOrElse(
-          () => const UserEntity(userEmail: 'test-email', userID: 'test-id '));
+      final UserEntity parent = authBy.getOrElse(() => const UserEntity(
+          userEmail: 'test-email', userID: 'test-id ', name: 'test-name'));
 
       //attemp to authenticate the user and store it in a variable
 
@@ -39,8 +39,8 @@ class SignUpNewChildUser implements UseCase<UserEntity, Params> {
       //check to see if the userCredential returns successfully, which is right
       // and then create the user data in the db
       if (userCredential.isRight()) {
-        final UserEntity user = userCredential.getOrElse(() =>
-            const UserEntity(userEmail: 'test-email', userID: 'test-id '));
+        final UserEntity user = userCredential.getOrElse(() => const UserEntity(
+            userEmail: 'test-email', userID: 'test-id ', name: 'tese-name'));
         final ChildEntity childWithID =
             toChilEntityWithID(params.child, user.userID, parent.userID);
 
