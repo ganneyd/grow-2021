@@ -11,6 +11,7 @@ import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.
 import 'features/grow/domain/repositories/authentication_repository.dart';
 import 'features/grow/domain/repositories/child_repository.dart';
 import 'features/grow/presentation/bloc/authentication_bloc.dart';
+import 'features/grow/theme.dart';
 
 ///Main start point for the app
 class App extends StatelessWidget {
@@ -53,7 +54,7 @@ class AppView extends StatefulWidget {
 
 class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-  NavigatorState get _navigator => _navigatorKey.currentState;
+  NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   Widget build(BuildContext context) {
