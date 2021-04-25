@@ -10,6 +10,12 @@ import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart'
 /// [signUpWithEmailAndPassword()]
 /// [registerUser()]
 abstract class AuthenticationRepository {
+  // Stream of [User] which will emit the current user when
+  /// the authentication state changes.
+  ///
+  /// Emits [User.empty] if the user is not authenticated.
+  Stream<UserEntity> get user;
+
   ///Returns an UserEntity for the currently signed in user
   Future<Either<Failure, UserEntity>> getAuthenticatedUser();
 
