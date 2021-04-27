@@ -7,9 +7,9 @@ import 'package:grow_run_v1/features/grow/domain/repositories/authentication_rep
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 
-import '../../../domain/usecases/child/register_new_child_user.dart'
+import '../../../../../domain/usecases/child/register_new_child_user.dart'
     as register_new_child_user_usecase;
-import '../../../domain/usecases/child/sign_up_new_child_user.dart'
+import '../../../../../domain/usecases/child/sign_up_new_child_user.dart'
     as sign_up_new_child_user_usecase;
 import 'child_sign_up_state.dart';
 
