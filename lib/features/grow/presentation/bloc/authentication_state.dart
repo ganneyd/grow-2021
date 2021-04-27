@@ -1,7 +1,22 @@
 part of 'authentication_bloc.dart';
 
-///
-enum AuthenticationStatus { authenticated, unauthenticated, unknown }
+///Different auth states the app can be in
+enum AuthenticationStatus {
+  ///when a user is aunthenticated but its type isn't known
+  authenticated,
+
+  ///a child user is authenticated
+  childAuthenticated,
+
+  /// when a parent user is authenticated
+  parentAuthenticated,
+
+  ///when any user is not aunthenticated
+  unauthenticated,
+
+  ///the auth state is currently not known
+  unknown
+}
 
 ///
 class AuthenticationState extends Equatable {
@@ -14,8 +29,14 @@ class AuthenticationState extends Equatable {
   const AuthenticationState.unknown() : this._();
 
   ///when a user is successfully authenticated
-  const AuthenticationState.authenticated(UserEntity user)
-      : this._(status: AuthenticationStatus.authenticated, user: user);
+  AuthenticationState.authenticated(UserEntity user)
+      : this._(
+            status: user.userType == UserType.child
+                ? AuthenticationStatus.childAuthenticated
+                : user.userType == UserType.parent
+                    ? AuthenticationStatus.parentAuthenticated
+                    : AuthenticationStatus.authenticated,
+            user: user);
 
   ///when a user log outs or timesout
   const AuthenticationState.unauthenticated()
