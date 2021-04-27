@@ -38,7 +38,10 @@ void main() {
       parentID: 'parent01',
       schoolID: 'school01');
   final UserEntity expectedUserEntity = UserEntity(
-      userEmail: email1, userID: user.uid, name: childModel.username);
+      userEmail: email1,
+      userID: user.uid,
+      name: childModel.username,
+      userType: UserType.child);
   final MockChildRepository mockChildRepository = MockChildRepository();
 
   final MockFirestoreInstance firestoreInstance = MockFirestoreInstance();

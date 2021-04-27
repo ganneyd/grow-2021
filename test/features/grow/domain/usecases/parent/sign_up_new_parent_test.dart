@@ -26,7 +26,8 @@ void main() {
   final UserEntity user = UserEntity(
       userID: 'userID',
       userEmail: 'exampleEmail@gmail.com',
-      name: '${parent.firstname} ${parent.lastname}');
+      name: '${parent.firstname} ${parent.lastname}',
+      userType: UserType.child);
   final ParentEntity expectedParentEntity = ParentEntity(
       uid: user.userID,
       firstname: parent.firstname,
@@ -61,8 +62,8 @@ void main() {
                 user.userEmail, 'password'))
             .called(1);
         verify(mockParentRepository.createParentData(any)).called(1);
-        final UserEntity actualEntity = result.getOrElse(
-            () => const UserEntity(userID: '', userEmail: '', name: ''));
+        final UserEntity actualEntity = result.getOrElse(() => const UserEntity(
+            userID: '', userEmail: '', name: '', userType: UserType.child));
         expect(actualEntity, user);
       },
     );

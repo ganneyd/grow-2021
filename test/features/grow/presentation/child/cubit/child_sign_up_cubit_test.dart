@@ -4,8 +4,8 @@ import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/core/util/gender.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/cubit/child_sign_up_cubit.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/cubit/child_sign_up_state.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_cubit.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 
 import 'package:bloc_test/bloc_test.dart';
@@ -24,7 +24,10 @@ void main() {
   const String parentEmail = 'parent@email.com';
   const String parentPassword = 'parent-password';
   const UserEntity expectedUserEntity = UserEntity(
-      userEmail: childEmail, userID: 'cubit-test', name: 'cubi†-test');
+      userEmail: childEmail,
+      userID: 'cubit-test',
+      name: 'cubi†-test',
+      userType: UserType.child);
   final Map<String, dynamic> formPage1JSON = {
     'username': 'GanneyD501',
     'email': 'ganneyd@gmail.com',

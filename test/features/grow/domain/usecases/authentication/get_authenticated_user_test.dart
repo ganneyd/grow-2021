@@ -14,7 +14,8 @@ void main() {
   const UserEntity expectedUserEntity = UserEntity(
       userEmail: 'expected@email.com',
       userID: 'expected-id',
-      name: 'expected-name');
+      name: 'expected-name',
+      userType: UserType.child);
   final MockAuthenticationRepository mockAuthenticationRepository =
       MockAuthenticationRepository();
   final GetAuthenticatedUser usecase = GetAuthenticatedUser(
@@ -35,7 +36,10 @@ void main() {
 
         final UserEntity resultUserEntity = result.getOrElse(() =>
             const UserEntity(
-                userID: 'userID', userEmail: 'userEmail', name: 'name'));
+                userID: 'userID',
+                userEmail: 'userEmail',
+                name: 'name',
+                userType: UserType.child));
 
         expect(resultUserEntity, expectedUserEntity);
       },

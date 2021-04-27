@@ -13,7 +13,10 @@ void main() {
   const String email1 = 'ganneyd@gmail.com';
   const String acceptablePassword = '1234456';
   const UserEntity expectedUserEntity = UserEntity(
-      userEmail: 'expected@email.com', userID: 'expected-id', name: 'name');
+      userEmail: 'expected@email.com',
+      userID: 'expected-id',
+      name: 'name',
+      userType: UserType.child);
   final MockAuthenticationRepository authenticationRepository =
       MockAuthenticationRepository();
 
@@ -28,7 +31,10 @@ void main() {
         final Either<Failure, UserEntity> result =
             await authenticationRepository.signUpUser('email', 'password');
         final UserEntity actualUser = result.getOrElse(() => const UserEntity(
-            userID: 'userID', userEmail: 'userEmail', name: 'name'));
+            userID: 'userID',
+            userEmail: 'userEmail',
+            name: 'name',
+            userType: UserType.child));
         // assert
         expect(actualUser, expectedUserEntity);
       },
@@ -44,7 +50,10 @@ void main() {
             await authenticationRepository.authenticateUser(
                 'email', 'password');
         final UserEntity actualUser = result.getOrElse(() => const UserEntity(
-            userID: 'userID', userEmail: 'userEmail', name: 'name'));
+            userID: 'userID',
+            userEmail: 'userEmail',
+            name: 'name',
+            userType: UserType.child));
         // assert
 
         expect(actualUser, expectedUserEntity);
@@ -60,7 +69,10 @@ void main() {
         final Either<Failure, UserEntity> result =
             await authenticationRepository.registerUser('email', 'password');
         final UserEntity actualUser = result.getOrElse(() => const UserEntity(
-            userID: 'userID', userEmail: 'userEmail', name: 'name'));
+            userID: 'userID',
+            userEmail: 'userEmail',
+            name: 'name',
+            userType: UserType.child));
         // assert
         expect(actualUser, expectedUserEntity);
       },
@@ -77,7 +89,10 @@ void main() {
             await authenticationRepository.loginUser(
                 email1, acceptablePassword);
         final UserEntity actualUser = result.getOrElse(() => const UserEntity(
-            userID: 'userID', userEmail: 'userEmail', name: 'name'));
+            userID: 'userID',
+            userEmail: 'userEmail',
+            name: 'name',
+            userType: UserType.child));
         // assert
         expect(actualUser, expectedUserEntity);
       },

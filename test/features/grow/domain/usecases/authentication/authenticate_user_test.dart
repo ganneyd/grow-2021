@@ -11,7 +11,10 @@ void main() {
   const String email1 = 'ganneyd@gmail.com';
   const String acceptablePassword = '1234456';
   const UserEntity expectedUserEntity = UserEntity(
-      userEmail: 'expected@email.com', userID: 'expected-id', name: 'ganney');
+      userEmail: 'expected@email.com',
+      userID: 'expected-id',
+      name: 'ganney',
+      userType: UserType.child);
   final MockAuthenticationRepository mockAuthenticationRepository =
       MockAuthenticationRepository();
   final AuthenticateUser usecase =
@@ -35,7 +38,10 @@ void main() {
 
         final UserEntity resultUserEntity = result.getOrElse(() =>
             const UserEntity(
-                userID: 'userID', userEmail: 'userEmail', name: 'name'));
+                userID: 'userID',
+                userEmail: 'userEmail',
+                name: 'name',
+                userType: UserType.child));
 
         expect(resultUserEntity, expectedUserEntity);
       },
