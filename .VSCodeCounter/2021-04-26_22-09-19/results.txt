@@ -1,0 +1,197 @@
+Date : 2021-04-26 22:09:19
+Directory : /Users/Projects/Flutter/grow_run_v1/lib
+Total : 113 files,  5108 codes, 915 comments, 902 blanks, all 6925 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |        113 |      5,108 |        915 |        902 |      6,925 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |        113 |      5,108 |        915 |        902 |      6,925 |
+| core                                                                                                                          |         12 |        119 |         95 |         39 |        253 |
+| core/error                                                                                                                    |          2 |         61 |         50 |         19 |        130 |
+| core/usecases                                                                                                                 |          1 |         10 |          0 |          4 |         14 |
+| core/util                                                                                                                     |          9 |         48 |         45 |         16 |        109 |
+| features                                                                                                                      |         99 |      4,848 |        815 |        845 |      6,508 |
+| features/grow                                                                                                                 |         99 |      4,848 |        815 |        845 |      6,508 |
+| features/grow/data                                                                                                            |         26 |      1,844 |        221 |        248 |      2,313 |
+| features/grow/data/datasources                                                                                                |          3 |        133 |         45 |         21 |        199 |
+| features/grow/data/datasources/local                                                                                          |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/datasources/remote                                                                                         |          1 |        131 |         44 |         18 |        193 |
+| features/grow/data/datasources/remote/firebase                                                                                |          1 |        131 |         44 |         18 |        193 |
+| features/grow/data/models                                                                                                     |         18 |      1,374 |        104 |        177 |      1,655 |
+| features/grow/data/models/admin                                                                                               |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/models/background                                                                                          |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/models/child                                                                                               |          3 |        477 |         32 |         49 |        558 |
+| features/grow/data/models/clothing                                                                                            |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/models/goal                                                                                                |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/models/parent                                                                                              |          3 |        389 |         32 |         46 |        467 |
+| features/grow/data/models/route                                                                                               |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/models/school                                                                                              |          3 |        370 |         20 |         46 |        436 |
+| features/grow/data/models/trophy                                                                                              |          1 |          0 |          0 |          1 |          1 |
+| features/grow/data/models/user                                                                                                |          2 |        129 |         20 |         29 |        178 |
+| features/grow/data/repositories                                                                                               |          5 |        337 |         72 |         50 |        459 |
+| features/grow/domain                                                                                                          |         43 |      2,047 |        343 |        382 |      2,772 |
+| features/grow/domain/entities                                                                                                 |         18 |      1,408 |        132 |        213 |      1,753 |
+| features/grow/domain/entities/admin                                                                                           |          1 |         10 |          6 |          5 |         21 |
+| features/grow/domain/entities/background                                                                                      |          2 |        242 |         15 |         31 |        288 |
+| features/grow/domain/entities/child                                                                                           |          1 |         23 |         11 |         11 |         45 |
+| features/grow/domain/entities/clothing                                                                                        |          2 |        238 |         15 |         29 |        282 |
+| features/grow/domain/entities/goal                                                                                            |          2 |        290 |         14 |         29 |        333 |
+| features/grow/domain/entities/parent                                                                                          |          1 |         18 |          9 |          9 |         36 |
+| features/grow/domain/entities/route                                                                                           |          2 |        207 |         16 |         29 |        252 |
+| features/grow/domain/entities/school                                                                                          |          1 |         17 |          7 |          7 |         31 |
+| features/grow/domain/entities/trophy                                                                                          |          3 |        320 |         20 |         49 |        389 |
+| features/grow/domain/entities/user                                                                                            |          1 |         18 |         15 |          9 |         42 |
+| features/grow/domain/repositories                                                                                             |          4 |         47 |         55 |         25 |        127 |
+| features/grow/domain/usecases                                                                                                 |         21 |        592 |        156 |        144 |        892 |
+| features/grow/domain/usecases/authentication                                                                                  |          2 |         47 |         10 |         11 |         68 |
+| features/grow/domain/usecases/child                                                                                           |          9 |        282 |         84 |         69 |        435 |
+| features/grow/domain/usecases/parent                                                                                          |          7 |        198 |         52 |         48 |        298 |
+| features/grow/presentation                                                                                                    |         29 |        940 |        250 |        213 |      1,403 |
+| features/grow/presentation/bloc                                                                                               |          3 |         92 |         20 |         28 |        140 |
+| features/grow/presentation/child                                                                                              |         12 |        617 |         88 |        105 |        810 |
+| features/grow/presentation/child/pages                                                                                        |          8 |        505 |         65 |         92 |        662 |
+| features/grow/presentation/child/pages/home                                                                                   |          4 |        266 |         28 |         46 |        340 |
+| features/grow/presentation/child/pages/home/cubit                                                                             |          3 |        205 |         23 |         39 |        267 |
+| features/grow/presentation/child/pages/home/view                                                                              |          1 |         61 |          5 |          7 |         73 |
+| features/grow/presentation/child/pages/sign_up                                                                                |          4 |        239 |         37 |         46 |        322 |
+| features/grow/presentation/child/pages/sign_up/cubit                                                                          |          3 |        221 |         35 |         42 |        298 |
+| features/grow/presentation/child/pages/sign_up/view                                                                           |          1 |         18 |          2 |          4 |         24 |
+| features/grow/presentation/child/widgets                                                                                      |          4 |        112 |         23 |         13 |        148 |
+| features/grow/presentation/child/widgets/form_group                                                                           |          1 |         28 |         16 |          4 |         48 |
+| features/grow/presentation/child/widgets/form_widget                                                                          |          3 |         84 |          7 |          9 |        100 |
+| features/grow/presentation/pages                                                                                              |          6 |         12 |          2 |          8 |         22 |
+| features/grow/presentation/pages/login                                                                                        |          4 |          0 |          0 |          4 |          4 |
+| features/grow/presentation/pages/login/cubit                                                                                  |          2 |          0 |          0 |          2 |          2 |
+| features/grow/presentation/pages/login/view                                                                                   |          2 |          0 |          0 |          2 |          2 |
+| features/grow/presentation/widgets                                                                                            |          8 |        219 |        140 |         72 |        431 |
+| features/grow/presentation/widgets/form_group                                                                                 |          1 |          8 |          2 |          2 |         12 |
+| features/grow/presentation/widgets/form_inputs                                                                                |          3 |         99 |         10 |         13 |        122 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                      | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/Projects/Flutter/grow_run_v1/lib/app.dart                                                                              | Dart     |         77 |          4 |          7 |         88 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/error/exceptions.dart                                                            | Dart     |          6 |         11 |          6 |         23 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/error/failures.dart                                                              | Dart     |         55 |         39 |         13 |        107 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/usecases/usecases.dart                                                           | Dart     |         10 |          0 |          4 |         14 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/authentication.dart                                                         | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/clothing_util.dart                                                          | Dart     |          1 |          4 |          2 |          7 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/gender.dart                                                                 | Dart     |          1 |          3 |          1 |          5 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/goal_util.dart                                                              | Dart     |          2 |          8 |          3 |         13 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/privallge_util.dart                                                         | Dart     |         22 |         16 |          2 |         40 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/school_util.dart                                                            | Dart     |          5 |          7 |          3 |         15 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/trophy_util.dart                                                            | Dart     |          1 |          6 |          2 |          9 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/user_type_util.dart                                                         | Dart     |          9 |          1 |          1 |         11 |
+| /Users/Projects/Flutter/grow_run_v1/lib/core/util/util.dart                                                                   | Dart     |          7 |          0 |          1 |          8 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/datasources/datasources.dart                                       | Dart     |          2 |          1 |          2 |          5 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/datasources/local/local_datasource.dart                            | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/datasources/remote/firebase/grow_remote_datasoure.dart             | Dart     |        131 |         44 |         18 |        193 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/admin/admin_model.dart                                      | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/background/background_model.dart                            | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/child/child_model.dart                                      | Dart     |         68 |         14 |          7 |         89 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/child/child_model.freezed.dart                              | Dart     |        341 |         14 |         33 |        388 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/child/child_model.g.dart                                    | Dart     |         68 |          4 |          9 |         81 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/clothing/clothing_model.dart                                | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/goal/goal_model.dart                                        | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/models_bucket.dart                                          | Dart     |          9 |          0 |          1 |         10 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/parent/parent_model.dart                                    | Dart     |         31 |         14 |          4 |         49 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/parent/parent_model.freezed.dart                            | Dart     |        291 |         14 |         33 |        338 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/parent/parent_model.g.dart                                  | Dart     |         67 |          4 |          9 |         80 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/route/route_model.dart                                      | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/school/school_model.dart                                    | Dart     |         29 |          2 |          5 |         36 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/school/school_model.freezed.dart                            | Dart     |        278 |         14 |         32 |        324 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/school/school_model.g.dart                                  | Dart     |         63 |          4 |          9 |         76 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/trophy/trophy_model.dart                                    | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/user/user_model.dart                                        | Dart     |          9 |          6 |          3 |         18 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/models/user/user_model.freezed.dart                                | Dart     |        120 |         14 |         26 |        160 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/repositories/authentication_repository.dart                        | Dart     |        128 |         25 |         19 |        172 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/repositories/child_repository.dart                                 | Dart     |         96 |         20 |         14 |        130 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/repositories/grow_repository.dart                                  | Dart     |         10 |          4 |          3 |         17 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/repositories/parent_repository.dart                                | Dart     |         85 |         17 |         11 |        113 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/data/repositories/repository_mixins.dart                                | Dart     |         18 |          6 |          3 |         27 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/admin/admin_entity.dart                                 | Dart     |         10 |          6 |          5 |         21 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/background/background_entity.dart                       | Dart     |         17 |          1 |          4 |         22 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/background/background_entity.freezed.dart               | Dart     |        225 |         14 |         27 |        266 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/child/child_entity.dart                                 | Dart     |         23 |         11 |         11 |         45 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/clothing/clothing_entity.dart                           | Dart     |         14 |          1 |          2 |         17 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/clothing/clothing_entity.freezed.dart                   | Dart     |        224 |         14 |         27 |        265 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/entities_bucket.dart                                    | Dart     |         11 |          0 |          1 |         12 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/entity.dart                                             | Dart     |         14 |          4 |          4 |         22 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/goal/goal_entity.dart                                   | Dart     |         17 |          0 |          2 |         19 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/goal/goal_entity.freezed.dart                           | Dart     |        273 |         14 |         27 |        314 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/parent/parent_entity.dart                               | Dart     |         18 |          9 |          9 |         36 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/route/route_entity.dart                                 | Dart     |         13 |          2 |          2 |         17 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/route/route_entity.freezed.dart                         | Dart     |        194 |         14 |         27 |        235 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/school/school_entity.dart                               | Dart     |         17 |          7 |          7 |         31 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/trophy/trophy_entity.dart                               | Dart     |         19 |          2 |          7 |         28 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/trophy/trophy_entity.freezed.dart                       | Dart     |        239 |         14 |         33 |        286 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/trophy/trophy_entity.g.dart                             | Dart     |         62 |          4 |          9 |         75 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/entities/user/user_entity.dart                                   | Dart     |         18 |         15 |          9 |         42 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/repositories/authentication_repository.dart                      | Dart     |         17 |         24 |         10 |         51 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/repositories/child_repository.dart                               | Dart     |         12 |         15 |          7 |         34 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/repositories/grow_repository.dart                                | Dart     |          8 |          3 |          2 |         13 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/repositories/parent_repository.dart                              | Dart     |         10 |         13 |          6 |         29 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/authentication/authenticate_user.dart                   | Dart     |         28 |          8 |          8 |         44 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/authentication/get_authenitcated_user.dart              | Dart     |         19 |          2 |          3 |         24 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/disable_child_acc.dart                            | Dart     |         24 |          8 |          7 |         39 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/edit_child.dart                                   | Dart     |         21 |          7 |          6 |         34 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/enable_child_acc.dart                             | Dart     |         25 |          8 |          7 |         40 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/get_children.dart                                 | Dart     |         21 |          7 |          6 |         34 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/get_children_by_id.dart                           | Dart     |         23 |          8 |          8 |         39 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/get_children_by_school.dart                       | Dart     |         24 |         10 |          8 |         42 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/get_current_child_user.dart                       | Dart     |         31 |          4 |          4 |         39 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/register_new_child_user.dart                      | Dart     |         52 |         14 |         11 |         77 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/child/sign_up_new_child_user.dart                       | Dart     |         61 |         18 |         12 |         91 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/mixins.dart                                             | Dart     |         24 |          0 |          3 |         27 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/disable_parent_account.dart                      | Dart     |         20 |          7 |          7 |         34 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/edit_parent.dart                                 | Dart     |         21 |          7 |          6 |         34 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/enable_parent_account.dart                       | Dart     |         22 |          7 |          7 |         36 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/get_parent_by_id.dart                            | Dart     |         23 |          8 |          6 |         37 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/get_parents.dart                                 | Dart     |         21 |          5 |          5 |         31 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/register_new_parent_user.dart                    | Dart     |         44 |         10 |          8 |         62 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/parent/sign_up_new_parent.dart                          | Dart     |         47 |          8 |          9 |         64 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/user_login.dart                                         | Dart     |         22 |          6 |          8 |         36 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/domain/usecases/user_sign_out.dart                                      | Dart     |         19 |          4 |          5 |         28 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/bloc/authentication_bloc.dart                              | Dart     |         48 |          3 |          9 |         60 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/bloc/authentication_event.dart                             | Dart     |         13 |          5 |          6 |         24 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/bloc/authentication_state.dart                             | Dart     |         31 |         12 |         13 |         56 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/home/cubit/home_cubit.dart                     | Dart     |         31 |          3 |          5 |         39 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/home/cubit/home_state.dart                     | Dart     |         16 |          6 |          5 |         27 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/home/cubit/home_state.freezed.dart             | Dart     |        158 |         14 |         29 |        201 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/home/view/home_page.dart                       | Dart     |         61 |          5 |          7 |         73 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_cubit.dart         | Dart     |         54 |         19 |         11 |         84 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.dart         | Dart     |         11 |          2 |          2 |         15 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.freezed.dart | Dart     |        156 |         14 |         29 |        199 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_page.dart                 | Dart     |         18 |          2 |          4 |         24 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart           | Dart     |         28 |         16 |          4 |         48 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart               | Dart     |         31 |          3 |          3 |         37 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart               | Dart     |         26 |          2 |          3 |         31 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart               | Dart     |         27 |          2 |          3 |         32 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/pages/login/cubit/login_cubit.dart                         | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/pages/login/cubit/login_state.dart                         | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/pages/login/view/login_form.dart                           | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/pages/login/view/login_page.dart                           | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/pages/sign_up_page_child.dart                              | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/pages/splash_page.dart                                     | Dart     |         12 |          2 |          3 |         17 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/constant_colors.dart                               | Dart     |         22 |         17 |         17 |         56 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/constant_sizes.dart                                | Dart     |          2 |          3 |          3 |          8 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/default_ui_elements.dart                           | Dart     |         19 |          3 |          4 |         26 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/form_group/login_group.dart                        | Dart     |          8 |          2 |          2 |         12 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/form_inputs/form_input_controllers.dart            | Dart     |         86 |         10 |         11 |        107 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/form_inputs/form_input_types.dart                  | Dart     |         13 |          0 |          1 |         14 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/form_inputs/form_number_inputs.dart                | Dart     |          0 |          0 |          1 |          1 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/presentation/widgets/form_status.dart                                   | Dart     |         69 |        105 |         33 |        207 |
+| /Users/Projects/Flutter/grow_run_v1/lib/features/grow/theme.dart                                                              | Dart     |         17 |          1 |          2 |         20 |
+| /Users/Projects/Flutter/grow_run_v1/lib/main.dart                                                                             | Dart     |         64 |          1 |         11 |         76 |
+| Total                                                                                                                         |          |      5,108 |        915 |        902 |      6,925 |
++-------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
