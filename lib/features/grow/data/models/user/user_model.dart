@@ -13,5 +13,7 @@ class UserModel extends UserEntity with _$UserModel {
   ///       [userEmail]
   const factory UserModel(
       {@Default('no-id') String userID,
-      @Default('user-email') String userEmail}) = _UserModel;
+      @Default('user-email') String userEmail,
+      @Default(UserType.unknown) UserType userType,
+      @Default('user-name') String name}) = _UserModel;
 }
