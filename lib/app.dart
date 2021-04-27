@@ -11,6 +11,8 @@ import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.
 import 'features/grow/domain/repositories/authentication_repository.dart';
 import 'features/grow/domain/repositories/child_repository.dart';
 import 'features/grow/presentation/bloc/authentication_bloc.dart';
+import 'features/grow/presentation/child/pages/home/view/home_page.dart';
+import 'features/grow/presentation/pages/splash_page.dart';
 import 'features/grow/theme.dart';
 
 ///Main start point for the app
@@ -61,17 +63,16 @@ class _AppViewState extends State<AppView> {
     return MaterialApp(
       theme: theme,
       navigatorKey: _navigatorKey,
-      builder: (context, child) {
+      builder: (BuildContext context, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
+          listener: (BuildContext context, AuthenticationState state) {
             switch (state.status) {
-              case AuthenticationStatus.authenticated:
+              case AuthenticationStatus.childAuthenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                    HomePage.route(), (route) => false);
+                    HomePage.route(), (_) => false);
                 break;
               case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil(
-                    LoginPage.route(), (route) => false);
+                _navigator.pushAndRemoveUntil(LoginPage.route(), (_) => false);
                 break;
               default:
                 break;
