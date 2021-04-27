@@ -1,3 +1,15 @@
+///Type of user
+enum UserType {
+  /// the user entity is a child
+  child,
+
+  ///the user entity is a parent
+  parent,
+
+  ///if the user type isn't known
+  unknown
+}
+
 ///Information that belongs to the currently signed in user,
 ///such as their [email] and [uid]
 class UserEntity {
@@ -5,11 +17,11 @@ class UserEntity {
   ///the [userid]
   ///and [userEmail]
   ///and [name]
-  const UserEntity({
-    required this.userID,
-    required this.userEmail,
-    required this.name,
-  });
+  const UserEntity(
+      {required this.userID,
+      required this.userEmail,
+      required this.name,
+      this.userType = UserType.unknown});
 
   ///The id for the user
   final String userID;
@@ -20,10 +32,10 @@ class UserEntity {
   ///The user's display name
   final String name;
 
+  ///The user type
+  final UserType userType;
+
   /// Empty user which represents an unauthenticated user.
   static const UserEntity empty = UserEntity(
-    userEmail: '',
-    userID: '',
-    name: ' ',
-  );
+      userEmail: '', userID: '', name: ' ', userType: UserType.unknown);
 }
