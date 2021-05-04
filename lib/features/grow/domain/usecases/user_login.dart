@@ -6,7 +6,7 @@ import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
 
 ///When a  user is trying to log into thier account
-class LoginUser implements UseCase<UserEntity, Params> {
+class LoginUser implements UseCase<void, Params> {
   ///Takes an instance of [AuthenticationRepository]
   LoginUser(AuthenticationRepository authRepository)
       : _authRepository = authRepository;
@@ -14,8 +14,8 @@ class LoginUser implements UseCase<UserEntity, Params> {
   final AuthenticationRepository _authRepository;
 
   @override
-  Future<Either<Failure, UserEntity>> call(Params params) async {
-    return _authRepository.loginUser(params.email, params.password);
+  Future<Either<Failure, void>> call(Params params) async {
+    return await _authRepository.loginUser(params.email, params.password);
   }
 }
 

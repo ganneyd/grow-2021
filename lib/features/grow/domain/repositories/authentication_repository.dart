@@ -35,7 +35,7 @@ abstract class AuthenticationRepository {
 
   ///Logs in the user using thier [email] and [password] then return the
   ///[uid]  for the user
-  Future<Either<Failure, UserEntity>> loginUser(String email, String password);
+  Future<Either<Failure, void>> loginUser(String email, String password);
 
   ///Signs out currently signed in user;
   Future<Either<Failure, void>> signOutUser();

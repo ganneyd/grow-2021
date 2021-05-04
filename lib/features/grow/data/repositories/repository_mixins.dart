@@ -17,7 +17,8 @@ abstract class RepoMixins {
         return 'This password is too weak, please choose a stronger password';
       case 'user-disabled':
 
-        ///TODO place contact email here
+        // ignore: lines_longer_than_80_chars
+        //TODO place contact email here for the user to email to enable their acc
         return 'Your account is currently disabled, please contact[email] ';
       default:
         return code;

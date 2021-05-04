@@ -37,5 +37,8 @@ class UserEntity {
 
   /// Empty user which represents an unauthenticated user.
   static const UserEntity empty = UserEntity(
-      userEmail: '', userID: '', name: ' ', userType: UserType.unknown);
+    userEmail: ' ',
+    userID: ' ',
+    name: ' ',
+  );
 }

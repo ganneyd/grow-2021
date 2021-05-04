@@ -12,6 +12,7 @@ import 'features/grow/domain/repositories/authentication_repository.dart';
 import 'features/grow/domain/repositories/child_repository.dart';
 import 'features/grow/presentation/bloc/authentication_bloc.dart';
 import 'features/grow/presentation/child/pages/home/view/home_page.dart';
+import 'features/grow/presentation/pages/login/view/login_page.dart';
 import 'features/grow/presentation/pages/splash_page.dart';
 import 'features/grow/theme.dart';
 
@@ -33,14 +34,11 @@ class App extends StatelessWidget {
               create: (_) => ParentRepositoryImplementation(
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
         ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider<AuthenticationBloc>(
-                create: (BuildContext context) => AuthenticationBloc(
-                    authenticationRepository:
-                        context.read<AuthenticationRepository>())),
-          ],
-          child: AppView(),
+        child: BlocProvider<AuthenticationBloc>(
+          create: (BuildContext context) => AuthenticationBloc(
+              authenticationRepository:
+                  context.read<AuthenticationRepository>()),
+          child: const AppView(),
         ));
   }
 }
@@ -66,22 +64,21 @@ class _AppViewState extends State<AppView> {
       builder: (BuildContext context, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (BuildContext context, AuthenticationState state) {
-            switch (state.status) {
-              case AuthenticationStatus.childAuthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                    HomePage.route(), (_) => false);
-                break;
-              case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil(LoginPage.route(), (_) => false);
-                break;
-              default:
-                break;
+            print(state.status);
+            if (state.status == AuthenticationStatus.childAuthenticated) {
+              _navigator.pushAndRemoveUntil(HomePage.route(), (_) => false);
+            }
+            if (state.status == AuthenticationStatus.unauthenticated) {
+              _navigator.pushAndRemoveUntil(LoginPage.route(), (_) => false);
+            }
+            if (state.status == AuthenticationStatus.uninitialized) {
+              _navigator.pushAndRemoveUntil(SplashPage.route(), (_) => false);
             }
           },
           child: child,
         );
       },
-      onGenerateRoute: (_) => SplashPage.route(),
+      onGenerateRoute: (_) => HomePage.route(),
     );
   }
 }

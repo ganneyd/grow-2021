@@ -5,7 +5,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 ///
 class ChildSignUpFormOne extends StatelessWidget {
   ////
-  const ChildSignUpFormOne() : super(key: const Key('child-sign-up-form-2'));
+  const ChildSignUpFormOne() : super(key: const Key('child-sign-up-form-1'));
 
   @override
   Widget build(BuildContext context) {

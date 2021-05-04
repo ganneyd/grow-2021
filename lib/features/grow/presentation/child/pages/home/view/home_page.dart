@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
+import 'package:grow_run_v1/features/grow/presentation/bloc/authentication_bloc.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/home/cubit/home_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/home/cubit/home_state.dart';
 
@@ -22,6 +23,18 @@ class HomePage extends StatelessWidget {
           childRepository: context.read<ChildRepository>(),
           authenticationRepository: context.read<AuthenticationRepository>()),
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Home'),
+          actions: <Widget>[
+            IconButton(
+              key: const Key('homePage_logout_iconButton'),
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () => context
+                  .read<AuthenticationBloc>()
+                  .add(AuthenticationLogoutRequested()),
+            )
+          ],
+        ),
         body: HomeBody(),
       ),
     );
