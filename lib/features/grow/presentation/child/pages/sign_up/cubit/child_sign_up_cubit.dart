@@ -27,7 +27,9 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
             authenticationRepository: authenticationRepository,
             childRepository: childRepository),
         super(ChildSignUpState(
-            childModel: Child.initialChild(), status: FormStatus.pure));
+            childModel: Child.initialChild(),
+            status: FormStatus.pure,
+            signUpMehtod: SignUpMethod.unkown));
 
   final register_new_child_user_usecase.RegisterNewChildUser
       _registerNewChildUser;

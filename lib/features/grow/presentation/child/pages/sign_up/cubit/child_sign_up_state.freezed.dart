@@ -17,11 +17,15 @@ class _$ChildSignUpStateTearOff {
   const _$ChildSignUpStateTearOff();
 
   _ChildSignUpState call(
-      {required Child childModel, String? error, required FormStatus status}) {
+      {required Child childModel,
+      String? error,
+      required FormStatus status,
+      SignUpMethod signUpMehtod = SignUpMethod.unkown}) {
     return _ChildSignUpState(
       childModel: childModel,
       error: error,
       status: status,
+      signUpMehtod: signUpMehtod,
     );
   }
 }
@@ -34,6 +38,7 @@ mixin _$ChildSignUpState {
   Child get childModel => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
+  SignUpMethod get signUpMehtod => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChildSignUpStateCopyWith<ChildSignUpState> get copyWith =>
@@ -45,7 +50,11 @@ abstract class $ChildSignUpStateCopyWith<$Res> {
   factory $ChildSignUpStateCopyWith(
           ChildSignUpState value, $Res Function(ChildSignUpState) then) =
       _$ChildSignUpStateCopyWithImpl<$Res>;
-  $Res call({Child childModel, String? error, FormStatus status});
+  $Res call(
+      {Child childModel,
+      String? error,
+      FormStatus status,
+      SignUpMethod signUpMehtod});
 
   $ChildCopyWith<$Res> get childModel;
 }
@@ -64,6 +73,7 @@ class _$ChildSignUpStateCopyWithImpl<$Res>
     Object? childModel = freezed,
     Object? error = freezed,
     Object? status = freezed,
+    Object? signUpMehtod = freezed,
   }) {
     return _then(_value.copyWith(
       childModel: childModel == freezed
@@ -78,6 +88,10 @@ class _$ChildSignUpStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      signUpMehtod: signUpMehtod == freezed
+          ? _value.signUpMehtod
+          : signUpMehtod // ignore: cast_nullable_to_non_nullable
+              as SignUpMethod,
     ));
   }
 
@@ -96,7 +110,11 @@ abstract class _$ChildSignUpStateCopyWith<$Res>
           _ChildSignUpState value, $Res Function(_ChildSignUpState) then) =
       __$ChildSignUpStateCopyWithImpl<$Res>;
   @override
-  $Res call({Child childModel, String? error, FormStatus status});
+  $Res call(
+      {Child childModel,
+      String? error,
+      FormStatus status,
+      SignUpMethod signUpMehtod});
 
   @override
   $ChildCopyWith<$Res> get childModel;
@@ -118,6 +136,7 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
     Object? childModel = freezed,
     Object? error = freezed,
     Object? status = freezed,
+    Object? signUpMehtod = freezed,
   }) {
     return _then(_ChildSignUpState(
       childModel: childModel == freezed
@@ -132,6 +151,10 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      signUpMehtod: signUpMehtod == freezed
+          ? _value.signUpMehtod
+          : signUpMehtod // ignore: cast_nullable_to_non_nullable
+              as SignUpMethod,
     ));
   }
 }
@@ -139,7 +162,10 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_ChildSignUpState implements _ChildSignUpState {
   _$_ChildSignUpState(
-      {required this.childModel, this.error, required this.status});
+      {required this.childModel,
+      this.error,
+      required this.status,
+      this.signUpMehtod = SignUpMethod.unkown});
 
   @override
   final Child childModel;
@@ -147,10 +173,13 @@ class _$_ChildSignUpState implements _ChildSignUpState {
   final String? error;
   @override
   final FormStatus status;
+  @JsonKey(defaultValue: SignUpMethod.unkown)
+  @override
+  final SignUpMethod signUpMehtod;
 
   @override
   String toString() {
-    return 'ChildSignUpState(childModel: $childModel, error: $error, status: $status)';
+    return 'ChildSignUpState(childModel: $childModel, error: $error, status: $status, signUpMehtod: $signUpMehtod)';
   }
 
   @override
@@ -163,7 +192,10 @@ class _$_ChildSignUpState implements _ChildSignUpState {
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.status, status) ||
-                const DeepCollectionEquality().equals(other.status, status)));
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.signUpMehtod, signUpMehtod) ||
+                const DeepCollectionEquality()
+                    .equals(other.signUpMehtod, signUpMehtod)));
   }
 
   @override
@@ -171,7 +203,8 @@ class _$_ChildSignUpState implements _ChildSignUpState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(childModel) ^
       const DeepCollectionEquality().hash(error) ^
-      const DeepCollectionEquality().hash(status);
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(signUpMehtod);
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +216,8 @@ abstract class _ChildSignUpState implements ChildSignUpState {
   factory _ChildSignUpState(
       {required Child childModel,
       String? error,
-      required FormStatus status}) = _$_ChildSignUpState;
+      required FormStatus status,
+      SignUpMethod signUpMehtod}) = _$_ChildSignUpState;
 
   @override
   Child get childModel => throw _privateConstructorUsedError;
@@ -191,6 +225,8 @@ abstract class _ChildSignUpState implements ChildSignUpState {
   String? get error => throw _privateConstructorUsedError;
   @override
   FormStatus get status => throw _privateConstructorUsedError;
+  @override
+  SignUpMethod get signUpMehtod => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ChildSignUpStateCopyWith<_ChildSignUpState> get copyWith =>
