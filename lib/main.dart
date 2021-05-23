@@ -15,7 +15,8 @@ Future<void> main() async {
   await Firebase.initializeApp();
   // final String host =
   //     Platform.isAndroid ? '10.0.2.2:8070' : 'http://localhost:8070';
-  // await FirebaseAuth.instance.useEmulator('http://localhost:9099');
+  await FirebaseAuth.instance.useEmulator('http://172.20.10.3:9099');
+
   // FirebaseFirestore.instance.settings = Settings(
   //   host: host,
   //   sslEnabled: false,
