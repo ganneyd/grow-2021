@@ -16,8 +16,8 @@ class ChildSignUpForm {
   ///The 1st  page for the child signup form
   static FormGroup buildChildSignUpPage1() => fb.group(<String, Object>{
         'username': FormInputsControllers.getTextFieldInputController(),
-        'first_name': FormInputsControllers.getTextFieldInputController(),
-        'last_name': FormInputsControllers.getTextFieldInputController(),
+        'firstname': FormInputsControllers.getTextFieldInputController(),
+        'lastname': FormInputsControllers.getTextFieldInputController(),
         'email': FormInputsControllers.getEmailFieldInputController(
             isRequired: false),
         'gender': FormInputsControllers.getGenderFieldInputController(),
@@ -25,9 +25,13 @@ class ChildSignUpForm {
 
   ///The 2nd page for the child sign up form
   static FormGroup buildChildSignUpPage2(
-          {required int min, required int max}) =>
+          {required int min,
+          required int max,
+          required int minAge,
+          required int maxAge}) =>
       fb.group(<String, Object>{
-        'age': FormInputsControllers.getAgeFieldInputController(),
+        'age': FormInputsControllers.getMinAndMaxNumberInputController(
+            min: minAge, max: maxAge),
         'school': FormInputsControllers.getSchoolFieldInputController(),
         'grade_level': FormInputsControllers.getMinAndMaxNumberInputController(
             min: min, max: max),
