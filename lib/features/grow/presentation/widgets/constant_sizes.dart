@@ -5,3 +5,4 @@ part of 'default_ui_elements.dart';
 
 /// The height of the toolbar component of the [AppBar].
 const double defaultToolbarHeight = 80.0;
+const double defaultPaddingInBetweenForms = 20.0;

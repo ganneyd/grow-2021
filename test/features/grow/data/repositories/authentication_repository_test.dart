@@ -82,19 +82,14 @@ void main() {
       'should return a UserEntity() for the signed in user when they log in',
       () async {
         // arrange
-        when(authenticationRepository.loginUser(any, any)).thenAnswer(
-            (_) async => const Right<Failure, UserEntity>(expectedUserEntity));
+        when(authenticationRepository.loginUser(any, any))
+            .thenAnswer((_) async => const Right<Failure, void>(null));
         // ac
-        final Either<Failure, UserEntity> result =
-            await authenticationRepository.loginUser(
-                email1, acceptablePassword);
-        final UserEntity actualUser = result.getOrElse(() => const UserEntity(
-            userID: 'userID',
-            userEmail: 'userEmail',
-            name: 'name',
-            userType: UserType.child));
+        final Either<Failure, void> result = await authenticationRepository
+            .loginUser(email1, acceptablePassword);
+
         // assert
-        expect(actualUser, expectedUserEntity);
+        expect(result, const Right<Failure, void>(null));
       },
     );
 

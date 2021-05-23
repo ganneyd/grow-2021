@@ -101,12 +101,11 @@ class MockAuthenticationRepository extends _i1.Mock
                   Future.value(_FakeEither<_i5.Failure, _i8.UserEntity>()))
           as _i4.Future<_i2.Either<_i5.Failure, _i8.UserEntity>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i8.UserEntity>> loginUser(
+  _i4.Future<_i2.Either<_i5.Failure, void>> loginUser(
           String? email, String? password) =>
       (super.noSuchMethod(Invocation.method(#loginUser, [email, password]),
-              returnValue:
-                  Future.value(_FakeEither<_i5.Failure, _i8.UserEntity>()))
-          as _i4.Future<_i2.Either<_i5.Failure, _i8.UserEntity>>);
+              returnValue: Future.value(_FakeEither<_i5.Failure, void>()))
+          as _i4.Future<_i2.Either<_i5.Failure, void>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, void>> signOutUser() =>
       (super.noSuchMethod(Invocation.method(#signOutUser, []),
