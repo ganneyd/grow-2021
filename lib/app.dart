@@ -71,14 +71,14 @@ class _AppViewState extends State<AppView> {
             if (state.status == AuthenticationStatus.unauthenticated) {
               _navigator.pushAndRemoveUntil(LoginPage.route(), (_) => false);
             }
-            if (state.status == AuthenticationStatus.uninitialized) {
-              _navigator.pushAndRemoveUntil(SplashPage.route(), (_) => false);
+            if (state.status == AuthenticationStatus.authenticated) {
+              _navigator.pushAndRemoveUntil(HomePage.route(), (_) => false);
             }
           },
           child: child,
         );
       },
-      onGenerateRoute: (_) => HomePage.route(),
+      onGenerateRoute: (_) => SplashPage.route(),
     );
   }
 }
