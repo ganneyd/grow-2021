@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:grow_run_v1/features/grow/data/models/models_bucket.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart';
-import 'package:grow_run_v1/features/grow/presentation/utils/forms_interface.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_cubit.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/view/sign_up_body.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/default_ui_elements.dart';
 
 ///The child's sign up form
@@ -20,77 +21,20 @@ class ChildSignUpForm extends StatefulWidget {
 }
 
 class _ChildSignUpFormState extends State<ChildSignUpForm> {
-  int pageNumber = 0;
-  final List<ReactiveFormGroup> formPages = [
-    ChildSignUpFormOne(),
-    ChildSignUpFormTwo(
-      schools: [SchoolModel(name: 'St.Martin'), SchoolModel(name: 'St.Joe')],
-    ),
-    ChildSignUpFormThree(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider<ChildSignUpCubit>(
+      create: (_) => ChildSignUpCubit(
+          childRepository: context.read<ChildRepository>(),
+          authenticationRepository: context.read<AuthenticationRepository>()),
+      child: Scaffold(
         appBar: DefaultUIElements.getDefaultAppBar(
-            context: context, appBarName: 'Sign Up'),
-        body: Column(
-          children: [
-            Expanded(
-              flex: 2,
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 500),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  final Animation<Offset> inAnimation = Tween<Offset>(
-                          begin: const Offset(1.0, 0.0),
-                          end: const Offset(0.0, 0.0))
-                      .animate(animation);
-                  final Animation<Offset> outAnimation = Tween<Offset>(
-                          begin: const Offset(-1.0, 0.0),
-                          end: const Offset(0.0, 0.0))
-                      .animate(animation);
-                  if (child.key == formPages[pageNumber].key) {
-                    return SlideTransition(
-                      position: inAnimation,
-                      child: FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
-                    );
-                  } else {
-                    return SlideTransition(
-                      position: outAnimation,
-                      child: FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
-                    );
-                  }
-                },
-                child: formPages[pageNumber],
-              ),
-            ),
-            Expanded(
-                child: Center(
-              child: ElevatedButton(
-                onPressed: () => formPages[pageNumber].reactiveFormGroup.valid
-                    ? setState(() {
-                        if (pageNumber < formPages.length - 1) {
-                          ++pageNumber;
-                        }
-                      })
-                    : () {
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(const SnackBar(
-                            content: Text('Please fill out the form'),
-                            backgroundColor: Colors.red,
-                          ));
-                      },
-                child: const Text('Continue'),
-              ),
-            )),
-          ],
-        ));
+            context: context, appBarName: 'SignUP'),
+        body: Center(
+          child: DefaultUIElements.getDefaultPaddingContainer(
+              child: const SignUpPageBody()),
+        ),
+      ),
+    );
   }
 }

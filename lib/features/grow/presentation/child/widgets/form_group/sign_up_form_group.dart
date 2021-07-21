@@ -18,7 +18,7 @@ class ChildSignUpForm {
         'username': FormInputsControllers.getTextFieldInputController(),
         'firstname': FormInputsControllers.getTextFieldInputController(),
         'lastname': FormInputsControllers.getTextFieldInputController(),
-        'email': FormInputsControllers.getEmailFieldInputController(
+        'child_email': FormInputsControllers.getEmailFieldInputController(
             isRequired: false),
         'gender': FormInputsControllers.getGenderFieldInputController(),
       });
@@ -33,7 +33,7 @@ class ChildSignUpForm {
         'age': FormInputsControllers.getMinAndMaxNumberInputController(
             min: minAge, max: maxAge),
         'school': FormInputsControllers.getSchoolFieldInputController(),
-        'grade_level': FormInputsControllers.getMinAndMaxNumberInputController(
+        'gradeLevel': FormInputsControllers.getMinAndMaxNumberInputController(
             min: min, max: max),
       });
 

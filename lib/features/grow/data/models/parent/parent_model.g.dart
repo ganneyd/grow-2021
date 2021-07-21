@@ -26,6 +26,7 @@ _$_ParentModel _$_$_ParentModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_ParentModelToJson(_$_ParentModel instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'firstname': instance.firstname,
       'lastname': instance.lastname,
       'childrenIDs': instance.childrenIDs,

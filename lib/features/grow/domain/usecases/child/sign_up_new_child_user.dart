@@ -1,70 +1,57 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
 import '../../entities/child/child_entity.dart';
-import '../mixins.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 ///When a new child user's account is being made this is the usecase
-class SignUpNewChildUser implements UseCase<UserEntity, Params> {
+class SignUpNewChildUser implements UseCase<String, Params> {
   ///Constructor
-  SignUpNewChildUser(
-      {required AuthenticationRepository authenticationRepository,
-      required ChildRepository childRepository})
-      : _authenticationRepository = authenticationRepository,
-        _childRepository = childRepository;
+  SignUpNewChildUser(AuthenticationRepository authenticationRepository)
+      : _callable =
+            FirebaseFunctions.instance.httpsCallable('signUpNewChildAcc'),
+        _authenticationRepository = authenticationRepository;
 
+  final HttpsCallable _callable;
   final AuthenticationRepository _authenticationRepository;
-  final ChildRepository _childRepository;
   @override
-  Future<Either<Failure, UserEntity>> call(Params params) async {
-    final Either<Failure, UserEntity> authBy = await _authenticationRepository
-        .authenticateUser(params.parentEmail, params.parentPassword);
-    if (authBy.isRight()) {
-      //get the auth_id for the parent
-      final UserEntity parent = authBy.getOrElse(() => const UserEntity(
-          userEmail: 'test-email',
-          userID: 'test-id ',
-          name: 'test-name',
-          userType: UserType.child));
-
-      //attemp to authenticate the user and store it in a variable
-
-      //call the sign up method and then wait for the UserEntity that contains the
-      // user's uid and email
-      final Either<Failure, UserEntity> userCredential =
-          await _authenticationRepository.signUpUser(
-              params.childEmail, params.childPassword);
-
-      //check to see if the userCredential returns successfully, which is right
-      // and then create the user data in the db
-      if (userCredential.isRight()) {
-        final UserEntity user = userCredential.getOrElse(() => const UserEntity(
-            userEmail: 'test-email',
-            userID: 'test-id ',
-            name: 'tese-name',
-            userType: UserType.child));
-        final ChildEntity childWithID =
-            toChilEntityWithID(params.child, user.userID, parent.userID);
-
-        //if successful try to poppulate the children collection with the
-        //child's information
-        final Either<Failure, void> createData =
-            await _childRepository.createChildData(childWithID);
-
-        //if the user data was created successfully then
-        //return the UserEntity object
-        if (createData.isRight()) {
-          return Right<Failure, UserEntity>(user);
+  Future<Either<Failure, String>> call(Params params) async {
+    //todo move this to auth repo
+    try {
+      final HttpsCallableResult<Map<String, dynamic>> result =
+          await _callable.call(<String, dynamic>{
+        'child': <String, dynamic>{
+          'email': params.childEmail,
+          'password': params.childPassword,
+          'data': Child.toChild(params.child).toJson(),
+        },
+        'parent': <String, dynamic>{
+          'email': params.parentEmail,
+          'password': params.parentPassword,
         }
+      });
+      print(result.data);
+      if (result.data['success'] as bool) {
+        Either<Failure, void> res = await _authenticationRepository.loginUser(
+            params.childEmail, params.childPassword);
+        return res.fold(
+            (Failure l) => Left<Failure, String>(AuthenticationFailure()),
+            (void r) =>
+                Right<Failure, String>(result.data['childUID'] as String));
+      } else {
+        final Map<String, dynamic> error =
+            result.data['errorMsg'] as Map<String, dynamic>;
+        return Left<Failure, String>(SignUpFailure(
+            errMsg: error['error']['errorInfo']['message'] as String));
       }
+    } catch (error) {
+      return Left<Failure, String>(SignUpFailure(errMsg: error.toString()));
     }
-    //if userCredential isn't an instance of Right then it must be left
-    //so we return a failure
-    return Left<Failure, UserEntity>(SignUpFailure());
   }
 }
 

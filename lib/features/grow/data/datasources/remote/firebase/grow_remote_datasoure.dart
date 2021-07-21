@@ -71,11 +71,13 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
   final FirebaseFirestore database;
 
   ///Function that returns a list of JSON data
-  List<Map<String, dynamic>> _getJsonList(QuerySnapshot snapshot) {
+  List<Map<String, dynamic>> _getJsonList(
+      QuerySnapshot<Map<String, dynamic>> snapshot) {
     //list to hold the json data returned from the database
     final List<Map<String, dynamic>> jsonList = <Map<String, dynamic>>[];
     if (snapshot.docs.isNotEmpty) {
-      for (final DocumentSnapshot docSnapshot in snapshot.docs) {
+      for (final DocumentSnapshot<Map<String, dynamic>> docSnapshot
+          in snapshot.docs) {
         final Map<String, dynamic> data = docSnapshot.data()!;
         data['uid'] = docSnapshot.reference.id;
         jsonList.add(data);
@@ -111,7 +113,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
       String collectionName, String docID) async {
     try {
       //returns the document snapshot of the document retrived
-      final DocumentSnapshot snapshot =
+      final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await database.collection(collectionName).doc(docID).get();
       final Map<String, dynamic> data = snapshot.data()!;
       data['uid'] = snapshot.id;
@@ -141,7 +143,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
     List<Map<String, dynamic>> jsonList = <Map<String, dynamic>>[];
     try {
       //returns the query snapshot of the document retrived
-      final QuerySnapshot snapshots =
+      final QuerySnapshot<Map<String, dynamic>> snapshots =
           await database.collection(collectionName).get();
 
       jsonList = _getJsonList(snapshots);
@@ -167,7 +169,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
       bool? isNull}) async {
     //list to hold the json data returned from the database
     try {
-      final QuerySnapshot snapshot = await database
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await database
           .collection(collectionName)
           .where(
             fieldName,

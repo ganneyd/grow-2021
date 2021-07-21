@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/repository_mixins.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
+
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/entities_bucket.dart';
 
@@ -118,31 +122,24 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   @override
   Future<Either<Failure, UserEntity>> authenticateUser(
       String email, String password) async {
-    ///variable to hold the newly created user
-    firebase_auth.UserCredential userCredential;
-    try {
-      ///new [FirebaseApp] instance
-      final FirebaseApp app = await Firebase.initializeApp(
-          name: 'Secondary', options: Firebase.app().options);
+    print('about to call function');
 
-      ///create the new user using the email and password provided
-      userCredential = await firebase_auth.FirebaseAuth.instanceFor(app: app)
-          .signInWithEmailAndPassword(email: email, password: password);
-      await firebase_auth.FirebaseAuth.instanceFor(app: app).signOut();
-      //delete the app
-      await app.delete();
-      //return the UserModel for the newly registered user
+    final HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('getParentCredential');
+    print('before the actual call');
+    final HttpsCallableResult<Map<String, dynamic>> result = await callable
+        .call(<String, dynamic>{'email': email, 'password': password});
+    print('The uid is ${result.data['uid']}');
 
-      return Right<Failure, UserEntity>(_getUserEntity(userCredential));
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      // Do something with exception. This try/catch is here to make sure
-      // that even if the user creation fails, app.delete() runs, if is not,
-      // next time Firebase.initializeApp() will fail as the previous one was
-      // not deleted.
-      return Left<Failure, UserEntity>(
-          AuthenticationFailure(errMsg: e.message!));
-    } catch (e) {
-      return Left<Failure, UserEntity>(AuthenticationFailure());
+    if (result.data.containsKey('uid')) {
+      return Right<Failure, UserEntity>(UserEntity(
+          userID: result.data['uid'].toString(),
+          name: 'auth',
+          userEmail: 'auth',
+          userType: UserType.parent));
+    } else {
+      return Left<Failure, UserEntity>(AuthenticationFailure(
+          errMsg: result.data['errorInfo']!['message']!.toString()));
     }
   }
 

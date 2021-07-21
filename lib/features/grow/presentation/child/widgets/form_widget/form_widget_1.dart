@@ -3,14 +3,16 @@ import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_group/
 import 'package:grow_run_v1/features/grow/presentation/utils/forms_interface.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/default_ui_elements.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_group/get_form_validators.dart';
+import 'package:grow_run_v1/features/grow/presentation/widgets/form_inputs/form_gender_input.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 ///
-class ChildSignUpFormOne extends ReactiveFormGroup {
+class ChildSignUpFormOne extends StatelessWidget {
   ////
-  ChildSignUpFormOne() : super(key: const Key('child-sign-up-form-1'));
-  final FormGroup formgroup = ChildSignUpForm.buildChildSignUpPage1();
+  ChildSignUpFormOne({required this.formgroup})
+      : super(key: const Key('child-sign-up-form-1'));
+  final FormGroup formgroup;
 
   ///the form group for this form
   @override
@@ -29,8 +31,8 @@ class ChildSignUpFormOne extends ReactiveFormGroup {
               ),
               DefaultUIElements.getDefaultFormPadding(),
               Flexible(
-                child:
-                    DefaultUIElements.getEmailInput(formControlName: 'email'),
+                child: DefaultUIElements.getEmailInput(
+                    formControlName: 'child_email'),
               ),
               DefaultUIElements.getDefaultFormPadding(),
               Flexible(
@@ -50,17 +52,16 @@ class ChildSignUpFormOne extends ReactiveFormGroup {
                     ),
                   ),
                 ],
-              ))
+              )),
+              DefaultUIElements.getDefaultFormPadding(),
+              Flexible(
+                child: ReactiveGenderInput(
+                  size: MediaQuery.of(context).size,
+                  formControlName: 'gender',
+                ),
+              )
             ],
           ));
         });
   }
-
-  @override
-  bool isValid() {
-    return formgroup.valid;
-  }
-
-  @override
-  FormGroup get reactiveFormGroup => formgroup;
 }

@@ -5,15 +5,16 @@ import 'package:grow_run_v1/features/grow/presentation/widgets/default_ui_elemen
 import 'package:reactive_forms/reactive_forms.dart';
 
 ///
-class ChildSignUpFormThree extends ReactiveFormGroup {
+class ChildSignUpFormThree extends StatelessWidget {
   ///
-  ChildSignUpFormThree() : super(key: const Key('child-sign-up-form-3'));
-  final FormGroup _formGroup = ChildSignUpForm.buildChildSignUpPage3();
+  const ChildSignUpFormThree({required this.formGroup})
+      : super(key: const Key('child-sign-up-form-3'));
+  final FormGroup formGroup;
   @override
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
-        form: () => _formGroup,
-        builder: (context, form, child) {
+        form: () => formGroup,
+        builder: (BuildContext context, FormGroup form, Widget? child) {
           return DefaultUIElements.getDefaultPaddingContainer(
               child: Column(
             children: <Widget>[
@@ -46,7 +47,4 @@ class ChildSignUpFormThree extends ReactiveFormGroup {
           ));
         });
   }
-
-  @override
-  FormGroup get reactiveFormGroup => _formGroup;
 }

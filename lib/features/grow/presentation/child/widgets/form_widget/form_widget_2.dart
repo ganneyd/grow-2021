@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart';
-import 'package:grow_run_v1/features/grow/presentation/utils/forms_interface.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/default_ui_elements.dart';
-import 'package:grow_run_v1/features/grow/presentation/widgets/form_group/get_form_validators.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 ///
-class ChildSignUpFormTwo extends ReactiveFormGroup
-    implements GetFormValidation {
+class ChildSignUpFormTwo extends StatelessWidget {
   ///
-  ChildSignUpFormTwo({required this.schools})
+  const ChildSignUpFormTwo({required this.schools, required this.formGroup})
       : super(key: const Key('child-sign-up-form-2'));
   final List<SchoolModel> schools;
-  final FormGroup _formGroup = ChildSignUpForm.buildChildSignUpPage2(
-      minAge: 7, maxAge: 17, min: 0, max: 12);
+  final FormGroup formGroup;
   @override
   Widget build(BuildContext context) {
     return DefaultUIElements.getDefaultPaddingContainer(
         child: ReactiveFormBuilder(
-            form: () => _formGroup,
+            form: () => formGroup,
             builder: (context, form, child) {
               return Column(
                 children: <Widget>[
@@ -42,20 +37,11 @@ class ChildSignUpFormTwo extends ReactiveFormGroup
                   DefaultUIElements.getDefaultFormPadding(),
                   Expanded(
                       child: ReactiveTextField<int>(
-                    formControlName: 'grade_level',
+                    formControlName: 'gradeLevel',
                     decoration: const InputDecoration(hintText: 'Grade Level'),
                   )),
                 ],
               );
             }));
-  }
-
-  @override
-  FormGroup get reactiveFormGroup => _formGroup;
-
-  @override
-  bool isValid() {
-    // TODO: implement isValid
-    throw UnimplementedError();
   }
 }

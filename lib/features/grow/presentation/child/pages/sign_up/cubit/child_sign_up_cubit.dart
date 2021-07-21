@@ -5,7 +5,9 @@ import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../../domain/usecases/child/register_new_child_user.dart'
     as register_new_child_user_usecase;
@@ -16,6 +18,7 @@ import 'child_sign_up_state.dart';
 ///
 class ChildSignUpCubit extends Cubit<ChildSignUpState> {
   ///
+  ///todo remove auth and child repo?
   ChildSignUpCubit(
       {required ChildRepository childRepository,
       required AuthenticationRepository authenticationRepository})
@@ -24,9 +27,15 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
                 authenticationRepository: authenticationRepository,
                 childRepository: childRepository),
         _signUpNewChildUser = sign_up_new_child_user_usecase.SignUpNewChildUser(
-            authenticationRepository: authenticationRepository,
-            childRepository: childRepository),
+            authenticationRepository),
         super(ChildSignUpState(
+            formGroups: [
+              ChildSignUpForm.buildChildSignUpPage1(),
+              ChildSignUpForm.buildChildSignUpPage2(
+                  min: 1, max: 12, minAge: 6, maxAge: 18),
+              ChildSignUpForm.buildChildSignUpPage3()
+            ],
+            formJSON: {},
             childModel: Child.initialChild(),
             status: FormStatus.pure,
             signUpMehtod: SignUpMethod.unkown));
@@ -35,32 +44,31 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
       _registerNewChildUser;
   final sign_up_new_child_user_usecase.SignUpNewChildUser _signUpNewChildUser;
 
-  ///When the form is valid and the user submits the form, the JSON data is
-  ///passed to this method and then appended to the childModel
-  void formSubmitted(Map<String, dynamic> formJson) {
-    final Child parseJson = Child.copyFromJson(formJson, state.childModel);
-    emit(state.copyWith(childModel: parseJson));
-  }
-
   ///
-  Future<void> signUpChildUser(String childEmail, String childPassword,
-      String parentEmail, String parentPassword) async {
-    emit(state.copyWith(status: FormStatus.submissionInProgress));
+  Future<void> signUpChildUser() async {
+    emit(state.copyWith(
+        status: FormStatus.submissionInProgress, formJSON: _getFormJson()));
+    final int age = state.formJSON['age'] as int;
+    state.formJSON['dateOfBirth'] =
+        DateTime.now().subtract(Duration(days: 365 * age)).toString();
+    final Child formChild = Child.fromJson(state.formJSON);
 
-    final Either<Failure, UserEntity> result = await _signUpNewChildUser.call(
+    final Either<Failure, String> result = await _signUpNewChildUser.call(
         sign_up_new_child_user_usecase.Params(
-            child: state.childModel,
-            childPassword: childPassword,
-            childEmail: childEmail,
-            parentEmail: parentEmail,
-            parentPassword: parentPassword));
+            child: formChild,
+            childPassword: state.formJSON['child_password'].toString(),
+            childEmail: state.formJSON['child_email'].toString(),
+            parentEmail: state.formJSON['parent_email'].toString(),
+            parentPassword: state.formJSON['parent_password'].toString()));
 
     emit(result.fold((Failure l) {
+      print('failed with ${l.message}');
       return state.copyWith(
           error: l.message, status: FormStatus.submissionFailure);
-    }, (UserEntity r) {
+    }, (String uid) {
+      print('passed with $uid');
       return state.copyWith(
-          childModel: state.childModel.copyWith(uid: r.userID),
+          childModel: state.childModel.copyWith(uid: uid),
           error: null,
           status: FormStatus.submissionSuccess);
     }));
@@ -82,4 +90,11 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
   //           error: '',
   //           status: FormStatus.submissionSuccess)));
   // }
+  Map<String, dynamic> _getFormJson() {
+    final Map<String, dynamic> json = {};
+    for (final FormGroup element in state.formGroups) {
+      json.addAll(element.value);
+    }
+    return json;
+  }
 }

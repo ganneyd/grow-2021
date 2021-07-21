@@ -3,6 +3,7 @@ import 'package:grow_run_v1/core/util/gender.dart';
 import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_inputs/form_input_types.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 
 ///Returns various controllers to be used in form groups
 class FormInputsControllers {
@@ -56,25 +57,22 @@ class FormInputsControllers {
   ///Form Control for the email input
   static FormControl<String> getEmailFieldInputController(
       {bool isRequired = true}) {
-    final List<Map<String, Object>? Function(AbstractControl<dynamic> control)>
-        validators =
-        <Map<String, Object>? Function(AbstractControl<dynamic> control)>[
+    final List<Map<String, dynamic>? Function(AbstractControl control)>
+        validators = [
       Validators.email,
       Validators.required,
     ];
-    final List<Map<String, Object>? Function(AbstractControl<dynamic> control)>
-        validatorsNotRequired =
-        <Map<String, Object>? Function(AbstractControl<dynamic> control)>[
-      Validators.email
-    ];
+    final List<ValidatorFunction> validatorsNotRequired = [Validators.email];
 
     return FormControl<String>(
         validators: isRequired ? validators : validatorsNotRequired);
   }
 
   ///Form control for the gender input
-  static FormControl<Gender> getGenderFieldInputController() {
-    return FormControl<Gender>(value: Gender.not_specified);
+  //TODO fix so it can used with Gender and not String
+  static FormControl<String> getGenderFieldInputController() {
+    return FormControl<String>(
+        value: EnumToString.convertToString(Gender.not_specified));
   }
 
   ///Form controls for age inputs

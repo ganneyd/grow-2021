@@ -18,11 +18,15 @@ class _$ChildSignUpStateTearOff {
 
   _ChildSignUpState call(
       {required Child childModel,
+      required List<FormGroup> formGroups,
+      required Map<String, dynamic> formJSON,
       String? error,
       required FormStatus status,
       SignUpMethod signUpMehtod = SignUpMethod.unkown}) {
     return _ChildSignUpState(
       childModel: childModel,
+      formGroups: formGroups,
+      formJSON: formJSON,
       error: error,
       status: status,
       signUpMehtod: signUpMehtod,
@@ -36,6 +40,8 @@ const $ChildSignUpState = _$ChildSignUpStateTearOff();
 /// @nodoc
 mixin _$ChildSignUpState {
   Child get childModel => throw _privateConstructorUsedError;
+  List<FormGroup> get formGroups => throw _privateConstructorUsedError;
+  Map<String, dynamic> get formJSON => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
   SignUpMethod get signUpMehtod => throw _privateConstructorUsedError;
@@ -52,6 +58,8 @@ abstract class $ChildSignUpStateCopyWith<$Res> {
       _$ChildSignUpStateCopyWithImpl<$Res>;
   $Res call(
       {Child childModel,
+      List<FormGroup> formGroups,
+      Map<String, dynamic> formJSON,
       String? error,
       FormStatus status,
       SignUpMethod signUpMehtod});
@@ -71,6 +79,8 @@ class _$ChildSignUpStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? childModel = freezed,
+    Object? formGroups = freezed,
+    Object? formJSON = freezed,
     Object? error = freezed,
     Object? status = freezed,
     Object? signUpMehtod = freezed,
@@ -80,6 +90,14 @@ class _$ChildSignUpStateCopyWithImpl<$Res>
           ? _value.childModel
           : childModel // ignore: cast_nullable_to_non_nullable
               as Child,
+      formGroups: formGroups == freezed
+          ? _value.formGroups
+          : formGroups // ignore: cast_nullable_to_non_nullable
+              as List<FormGroup>,
+      formJSON: formJSON == freezed
+          ? _value.formJSON
+          : formJSON // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       error: error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -112,6 +130,8 @@ abstract class _$ChildSignUpStateCopyWith<$Res>
   @override
   $Res call(
       {Child childModel,
+      List<FormGroup> formGroups,
+      Map<String, dynamic> formJSON,
       String? error,
       FormStatus status,
       SignUpMethod signUpMehtod});
@@ -134,6 +154,8 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? childModel = freezed,
+    Object? formGroups = freezed,
+    Object? formJSON = freezed,
     Object? error = freezed,
     Object? status = freezed,
     Object? signUpMehtod = freezed,
@@ -143,6 +165,14 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
           ? _value.childModel
           : childModel // ignore: cast_nullable_to_non_nullable
               as Child,
+      formGroups: formGroups == freezed
+          ? _value.formGroups
+          : formGroups // ignore: cast_nullable_to_non_nullable
+              as List<FormGroup>,
+      formJSON: formJSON == freezed
+          ? _value.formJSON
+          : formJSON // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       error: error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -163,12 +193,18 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
 class _$_ChildSignUpState implements _ChildSignUpState {
   _$_ChildSignUpState(
       {required this.childModel,
+      required this.formGroups,
+      required this.formJSON,
       this.error,
       required this.status,
       this.signUpMehtod = SignUpMethod.unkown});
 
   @override
   final Child childModel;
+  @override
+  final List<FormGroup> formGroups;
+  @override
+  final Map<String, dynamic> formJSON;
   @override
   final String? error;
   @override
@@ -179,7 +215,7 @@ class _$_ChildSignUpState implements _ChildSignUpState {
 
   @override
   String toString() {
-    return 'ChildSignUpState(childModel: $childModel, error: $error, status: $status, signUpMehtod: $signUpMehtod)';
+    return 'ChildSignUpState(childModel: $childModel, formGroups: $formGroups, formJSON: $formJSON, error: $error, status: $status, signUpMehtod: $signUpMehtod)';
   }
 
   @override
@@ -189,6 +225,12 @@ class _$_ChildSignUpState implements _ChildSignUpState {
             (identical(other.childModel, childModel) ||
                 const DeepCollectionEquality()
                     .equals(other.childModel, childModel)) &&
+            (identical(other.formGroups, formGroups) ||
+                const DeepCollectionEquality()
+                    .equals(other.formGroups, formGroups)) &&
+            (identical(other.formJSON, formJSON) ||
+                const DeepCollectionEquality()
+                    .equals(other.formJSON, formJSON)) &&
             (identical(other.error, error) ||
                 const DeepCollectionEquality().equals(other.error, error)) &&
             (identical(other.status, status) ||
@@ -202,6 +244,8 @@ class _$_ChildSignUpState implements _ChildSignUpState {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(childModel) ^
+      const DeepCollectionEquality().hash(formGroups) ^
+      const DeepCollectionEquality().hash(formJSON) ^
       const DeepCollectionEquality().hash(error) ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(signUpMehtod);
@@ -215,12 +259,18 @@ class _$_ChildSignUpState implements _ChildSignUpState {
 abstract class _ChildSignUpState implements ChildSignUpState {
   factory _ChildSignUpState(
       {required Child childModel,
+      required List<FormGroup> formGroups,
+      required Map<String, dynamic> formJSON,
       String? error,
       required FormStatus status,
       SignUpMethod signUpMehtod}) = _$_ChildSignUpState;
 
   @override
   Child get childModel => throw _privateConstructorUsedError;
+  @override
+  List<FormGroup> get formGroups => throw _privateConstructorUsedError;
+  @override
+  Map<String, dynamic> get formJSON => throw _privateConstructorUsedError;
   @override
   String? get error => throw _privateConstructorUsedError;
   @override

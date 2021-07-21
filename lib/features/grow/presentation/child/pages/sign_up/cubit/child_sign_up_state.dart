@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 part 'child_sign_up_state.freezed.dart';
 
 ///If the child's acc is either being  [registering] or [creating] by a user
@@ -21,6 +22,8 @@ class ChildSignUpState with _$ChildSignUpState {
   ///
   factory ChildSignUpState(
           {required Child childModel,
+          required List<FormGroup> formGroups,
+          required Map<String, dynamic> formJSON,
           String? error,
           required FormStatus status,
           @Default(SignUpMethod.unkown) SignUpMethod signUpMehtod}) =
