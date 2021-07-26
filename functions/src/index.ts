@@ -34,5 +34,7 @@ functions.auth.user().onDelete(async (user)=>{
   const parentClaims = parentRecord.customClaims as Record<string, unknown>;
   const children = parentClaims["children"] as Array<string>;
   children.splice(children.indexOf(user.uid), 1);
+  parentClaims["children"] = children;
+  await admin.auth().setCustomUserClaims(parentRecord.uid, parentClaims);
   console.log(claims["parentUID"] as string );
 });
