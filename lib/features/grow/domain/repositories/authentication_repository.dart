@@ -23,8 +23,20 @@ abstract class AuthenticationRepository {
   Future<Either<Failure, UserEntity>> authenticateUser(
       String email, String password);
 
-  ///Signs up a new user using the [email] and [password] passsed
-  Future<Either<Failure, UserEntity>> signUpUser(String email, String password);
+  ///Signs up a new user using the [dependentEmail] and [dependentPassword]
+  ///populates the database with the [dependentData]
+  ///if a [dependency] is specified, such as the person who is creating the
+  ///account for the dependent ex parent or admin users;
+  ///then the [dependencyEmail] [dependencyPassword] and [dependencyUserType]
+  ///should be provided
+  Future<Either<Failure, UserEntity>> signUpUser(
+      {required String dependentEmail,
+      required String dependentPassword,
+      String? dependencyEmail,
+      String? dependencyPassword,
+      required UserType dependentUserType,
+      UserType? dependencyUserType,
+      required Map<String, dynamic> dependentData});
 
   ///Registers a new [User] account up by using the [email] and [password]
   ///along with a second instance of the authentication library.

@@ -135,6 +135,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_UserModel implements _UserModel {
   const _$_UserModel(
       {this.userID = 'no-id',

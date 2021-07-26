@@ -6,6 +6,9 @@ import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart';
+part 'sign_up_body_loaded.dart';
+part 'sign_up_body_loading.dart';
+part 'sign_up_body_submitting.dart';
 
 ///
 class SignUpPageBody extends StatefulWidget {
@@ -23,87 +26,17 @@ class _SignUpPageBodyState extends State<SignUpPageBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChildSignUpCubit, ChildSignUpState>(
-        listener: (BuildContext context, ChildSignUpState state) {},
-        builder: (BuildContext context, ChildSignUpState state) {
-          return Column(
-            children: [
-              Expanded(
-                flex: 2,
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 500),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    final Animation<Offset> inAnimation = Tween<Offset>(
-                            begin: const Offset(1.0, 0.0),
-                            end: const Offset(0.0, 0.0))
-                        .animate(animation);
-                    final Animation<Offset> outAnimation = Tween<Offset>(
-                            begin: const Offset(-1.0, 0.0),
-                            end: const Offset(0.0, 0.0))
-                        .animate(animation);
-                    if (child.key == _getFormPage(pageNumber, state).key) {
-                      return SlideTransition(
-                        position: inAnimation,
-                        child: FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        ),
-                      );
-                    } else {
-                      return SlideTransition(
-                        position: outAnimation,
-                        child: FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        ),
-                      );
-                    }
-                  },
-                  child: _getFormPage(pageNumber, state),
-                ),
-              ),
-              Expanded(
-                  child: Center(
-                child: pageNumber < state.formGroups.length - 1
-                    ? ElevatedButton(
-                        onPressed: () {
-                          if (state.formGroups[pageNumber].valid) {
-                            setState(() {
-                              if (pageNumber < state.formGroups.length - 1) {
-                                ++pageNumber;
-                              }
-                            });
-                          } else {
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(const SnackBar(
-                                content: Text('Please fill out the form'),
-                                backgroundColor: Colors.red,
-                              ));
-                          }
-                        },
-                        child: const Text('Continue'),
-                      )
-                    : ElevatedButton(
-                        onPressed: () {
-                          if (state.formGroups[pageNumber].valid) {
-                            print('im pressed');
-                            context.read<ChildSignUpCubit>().signUpChildUser();
-                          } else {
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(const SnackBar(
-                                content: Text('Please fill out the form'),
-                                backgroundColor: Colors.red,
-                              ));
-                          }
-                        },
-                        child: const Text('Submit'),
-                      ),
-              )),
-            ],
-          );
+        listener: (BuildContext context, ChildSignUpState state) {
+      if (state.fetchingData) {}
+    }, builder: (BuildContext context, ChildSignUpState state) {
+      return getLoadedBody(context, state, pageNumber, () {
+        setState(() {
+          if (pageNumber < state.formGroups.length - 1) {
+            ++pageNumber;
+          }
         });
+      });
+    });
   }
 }
 
@@ -130,7 +63,7 @@ class _SignUpPageBodyState extends State<SignUpPageBody> {
 //                       )
 // }
 
-Widget _getFormPage(int pageNumber, ChildSignUpState state) {
+Widget getFormPage(int pageNumber, ChildSignUpState state) {
   switch (pageNumber) {
     case 0:
       return ChildSignUpFormOne(formgroup: state.formGroups[pageNumber]);

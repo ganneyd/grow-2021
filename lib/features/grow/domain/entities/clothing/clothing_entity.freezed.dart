@@ -163,6 +163,7 @@ class __$ClothingEntityCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_ClothingEntity
     with DiagnosticableTreeMixin
     implements _ClothingEntity {

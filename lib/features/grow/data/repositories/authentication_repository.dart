@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/repository_mixins.dart';
@@ -17,9 +18,19 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   ///Takes an [FirebaseAuth] instance
   AuthenticationRepositoryImplementation(
     firebase_auth.FirebaseAuth firebaseAuth,
-  ) : _firebaseAuth = firebaseAuth;
+  )   : _firebaseAuth = firebaseAuth,
+        _signUpUserCallable =
+            FirebaseFunctions.instance.httpsCallable('signUpUser'),
+        _disableUserCallable =
+            FirebaseFunctions.instance.httpsCallable('disableUser'),
+        _enableUserCallable =
+            FirebaseFunctions.instance.httpsCallable('enableUser');
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
+  //Firebase Function reference
+  final HttpsCallable _signUpUserCallable,
+      _disableUserCallable,
+      _enableUserCallable;
 
   UserEntity _getUserEntity(firebase_auth.UserCredential userCredential) {
     return UserEntity(
@@ -102,45 +113,9 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   }
 
   @override
-  Future<Either<Failure, UserEntity>> signUpUser(
-      String email, String password) async {
-    try {
-      //create user with the email and password passed
-      final firebase_auth.UserCredential userCredential = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      //return the credentials of the newly created user
-      return Right<Failure, UserEntity>(_getUserEntity(userCredential));
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      return Left<Failure, UserEntity>(
-          AuthenticationFailure(errMsg: e.message!));
-    } catch (e) {
-      return Left<Failure, UserEntity>(
-          AuthenticationFailure(errMsg: e.toString()));
-    }
-  }
-
-  @override
   Future<Either<Failure, UserEntity>> authenticateUser(
       String email, String password) async {
-    print('about to call function');
-
-    final HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('getParentCredential');
-    print('before the actual call');
-    final HttpsCallableResult<Map<String, dynamic>> result = await callable
-        .call(<String, dynamic>{'email': email, 'password': password});
-    print('The uid is ${result.data['uid']}');
-
-    if (result.data.containsKey('uid')) {
-      return Right<Failure, UserEntity>(UserEntity(
-          userID: result.data['uid'].toString(),
-          name: 'auth',
-          userEmail: 'auth',
-          userType: UserType.parent));
-    } else {
-      return Left<Failure, UserEntity>(AuthenticationFailure(
-          errMsg: result.data['errorInfo']!['message']!.toString()));
-    }
+    return Left<Failure, UserEntity>(AuthenticationFailure());
   }
 
   @override
@@ -161,6 +136,52 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       return firebaseUser == null ? UserEntity.empty : firebaseUser.toUser;
     });
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signUpUser(
+      {required String dependentEmail,
+      required String dependentPassword,
+      String? dependencyEmail,
+      String? dependencyPassword,
+      required UserType dependentUserType,
+      UserType? dependencyUserType,
+      required Map<String, dynamic> dependentData}) async {
+    final Map<String, dynamic> functionJSON = <String, dynamic>{
+      'dependent': <String, dynamic>{
+        'email': dependentEmail,
+        'password': dependentPassword,
+        'data': dependentData,
+        'user_type': EnumToString.convertToString(dependentUserType)
+      }
+    };
+    if (dependencyEmail != null &&
+        dependencyPassword != null &&
+        dependencyUserType != null) {
+      functionJSON['dependency'] = <String, dynamic>{
+        'email': dependencyEmail,
+        'password': dependencyPassword,
+        'user_type': EnumToString.convertToString(dependencyUserType)
+      };
+    }
+    try {
+      print(functionJSON);
+      //create user with the email and password passed
+      final HttpsCallableResult<Map<String, dynamic>> result =
+          await _signUpUserCallable.call<Map<String, dynamic>>(functionJSON);
+      //parse the uid of the user from the  results and get the credentials
+      //for that user
+
+      //return the credentials of the newly created user
+      return Right<Failure, UserEntity>(UserEntity(
+          userID: result.data['user'] as String, userEmail: ' ', name: ' '));
+    } on FirebaseFunctionsException catch (e) {
+      return Left<Failure, UserEntity>(
+          AuthenticationFailure(errMsg: e.message!));
+    } catch (e) {
+      return Left<Failure, UserEntity>(
+          AuthenticationFailure(errMsg: e.toString()));
+    }
   }
 }
 

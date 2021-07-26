@@ -96,8 +96,23 @@ class MockAuthenticationRepository extends _i1.Mock
           .Future<_i2.Either<_i5.Failure, _i8.UserEntity>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i8.UserEntity>> signUpUser(
-          String? email, String? password) =>
-      (super.noSuchMethod(Invocation.method(#signUpUser, [email, password]),
+          {String? dependentEmail,
+          String? dependentPassword,
+          String? dependencyEmail,
+          String? dependencyPassword,
+          _i8.UserType? dependentUserType,
+          _i8.UserType? dependencyUserType,
+          Map<String, dynamic>? dependentData}) =>
+      (super.noSuchMethod(
+          Invocation.method(#signUpUser, [], {
+            #dependentEmail: dependentEmail,
+            #dependentPassword: dependentPassword,
+            #dependencyEmail: dependencyEmail,
+            #dependencyPassword: dependencyPassword,
+            #dependentUserType: dependentUserType,
+            #dependencyUserType: dependencyUserType,
+            #dependentData: dependentData
+          }),
           returnValue: Future<_i2.Either<_i5.Failure, _i8.UserEntity>>.value(
               _FakeEither<_i5.Failure, _i8.UserEntity>())) as _i4
           .Future<_i2.Either<_i5.Failure, _i8.UserEntity>>);

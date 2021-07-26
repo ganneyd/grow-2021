@@ -9,4 +9,8 @@ import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 
 ///The repository that handles all the business logic calls to apis and external
 ///services such as geolocation, animation stuff etc
-abstract class GROWRepository {}
+abstract class GROWRepository {
+  ///Gets the SchoolEntites from the datasource and return them or return a
+  ///failure as to why it failed
+  Future<Either<Failure, List<SchoolEntity>>> getSchools();
+}

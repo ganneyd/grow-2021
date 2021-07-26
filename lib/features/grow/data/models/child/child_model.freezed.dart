@@ -226,9 +226,8 @@ class __$ChildModelCopyWithImpl<$Res> extends _$ChildCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
   _$_ChildModel(
       {this.uid = 'no-id',

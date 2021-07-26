@@ -200,9 +200,8 @@ class __$ParentModelCopyWithImpl<$Res> extends _$ParentModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_ParentModel with DiagnosticableTreeMixin implements _ParentModel {
   _$_ParentModel(
       {this.uid = 'no-id',

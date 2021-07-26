@@ -199,9 +199,8 @@ class __$SchoolModelCopyWithImpl<$Res> extends _$SchoolModelCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SchoolModel implements _SchoolModel {
   _$_SchoolModel(
       {this.uid = 'no-id',

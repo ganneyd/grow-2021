@@ -12,10 +12,18 @@ import * as childFuncs from "./child/sign_up_child";
 admin.initializeApp(functions.config().firebase);
 
 
-export const signUpNewChildAcc = functions.https.onCall(async (data, context)=>{
-  return await childFuncs.signUpChild(
-    data.child as Record<string, unknown>,
-    data.parent as Record<string, unknown>);
+export const signUpUser = functions.https.onCall(async (data)=>{
+  if (data.dependent["user_type"] as string === "child" &&
+  data.dependency["user_type"] as string === "parent") {
+    return await childFuncs.signUpChild(
+      data.dependent as Record<string, unknown>,
+      data.dependency as Record<string, unknown>);
+  }
+  return {
+    success: false,
+    childUID: "",
+    errorMsg: "Unexpected error, sign up not done by authorized personnel",
+  };
 });
 // clears the child references from the parent's custom claims
 export const clearChildRefs =

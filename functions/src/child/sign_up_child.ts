@@ -10,7 +10,7 @@ export async function signUpChild(
   // eslint-disable-next-line prefer-const
   let response = {
     success: false,
-    childUID: "",
+    user: " ",
     errorMsg: "",
   };
   try {
@@ -22,17 +22,18 @@ export async function signUpChild(
     const result = await initParentAcc(
       parent.email as string, parent.password as string, childUser.uid);
     console.log(result);
+
     if (!(result["success"] as boolean)) {
       admin.auth().deleteUser(childUser.uid);
       throw Error("Unable to authenticate Parental Account");
     } else {
       await setChildCustomClaim(childUser, result["parentUID"] as string);
       // by now everything should have completed successfully
-      const childData = child.data as Record<string, unknown>;
+      const childData = child.dependentData as Record<string, unknown>;
       await admin.firestore().collection("children")
           .doc(childUser.uid).set(childData);
       response["success"] = true;
-      response["childUID"]= childUser.uid;
+      response["user"]= childUser.uid;
     }
   } catch (error) {
     response["errorMsg"] =error;
@@ -48,7 +49,7 @@ async function setChildCustomClaim(
     user: admin.auth.UserRecord, parentUID: string): Promise<void> {
   return admin.auth().setCustomUserClaims(user.uid, {
     child: true,
-    parentUID: parentUID,
+    parentUID,
 
   });
 }
@@ -72,8 +73,8 @@ async function initParentAcc(
     result["parentUID"] =user.uid;
   }).catch( async ()=>{
     await admin.auth().createUser({
-      email: email,
-      password: password,
+      email,
+      password,
     }).then(async (user)=>{
       await setParentClaims(user, childUID);
       result["success"]= true;

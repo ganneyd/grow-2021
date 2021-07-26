@@ -113,6 +113,7 @@ class __$LoginPageStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_LoginPageState implements _LoginPageState {
   _$_LoginPageState({this.error, this.status = LoginStateStatus.unknown});
 

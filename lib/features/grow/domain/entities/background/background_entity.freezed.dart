@@ -163,6 +163,7 @@ class __$BackgroundEntityCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_BackgroundEntity
     with DiagnosticableTreeMixin
     implements _BackgroundEntity {

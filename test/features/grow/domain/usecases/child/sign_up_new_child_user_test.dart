@@ -75,7 +75,7 @@ void main() {
         when(mockAuthenticationRepository.signUpUser(any, any)).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         // act
-        final Either<Failure, UserEntity> result = await usecase.call(Params(
+        final Either<Failure, String> result = await usecase.call(Params(
             child: childModel,
             childEmail: email1,
             childPassword: acceptablePassword,
@@ -101,7 +101,7 @@ void main() {
             (_) async => Left<Failure, UserEntity>(AuthenticationFailure()));
 
         // act
-        final Either<Failure, UserEntity> result = await usecaseWithMocks.call(
+        final Either<Failure, String> result = await usecaseWithMocks.call(
             Params(
                 child: childModel,
                 childEmail: email1,
@@ -132,7 +132,7 @@ void main() {
         when(mockChildRepository.createChildData(any))
             .thenAnswer((_) async => Left<Failure, void>(CreateDataFailure()));
         // act
-        final Either<Failure, UserEntity> result = await usecaseWithMocks.call(
+        final Either<Failure, String> result = await usecaseWithMocks.call(
             Params(
                 child: childModel,
                 childEmail: email1,

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
+import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
@@ -36,6 +37,8 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
               ChildSignUpForm.buildChildSignUpPage3()
             ],
             formJSON: {},
+            fetchingData: true,
+            schoolsList: <SchoolModel>[],
             childModel: Child.initialChild(),
             status: FormStatus.pure,
             signUpMehtod: SignUpMethod.unkown));
@@ -51,11 +54,10 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
     final int age = state.formJSON['age'] as int;
     state.formJSON['dateOfBirth'] =
         DateTime.now().subtract(Duration(days: 365 * age)).toString();
-    final Child formChild = Child.fromJson(state.formJSON);
 
     final Either<Failure, String> result = await _signUpNewChildUser.call(
         sign_up_new_child_user_usecase.Params(
-            child: formChild,
+            childJSON: state.formJSON,
             childPassword: state.formJSON['child_password'].toString(),
             childEmail: state.formJSON['child_email'].toString(),
             parentEmail: state.formJSON['parent_email'].toString(),

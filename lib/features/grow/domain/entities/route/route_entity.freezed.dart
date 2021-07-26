@@ -146,6 +146,7 @@ class __$RouteEntityCopyWithImpl<$Res> extends _$RouteEntityCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_RouteEntity with DiagnosticableTreeMixin implements _RouteEntity {
   _$_RouteEntity(
       {this.dateCreated,

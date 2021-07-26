@@ -139,6 +139,7 @@ class __$HomePageStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_HomePageState implements _HomePageState {
   _$_HomePageState(
       {required this.child, this.error, this.status = HomeStateStatus.loading});

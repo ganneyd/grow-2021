@@ -190,6 +190,7 @@ class __$GoalEntityCopyWithImpl<$Res> extends _$GoalEntityCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$_GoalEntity with DiagnosticableTreeMixin implements _GoalEntity {
   _$_GoalEntity(
       {this.goalOccurance = GOAL_OCCURANCE.UNKNOWN,

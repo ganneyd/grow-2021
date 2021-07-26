@@ -169,9 +169,8 @@ class __$TrophyEntityCopyWithImpl<$Res> extends _$TrophyEntityCopyWithImpl<$Res>
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_TrophyEntity extends _TrophyEntity with DiagnosticableTreeMixin {
   _$_TrophyEntity(
       {this.trophyCategory = TROPHY_CATEGORY.UNKNOWN,
