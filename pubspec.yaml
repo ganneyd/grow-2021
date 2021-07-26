@@ -31,7 +31,7 @@ dependencies:
   get_it: ^7.2.0
   #cool iconography 
   font_awesome_flutter: ^9.1.0
-  # Value equality
+
   equatable: ^2.0.0
   #enum converter
   enum_to_string: ^2.0.1
