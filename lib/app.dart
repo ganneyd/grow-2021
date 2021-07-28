@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grow_run_v1/features/grow/data/datasources/remote/firebase/grow_remote_datasoure.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/child_repository.dart';
+import 'package:grow_run_v1/features/grow/data/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/parent_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.dart';
 
 import 'features/grow/domain/repositories/authentication_repository.dart';
@@ -32,6 +34,9 @@ class App extends StatelessWidget {
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
           RepositoryProvider<ParentRepository>(
               create: (_) => ParentRepositoryImplementation(
+                  RemoteDataSourceImplementation(FirebaseFirestore.instance))),
+          RepositoryProvider<GROWRepository>(
+              create: (_) => GROWRepositoryImplementation(
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
         ],
         child: BlocProvider<AuthenticationBloc>(
