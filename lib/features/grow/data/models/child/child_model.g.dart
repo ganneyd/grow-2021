@@ -25,7 +25,6 @@ _$_ChildModel _$_$_ChildModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_ChildModelToJson(_$_ChildModel instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
       'username': instance.username,
       'firstname': instance.firstname,
       'lastname': instance.lastname,

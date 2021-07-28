@@ -28,9 +28,9 @@ class AuthenticationState extends Equatable {
   ///when a user is successfully authenticated
   AuthenticationState.authenticated(UserEntity user)
       : this._(
-            status: user.userType == UserType.child
+            status: user.userType.isChild()
                 ? AuthenticationStatus.childAuthenticated
-                : user.userType == UserType.parent
+                : user.userType.isParent()
                     ? AuthenticationStatus.parentAuthenticated
                     : AuthenticationStatus.authenticated,
             user: user);
@@ -50,4 +50,4 @@ class AuthenticationState extends Equatable {
 
   @override
   List<Object> get props => <Object>[status, user];
-} 
+}

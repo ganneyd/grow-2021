@@ -17,11 +17,11 @@ enum Collections {
 ///Implementation of the grow repository
 class GROWRepositoryImplementation extends GROWRepository {
   ///Constrcutor , takes a [FireBaseAuth] instance
-  GROWRepositoryImplementation(FirebaseAuth auth,
-      {required this.remoteDataSource})
-      : _firebaseAuth = auth;
+  GROWRepositoryImplementation(RemoteDataSource remoteDataSource)
+      : _firebaseAuth = FirebaseAuth.instance,
+        _remoteDataSource = remoteDataSource;
   final FirebaseAuth _firebaseAuth;
-  final RemoteDataSource remoteDataSource;
+  final RemoteDataSource _remoteDataSource;
 
   @override
   Future<Either<Failure, List<SchoolEntity>>> getSchools() async {
@@ -29,7 +29,7 @@ class GROWRepositoryImplementation extends GROWRepository {
     try {
       //Attempt to retrieve the collection in JSON formatt
       final List<Map<String, dynamic>> result =
-          await remoteDataSource.getCollection(Collections.school.toString());
+          await _remoteDataSource.getCollection('school');
       //If no exceptions are thrown then proceed to convert the JSON data
       //to school models, adding them to the [schools] list
       for (final Map<String, dynamic> schoolJSON in result) {
@@ -43,6 +43,7 @@ class GROWRepositoryImplementation extends GROWRepository {
     } catch (error) {
       //this means we had an unexpected exception
       //todo track this unexpected exception and log it to crashlytics
+      print('Error in grow  repod $error');
       return Left<Failure, List<SchoolEntity>>(FetchDataFailure());
     }
   }

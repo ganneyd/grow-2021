@@ -13,10 +13,11 @@ class AuthenticationUserChanged extends AuthenticationEvent {
   ///
   const AuthenticationUserChanged(this.user);
 
+  ///user enity returned from the auth repo
   final UserEntity user;
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => <Object>[user];
 }
 
 ///

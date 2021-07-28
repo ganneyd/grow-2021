@@ -6,8 +6,11 @@ import 'package:json_annotation/json_annotation.dart';
 part 'school_model.freezed.dart';
 part 'school_model.g.dart';
 
+///
+///
 @freezed
 class SchoolModel extends SchoolEntity with _$SchoolModel {
+  ///
   factory SchoolModel({
     @Default('no-id') String uid,
     @Default('name') String name,

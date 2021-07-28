@@ -38,15 +38,13 @@ class GenderInput extends StatelessWidget {
       child: Row(
         children: <Flexible>[
           Flexible(
-              flex: 1,
-              child: IconButton(
-                icon: const FaIcon(FontAwesomeIcons.male),
-                color: value.isMale()
-                    ? boyGender.withOpacity(1)
-                    : boyGender.withOpacity(0.5),
-                iconSize: 150,
-                onPressed: onMalePressed,
-              )),
+              child: GestureDetector(
+            onTap: onMalePressed,
+            child: Image(
+              image: const AssetImage('assets/avatar/male/male.png'),
+              height: size.height * 0.3,
+            ),
+          )),
           Flexible(
               flex: 1,
               child: IconButton(

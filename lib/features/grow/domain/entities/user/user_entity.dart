@@ -10,6 +10,18 @@ enum UserType {
   unknown
 }
 
+///Extension provides bool methods to determine if the user is of a type
+extension UserTypeExtension on UserType {
+  ///returns true if the user is a child
+  bool isChild() => this == UserType.child;
+
+  ///returns true if the user is a parent
+  bool isParent() => this == UserType.parent;
+
+  ///returns true if the user type is  not known
+  bool isUnknown() => this == UserType.unknown;
+}
+
 ///Information that belongs to the currently signed in user,
 ///such as their [email] and [uid]
 class UserEntity {

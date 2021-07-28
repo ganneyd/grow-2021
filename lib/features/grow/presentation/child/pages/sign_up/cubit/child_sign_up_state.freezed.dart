@@ -21,9 +21,8 @@ class _$ChildSignUpStateTearOff {
       required List<FormGroup> formGroups,
       required Map<String, dynamic> formJSON,
       String? error,
-      required FormStatus status,
+      required Status status,
       required List<SchoolModel> schoolsList,
-      required bool fetchingData,
       SignUpMethod signUpMehtod = SignUpMethod.unkown}) {
     return _ChildSignUpState(
       childModel: childModel,
@@ -32,7 +31,6 @@ class _$ChildSignUpStateTearOff {
       error: error,
       status: status,
       schoolsList: schoolsList,
-      fetchingData: fetchingData,
       signUpMehtod: signUpMehtod,
     );
   }
@@ -47,9 +45,8 @@ mixin _$ChildSignUpState {
   List<FormGroup> get formGroups => throw _privateConstructorUsedError;
   Map<String, dynamic> get formJSON => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
-  FormStatus get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   List<SchoolModel> get schoolsList => throw _privateConstructorUsedError;
-  bool get fetchingData => throw _privateConstructorUsedError;
   SignUpMethod get signUpMehtod => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -67,9 +64,8 @@ abstract class $ChildSignUpStateCopyWith<$Res> {
       List<FormGroup> formGroups,
       Map<String, dynamic> formJSON,
       String? error,
-      FormStatus status,
+      Status status,
       List<SchoolModel> schoolsList,
-      bool fetchingData,
       SignUpMethod signUpMehtod});
 
   $ChildCopyWith<$Res> get childModel;
@@ -92,7 +88,6 @@ class _$ChildSignUpStateCopyWithImpl<$Res>
     Object? error = freezed,
     Object? status = freezed,
     Object? schoolsList = freezed,
-    Object? fetchingData = freezed,
     Object? signUpMehtod = freezed,
   }) {
     return _then(_value.copyWith(
@@ -115,15 +110,11 @@ class _$ChildSignUpStateCopyWithImpl<$Res>
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
+              as Status,
       schoolsList: schoolsList == freezed
           ? _value.schoolsList
           : schoolsList // ignore: cast_nullable_to_non_nullable
               as List<SchoolModel>,
-      fetchingData: fetchingData == freezed
-          ? _value.fetchingData
-          : fetchingData // ignore: cast_nullable_to_non_nullable
-              as bool,
       signUpMehtod: signUpMehtod == freezed
           ? _value.signUpMehtod
           : signUpMehtod // ignore: cast_nullable_to_non_nullable
@@ -151,9 +142,8 @@ abstract class _$ChildSignUpStateCopyWith<$Res>
       List<FormGroup> formGroups,
       Map<String, dynamic> formJSON,
       String? error,
-      FormStatus status,
+      Status status,
       List<SchoolModel> schoolsList,
-      bool fetchingData,
       SignUpMethod signUpMehtod});
 
   @override
@@ -179,7 +169,6 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
     Object? error = freezed,
     Object? status = freezed,
     Object? schoolsList = freezed,
-    Object? fetchingData = freezed,
     Object? signUpMehtod = freezed,
   }) {
     return _then(_ChildSignUpState(
@@ -202,15 +191,11 @@ class __$ChildSignUpStateCopyWithImpl<$Res>
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as FormStatus,
+              as Status,
       schoolsList: schoolsList == freezed
           ? _value.schoolsList
           : schoolsList // ignore: cast_nullable_to_non_nullable
               as List<SchoolModel>,
-      fetchingData: fetchingData == freezed
-          ? _value.fetchingData
-          : fetchingData // ignore: cast_nullable_to_non_nullable
-              as bool,
       signUpMehtod: signUpMehtod == freezed
           ? _value.signUpMehtod
           : signUpMehtod // ignore: cast_nullable_to_non_nullable
@@ -229,7 +214,6 @@ class _$_ChildSignUpState implements _ChildSignUpState {
       this.error,
       required this.status,
       required this.schoolsList,
-      required this.fetchingData,
       this.signUpMehtod = SignUpMethod.unkown});
 
   @override
@@ -241,18 +225,16 @@ class _$_ChildSignUpState implements _ChildSignUpState {
   @override
   final String? error;
   @override
-  final FormStatus status;
+  final Status status;
   @override
   final List<SchoolModel> schoolsList;
-  @override
-  final bool fetchingData;
   @JsonKey(defaultValue: SignUpMethod.unkown)
   @override
   final SignUpMethod signUpMehtod;
 
   @override
   String toString() {
-    return 'ChildSignUpState(childModel: $childModel, formGroups: $formGroups, formJSON: $formJSON, error: $error, status: $status, schoolsList: $schoolsList, fetchingData: $fetchingData, signUpMehtod: $signUpMehtod)';
+    return 'ChildSignUpState(childModel: $childModel, formGroups: $formGroups, formJSON: $formJSON, error: $error, status: $status, schoolsList: $schoolsList, signUpMehtod: $signUpMehtod)';
   }
 
   @override
@@ -275,9 +257,6 @@ class _$_ChildSignUpState implements _ChildSignUpState {
             (identical(other.schoolsList, schoolsList) ||
                 const DeepCollectionEquality()
                     .equals(other.schoolsList, schoolsList)) &&
-            (identical(other.fetchingData, fetchingData) ||
-                const DeepCollectionEquality()
-                    .equals(other.fetchingData, fetchingData)) &&
             (identical(other.signUpMehtod, signUpMehtod) ||
                 const DeepCollectionEquality()
                     .equals(other.signUpMehtod, signUpMehtod)));
@@ -292,7 +271,6 @@ class _$_ChildSignUpState implements _ChildSignUpState {
       const DeepCollectionEquality().hash(error) ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(schoolsList) ^
-      const DeepCollectionEquality().hash(fetchingData) ^
       const DeepCollectionEquality().hash(signUpMehtod);
 
   @JsonKey(ignore: true)
@@ -307,9 +285,8 @@ abstract class _ChildSignUpState implements ChildSignUpState {
       required List<FormGroup> formGroups,
       required Map<String, dynamic> formJSON,
       String? error,
-      required FormStatus status,
+      required Status status,
       required List<SchoolModel> schoolsList,
-      required bool fetchingData,
       SignUpMethod signUpMehtod}) = _$_ChildSignUpState;
 
   @override
@@ -321,11 +298,9 @@ abstract class _ChildSignUpState implements ChildSignUpState {
   @override
   String? get error => throw _privateConstructorUsedError;
   @override
-  FormStatus get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   @override
   List<SchoolModel> get schoolsList => throw _privateConstructorUsedError;
-  @override
-  bool get fetchingData => throw _privateConstructorUsedError;
   @override
   SignUpMethod get signUpMehtod => throw _privateConstructorUsedError;
   @override

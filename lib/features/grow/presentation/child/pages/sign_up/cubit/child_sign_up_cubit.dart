@@ -1,11 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
+import 'package:grow_run_v1/core/usecases/usecases.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/school/school_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/usecases/school/get_schools.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -19,42 +23,83 @@ import 'child_sign_up_state.dart';
 ///
 class ChildSignUpCubit extends Cubit<ChildSignUpState> {
   ///
-  ///todo remove auth and child repo?
+  ///TODO remove auth and child repo?
   ChildSignUpCubit(
       {required ChildRepository childRepository,
-      required AuthenticationRepository authenticationRepository})
-      : _registerNewChildUser =
+      required AuthenticationRepository authenticationRepository,
+      required GROWRepository growRepository})
+      :
+        //initialize the register child usecase
+        _registerNewChildUser =
             register_new_child_user_usecase.RegisterNewChildUser(
                 authenticationRepository: authenticationRepository,
                 childRepository: childRepository),
+        //initialize the sign up child usecase
         _signUpNewChildUser = sign_up_new_child_user_usecase.SignUpNewChildUser(
             authenticationRepository),
+        //initialize the getschools usecase
+        _getSchools = GetSchools(growRepository),
+        //initialize the state and set default values
         super(ChildSignUpState(
-            formGroups: [
+            formGroups: <FormGroup>[
               ChildSignUpForm.buildChildSignUpPage1(),
               ChildSignUpForm.buildChildSignUpPage2(
                   min: 1, max: 12, minAge: 6, maxAge: 18),
               ChildSignUpForm.buildChildSignUpPage3()
             ],
-            formJSON: {},
-            fetchingData: true,
+            formJSON: <String, dynamic>{},
+            status: Status.initial,
             schoolsList: <SchoolModel>[],
             childModel: Child.initialChild(),
-            status: FormStatus.pure,
             signUpMehtod: SignUpMethod.unkown));
 
+  //usecase that registers child
   final register_new_child_user_usecase.RegisterNewChildUser
       _registerNewChildUser;
+  //usecase that signs up child
   final sign_up_new_child_user_usecase.SignUpNewChildUser _signUpNewChildUser;
+  //usecase that fetches the list of schools from the db
+  final GetSchools _getSchools;
 
-  ///
+  ///gets the necessary  data to populate the form with
+  Future<void> getData() async {
+    emit(state.copyWith(status: Status.fetchingData));
+
+    final Either<Failure, List<SchoolEntity>> result =
+        await _getSchools.call(NoParams());
+
+    emit(result.fold((Failure failure) {
+      print('failure getting data');
+      print(failure.message);
+      return state.copyWith(
+          status: Status.fetchingDataUnsuccessfully, error: failure.message);
+    }, (List<SchoolEntity> schools) {
+      print(schools);
+      print('got dara');
+      final List<SchoolModel> schoolModels = <SchoolModel>[];
+      for (final SchoolEntity school in schools) {
+        print(school);
+        schoolModels.add(SchoolModel.toSchoolModel(school));
+      }
+      return state.copyWith(
+          schoolsList: schoolModels, status: Status.fetchingDataSuccessfully);
+    }));
+  }
+
+  ///signs up the child user
   Future<void> signUpChildUser() async {
+    //send out that the form is being submitted
     emit(state.copyWith(
-        status: FormStatus.submissionInProgress, formJSON: _getFormJson()));
+        status: Status.submittingForm, formJSON: _getFormJson()));
+    //attempt to extract schoolmodel
+    final SchoolModel schoolModel = state.formJSON['school'] as SchoolModel;
+    //perform operation on age to convert it to date formatt
     final int age = state.formJSON['age'] as int;
+
     state.formJSON['dateOfBirth'] =
         DateTime.now().subtract(Duration(days: 365 * age)).toString();
-
+    state.formJSON['schoolID'] = schoolModel.uid;
+//make the usecase call and sign up the child  user
     final Either<Failure, String> result = await _signUpNewChildUser.call(
         sign_up_new_child_user_usecase.Params(
             childJSON: state.formJSON,
@@ -62,17 +107,19 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
             childEmail: state.formJSON['child_email'].toString(),
             parentEmail: state.formJSON['parent_email'].toString(),
             parentPassword: state.formJSON['parent_password'].toString()));
-
+//if it failes then emit the failure
     emit(result.fold((Failure l) {
       print('failed with ${l.message}');
       return state.copyWith(
-          error: l.message, status: FormStatus.submissionFailure);
-    }, (String uid) {
+          error: l.message, status: Status.submittedFormUnsuccessfully);
+    },
+        //else if it did not fail emit success
+        (String uid) {
       print('passed with $uid');
       return state.copyWith(
           childModel: state.childModel.copyWith(uid: uid),
           error: null,
-          status: FormStatus.submissionSuccess);
+          status: Status.submittedFormSuccessfully);
     }));
   }
 
@@ -92,6 +139,8 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
   //           error: '',
   //           status: FormStatus.submissionSuccess)));
   // }
+  ///method to extract the json data from the formgroups
+  ///aka [Map<String,dynamic>]
   Map<String, dynamic> _getFormJson() {
     final Map<String, dynamic> json = {};
     for (final FormGroup element in state.formGroups) {

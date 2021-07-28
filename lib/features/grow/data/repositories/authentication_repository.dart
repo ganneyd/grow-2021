@@ -32,11 +32,14 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
       _disableUserCallable,
       _enableUserCallable;
 
-  UserEntity _getUserEntity(firebase_auth.UserCredential userCredential) {
+  UserEntity _getUserEntity(firebase_auth.User user,
+      {UserType userType = UserType.unknown}) {
+    print('user type passed to me $userType');
     return UserEntity(
-        userEmail: userCredential.user!.email ?? '',
-        userID: userCredential.user!.uid,
-        name: userCredential.user!.displayName ?? ' ');
+        userEmail: user.email ?? '',
+        userID: user.uid,
+        name: user.displayName ?? ' ',
+        userType: userType);
   }
 
   @override
@@ -87,7 +90,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
       await app.delete();
       //return the UserModel for the newly registered user
 
-      return Right<Failure, UserEntity>(_getUserEntity(userCredential));
+      return Right<Failure, UserEntity>(_getUserEntity(userCredential.user!));
     } on firebase_auth.FirebaseAuthException catch (e) {
       // Do something with exception. This try/catch is here to make sure
       // that even if the user creation fails, app.delete() runs, if is not,
@@ -120,22 +123,54 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
 
   @override
   Future<Either<Failure, UserEntity>> getAuthenticatedUser() async {
-    if (_firebaseAuth.currentUser != null) {
-      return Right<Failure, UserEntity>(UserEntity(
-          userEmail: _firebaseAuth.currentUser!.email!,
-          userID: _firebaseAuth.currentUser!.uid,
-          name: _firebaseAuth.currentUser!.displayName!));
-    } else {
-      return Left<Failure, UserEntity>(AuthenticationFailure());
-    }
+    print('why am i being calledd');
+    return getCredentials();
   }
 
   @override
   Stream<UserEntity> get user {
+    //TODO fix this shit, cleaner code
     print('user changed');
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      return firebaseUser == null ? UserEntity.empty : firebaseUser.toUser;
+    return _firebaseAuth
+        .authStateChanges()
+        .map((firebase_auth.User? firebaseUser) {
+      return firebaseUser != null
+          ? _getUserEntity(firebaseUser)
+          : UserEntity.empty;
     });
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getCredentials() async {
+    print('getting credentials');
+    if (firebase_auth.FirebaseAuth.instance.currentUser != null) {
+      final firebase_auth.User user =
+          firebase_auth.FirebaseAuth.instance.currentUser!;
+
+      final firebase_auth.IdTokenResult results =
+          await user.getIdTokenResult(true);
+      final Map<String, dynamic> claims = results.claims!;
+
+      final bool child = claims['child'] as bool;
+      final bool parent = claims['parent'] as bool;
+      print('Child is $child \n Parent is $parent');
+      if (child) {
+        print('child found');
+        return Right<Failure, UserEntity>(
+            _getUserEntity(user, userType: UserType.child));
+      }
+      if (parent) {
+        print('Parent found! auth repo');
+        return Right<Failure, UserEntity>(
+            _getUserEntity(user, userType: UserType.parent));
+      }
+      return Right<Failure, UserEntity>(_getUserEntity(user));
+      // } catch (e) {
+      //   print(e);
+      //   return Left<Failure, UserEntity>(AuthenticationFailure());
+      // }
+    }
+    return Left<Failure, UserEntity>(AuthenticationFailure());
   }
 
   @override

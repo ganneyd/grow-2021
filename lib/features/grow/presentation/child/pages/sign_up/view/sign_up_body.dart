@@ -6,6 +6,8 @@ import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart';
+import 'package:grow_run_v1/features/grow/presentation/pages/splash_page.dart';
+import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 part 'sign_up_body_loaded.dart';
 part 'sign_up_body_loading.dart';
 part 'sign_up_body_submitting.dart';
@@ -23,19 +25,37 @@ class _SignUpPageBodyState extends State<SignUpPageBody> {
   int pageNumber = 0;
 
   Map<String, dynamic> formJson = {};
+  //TODO implement a error snack bar and dialog
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChildSignUpCubit, ChildSignUpState>(
         listener: (BuildContext context, ChildSignUpState state) {
-      if (state.fetchingData) {}
+      if (state.status.isFetchingDataUnsuccessfully() ||
+          state.status.isSubmittedFormUnsuccessfully()) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: Text(state.error ?? 'Problem Child'),
+            backgroundColor: Colors.red,
+          ));
+      }
     }, builder: (BuildContext context, ChildSignUpState state) {
-      return getLoadedBody(context, state, pageNumber, () {
-        setState(() {
-          if (pageNumber < state.formGroups.length - 1) {
-            ++pageNumber;
-          }
+      //if either the form data is being fetched or the form being submitted
+      //show the splash page
+      if (state.status.isFetchingData() || state.status.isSubmittingForm()) {
+        return SplashPage();
+      } //if the data were retrived then show the form pages
+      else if (state.status.isFetchingDataSuccessfully()) {
+        return getLoadedBody(context, state, pageNumber, () {
+          setState(() {
+            if (pageNumber < state.formGroups.length - 1) {
+              ++pageNumber;
+            }
+          });
         });
-      });
+      } else {
+        return const Text('Problem getting the data');
+      }
     });
   }
 }
@@ -62,7 +82,7 @@ class _SignUpPageBodyState extends State<SignUpPageBody> {
 //                         child: const Text('Continue'),
 //                       )
 // }
-
+///Returns a [widget]
 Widget getFormPage(int pageNumber, ChildSignUpState state) {
   switch (pageNumber) {
     case 0:
@@ -70,7 +90,7 @@ Widget getFormPage(int pageNumber, ChildSignUpState state) {
     case 1:
       return ChildSignUpFormTwo(
         formGroup: state.formGroups[pageNumber],
-        schools: [SchoolModel(name: 'St.Martin'), SchoolModel(name: 'St.Joe')],
+        schools: state.schoolsList,
       );
     case 2:
       return ChildSignUpFormThree(formGroup: state.formGroups[pageNumber]);

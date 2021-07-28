@@ -59,4 +59,9 @@ abstract class AuthenticationRepository {
   ///Enables a user user account  by using the [userID] and thus
   ///permit use on that account again
   Future<Either<Failure, UserEntity>> enableUserAccount(String userID);
+
+  ///Gets the credentials for the user and return a [UserEntity()] with the
+  ///corresponding [user_type]
+  ///user types such as [child] [parent]
+  Future<Either<Failure, UserEntity>> getCredentials();
 }

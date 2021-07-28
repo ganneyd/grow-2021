@@ -3,7 +3,18 @@
       "source.fixAll.eslint": true
     },
     "eslint.validate": ["javascript"],
-    "eslint.workingDirectories": [{ "mode": "auto" }]
+    "eslint.workingDirectories": [
+      {
+        "mode": "auto"
+      }
+    ],
+    "material-icon-theme.files.associations": {
+    
+    },
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontWeight": "300",
+    "editor.fontSize": 16,
 }
 
 

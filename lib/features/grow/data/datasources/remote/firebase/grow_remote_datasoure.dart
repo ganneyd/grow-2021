@@ -78,8 +78,10 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
     if (snapshot.docs.isNotEmpty) {
       for (final DocumentSnapshot<Map<String, dynamic>> docSnapshot
           in snapshot.docs) {
+        print('found a doc');
         final Map<String, dynamic> data = docSnapshot.data()!;
         data['uid'] = docSnapshot.reference.id;
+        print(data);
         jsonList.add(data);
       }
     }
@@ -145,10 +147,15 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
       //returns the query snapshot of the document retrived
       final QuerySnapshot<Map<String, dynamic>> snapshots =
           await database.collection(collectionName).get();
-
+      if (snapshots.docs.isEmpty) {
+        print('snapshots is empty');
+        throw Exception();
+      }
       jsonList = _getJsonList(snapshots);
+      print(jsonList);
       return Future<List<Map<String, dynamic>>>.value(jsonList);
     } catch (e) {
+      print('error in datadpurce $e');
       throw ReadDataException();
     }
   }

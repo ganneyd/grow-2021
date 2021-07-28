@@ -1,15 +1,11 @@
-import 'dart:convert';
-
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
-import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
-import '../../entities/child/child_entity.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 
 ///When a new child user's account is being made this is the usecase
 class SignUpNewChildUser implements UseCase<String, Params> {

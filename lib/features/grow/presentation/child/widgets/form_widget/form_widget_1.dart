@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart';
-import 'package:grow_run_v1/features/grow/presentation/utils/forms_interface.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/default_ui_elements.dart';
-import 'package:grow_run_v1/features/grow/presentation/widgets/form_group/get_form_validators.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/form_inputs/form_gender_input.dart';
-import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 ///
 class ChildSignUpFormOne extends StatelessWidget {
   ////
-  ChildSignUpFormOne({required this.formgroup})
+  const ChildSignUpFormOne({required this.formgroup})
       : super(key: const Key('child-sign-up-form-1'));
+      ///Formgroup for the first page
   final FormGroup formgroup;
 
   ///the form group for this form
@@ -19,7 +16,7 @@ class ChildSignUpFormOne extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
         form: () => formgroup,
-        builder: (context, form, child) {
+        builder: (BuildContext context, FormGroup form, Widget? child) {
           return DefaultUIElements.getDefaultPaddingContainer(
               child: Column(
             children: <Widget>[

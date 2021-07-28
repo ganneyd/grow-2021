@@ -17,6 +17,57 @@ enum SignUpMethod {
   creatingAcc
 }
 
+///The current status of the Child Sign Up Cubit
+enum Status {
+  ///the initial state of the cubit
+  initial,
+
+  ///fetching data that's relevant to the form
+  fetchingData,
+
+  ///fetch said data without errors
+  fetchingDataSuccessfully,
+
+  ///fetched said data with errors
+  fetchingDataUnsuccessfully,
+
+  ///form is being submitted
+  submittingForm,
+
+  ///form was submitted without errors
+  submittedFormSuccessfully,
+
+  ///form was submitted with errors
+  submittedFormUnsuccessfully,
+}
+
+///provide methods to determine what the status is in a cleaner manner
+extension StatusExtension on Status {
+  ///returns whether or not the status is [initial]
+  bool isInitial() => this == Status.initial;
+
+  ///returns whether or not the status is [fetchingData]
+  bool isFetchingData() => this == Status.fetchingData;
+
+  ///returns whether or not the status is [fetchingDataSuccessfully]
+  bool isFetchingDataSuccessfully() => this == Status.fetchingDataSuccessfully;
+
+  ///returns whether or not the status is [fetchingDataUnsuccessfully]
+  bool isFetchingDataUnsuccessfully() =>
+      this == Status.fetchingDataUnsuccessfully;
+
+  ///returns whether or not the status is [submittingForm]
+  bool isSubmittingForm() => this == Status.submittingForm;
+
+  ///returns whether or not the status is [SubmittedFormSuccessfully]
+  bool isSubmittedFormSuccessfully() =>
+      this == Status.submittedFormSuccessfully;
+
+  ///returns whether or not the status is [SubmittedFormUnsuccessfully]
+  bool isSubmittedFormUnsuccessfully() =>
+      this == Status.submittedFormUnsuccessfully;
+}
+
 ///
 @freezed
 class ChildSignUpState with _$ChildSignUpState {
@@ -26,9 +77,8 @@ class ChildSignUpState with _$ChildSignUpState {
           required List<FormGroup> formGroups,
           required Map<String, dynamic> formJSON,
           String? error,
-          required FormStatus status,
+          required Status status,
           required List<SchoolModel> schoolsList,
-          required bool fetchingData,
           @Default(SignUpMethod.unkown) SignUpMethod signUpMehtod}) =
       _ChildSignUpState;
 }

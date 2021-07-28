@@ -1,5 +1,6 @@
 part of 'sign_up_body.dart';
 
+/// If the cubit was initialized successfully
 Widget getLoadedBody(BuildContext context, ChildSignUpState state,
     int pageNumber, Function function) {
   return Column(

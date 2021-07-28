@@ -25,11 +25,11 @@ void main() {
       'should return a UserEntity() for the user when they sign up',
       () async {
         // arrange
-        when(authenticationRepository.signUpUser(any, any)).thenAnswer(
+        when(authenticationRepository.signUpUser()).thenAnswer(
             (_) async => const Right<Failure, UserEntity>(expectedUserEntity));
         // act
         final Either<Failure, UserEntity> result =
-            await authenticationRepository.signUpUser('email', 'password');
+            await authenticationRepository.signUpUser();
         final UserEntity actualUser = result.getOrElse(() => const UserEntity(
             userID: 'userID',
             userEmail: 'userEmail',

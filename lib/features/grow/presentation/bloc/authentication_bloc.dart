@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
@@ -15,7 +16,7 @@ class AuthenticationBloc
   // ignore: public_member_api_docs
   AuthenticationBloc({
     required AuthenticationRepository authenticationRepository,
-  })   : _authenticationRepository = authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
         super(const AuthenticationState.uninitialized()) {
     _userSubscription = _authenticationRepository.user
         .listen((UserEntity user) => add(AuthenticationUserChanged(user)));
@@ -27,9 +28,18 @@ class AuthenticationBloc
   @override
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
-    print('i was called');
     if (event is AuthenticationUserChanged) {
-      yield _mapAuthenticationUserChangedToState(event);
+      print('User changed');
+      final Either<Failure, UserEntity> results =
+          await _authenticationRepository.getCredentials();
+      yield results.fold((Failure l) {
+        print('Failure ${l.message}');
+        return _mapAuthenticationUserChangedToState(event);
+      }, (UserEntity user) {
+        print('The user returned from repo in bloc \n $user');
+        return _mapAuthenticationUserChangedToState(
+            AuthenticationUserChanged(user));
+      });
     } else if (event is AuthenticationLogoutRequested) {
       unawaited(_authenticationRepository.signOutUser());
     }
@@ -42,6 +52,7 @@ class AuthenticationBloc
     print(event.user.userType);
     print(event.user.userEmail);
     print('map auth chan');
+
     return event.user != UserEntity.empty
         ? AuthenticationState.authenticated(event.user)
         : const AuthenticationState.unauthenticated();
@@ -50,11 +61,10 @@ class AuthenticationBloc
   ///Returns the user id of the authenticated user
   Future<String> getCurrentUserUID() async {
     final Either<Failure, UserEntity> userEntity =
-        await _authenticationRepository.getAuthenticatedUser();
+        await _authenticationRepository.getCredentials();
 
-    final UserEntity userModel = userEntity.getOrElse(() => UserEntity.empty);
-
-    return userModel.userID;
+    return userEntity.fold((_) => Future<String>.value(UserEntity.empty.userID),
+        (UserEntity userEntity) => Future<String>.value(userEntity.userID));
   }
 
   @override

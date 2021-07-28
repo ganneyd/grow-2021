@@ -7,6 +7,7 @@ import * as admin from "firebase-admin";
 export async function signUpChild(
     child: Record<string, unknown>,
     parent: Record<string, unknown> ):Promise<Record<string, unknown>> {
+      console.log('function patched thru calling signUpChild');
   // eslint-disable-next-line prefer-const
   let response = {
     success: false,
@@ -25,11 +26,18 @@ export async function signUpChild(
 
     if (!(result["success"] as boolean)) {
       admin.auth().deleteUser(childUser.uid);
-      throw Error("Unable to authenticate Parental Account");
+      if(result["errorMsg"] === ""){
+        throw Error("Unable to authenticate Parental Account");
+      }else{
+        throw Error(result["errorMsg"] as string)
+      }
+      
     } else {
       await setChildCustomClaim(childUser, result["parentUID"] as string);
       // by now everything should have completed successfully
-      const childData = child.dependentData as Record<string, unknown>;
+      const childData = child.data as Record<string, unknown>;
+      childData["parentID"] = result["parentUID"] as string;
+      console.log("this is the childData: " + childData);
       await admin.firestore().collection("children")
           .doc(childUser.uid).set(childData);
       response["success"] = true;
@@ -49,7 +57,7 @@ async function setChildCustomClaim(
     user: admin.auth.UserRecord, parentUID: string): Promise<void> {
   return admin.auth().setCustomUserClaims(user.uid, {
     child: true,
-    parentUID,
+    parentID: parentUID,
 
   });
 }
@@ -65,12 +73,21 @@ async function initParentAcc(
     email: string, password: string, childUID: string ):
   Promise<Record<string, unknown>> {
   const result = {success: false,
-    parentUID: ""};
+    parentUID: "",
+    errorMsg : ""};
   // attempt to get parent's acc if it exists
   await admin.auth().getUserByEmail(email).then(async (user)=>{
+    // check to see if the user provided is actually a parent user
+    if(user.customClaims && user.customClaims["parent"] as boolean) {
+      //if it's actually a parent user then proceed
+      //else set the err msg to reflect what happened
+    
     await setParentClaims(user, childUID);
     result["success"]= true;
     result["parentUID"] =user.uid;
+    }else{
+      result["errorMsg"] = "User not authorized to create a child account, please use valid account. "
+    }
   }).catch( async ()=>{
     await admin.auth().createUser({
       email,
@@ -93,8 +110,9 @@ async function setParentClaims(
     parentUser: admin.auth.UserRecord, childUID:string) :Promise<void> {
   const parentCustomClaims = parentUser.customClaims?? {};
   const children = parentCustomClaims["children"] as Array<string> ?? [];
-  parentCustomClaims["parent"]= true;
   children.push(childUID);
-  parentCustomClaims["children"] = children;
-  return admin.auth().setCustomUserClaims(parentUser.uid, parentCustomClaims);
+  return admin.auth().setCustomUserClaims(parentUser.uid, {
+    children: children,
+    parent: true
+  });
 }

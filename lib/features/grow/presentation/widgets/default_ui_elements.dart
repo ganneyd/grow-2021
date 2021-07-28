@@ -6,9 +6,8 @@ import '../../theme.dart';
 part 'constant_sizes.dart';
 part 'constant_colors.dart';
 
+///Functions that return defaut UI elements that may be used accross the app
 class DefaultUIElements {
-  ///Functions that return defaut UI elements that may be used accross the app
-
   ///Returns the default app bar based on the theme contained in the passed
   ///[context] with the [appBarName]
   static AppBar getDefaultAppBar({
@@ -42,6 +41,7 @@ class DefaultUIElements {
         ),
       );
 
+  ///Returns the email input
   static ReactiveTextField<String> getEmailInput(
           {required String formControlName, String? hintText}) =>
       ReactiveTextField<String>(

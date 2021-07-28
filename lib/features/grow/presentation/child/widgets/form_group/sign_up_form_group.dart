@@ -43,6 +43,7 @@ class ChildSignUpForm {
   static FormGroup buildChildSignUpPage3() => fb.group(<String, Object>{
         'child_password':
             FormInputsControllers.getPasswordFieldInputController(),
+             //TODO : make sure password confirmation works with the password
         'child_password_confirmation': '',
         'parent_email': FormInputsControllers.getEmailFieldInputController(),
         'parent_password':

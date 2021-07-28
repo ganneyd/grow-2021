@@ -37,7 +37,7 @@ class LoginPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginPageCubit, LoginPageState>(
-        listener: (context, state) {
+        listener: (BuildContext context, LoginPageState state) {
       if (state.status == LoginStateStatus.submittedUnsuccessfully) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -53,7 +53,7 @@ class LoginPageBody extends StatelessWidget {
                 backgroundColor: Theme.of(context).primaryColor));
         }
       }
-    }, builder: (context, state) {
+    }, builder: (BuildContext context, LoginPageState state) {
       return LoginForm(
         // ignore: always_specify_types
         handler: (email, password) {
