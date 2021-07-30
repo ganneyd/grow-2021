@@ -10,10 +10,10 @@ part 'constant_colors.dart';
 class DefaultUIElements {
   ///Returns the default app bar based on the theme contained in the passed
   ///[context] with the [appBarName]
-  static AppBar getDefaultAppBar({
-    required BuildContext context,
-    required String appBarName,
-  }) =>
+  static AppBar getDefaultAppBar(
+          {required BuildContext context,
+          required String appBarName,
+          List<IconButton>? actions}) =>
       AppBar(
         toolbarHeight: defaultToolbarHeight,
         title: Text(
@@ -22,6 +22,7 @@ class DefaultUIElements {
           textAlign: TextAlign.center,
           overflow: TextOverflow.visible,
         ),
+        actions: actions,
         flexibleSpace: Container(
           decoration: const BoxDecoration(gradient: gradient1),
         ),
