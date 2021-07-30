@@ -109,6 +109,12 @@ class MockAuthenticationRepository extends _i1.Mock
           returnValue: Future<_i2.Either<_i6.Failure, _i5.UserEntity>>.value(
               _FakeEither<_i6.Failure, _i5.UserEntity>())) as _i4
           .Future<_i2.Either<_i6.Failure, _i5.UserEntity>>);
+  @override
+  _i4.Future<_i2.Either<_i6.Failure, _i5.UserEntity>> getCredentials() =>
+      (super.noSuchMethod(Invocation.method(#getCredentials, []),
+          returnValue: Future<_i2.Either<_i6.Failure, _i5.UserEntity>>.value(
+              _FakeEither<_i6.Failure, _i5.UserEntity>())) as _i4
+          .Future<_i2.Either<_i6.Failure, _i5.UserEntity>>);
 }
 
 /// A class which mocks [ChildRepository].
