@@ -144,31 +144,34 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   Future<Either<Failure, UserEntity>> getCredentials() async {
     print('getting credentials');
     if (firebase_auth.FirebaseAuth.instance.currentUser != null) {
-      final firebase_auth.User user =
-          firebase_auth.FirebaseAuth.instance.currentUser!;
+      try {
+        final firebase_auth.User user =
+            firebase_auth.FirebaseAuth.instance.currentUser!;
 
-      final firebase_auth.IdTokenResult results =
-          await user.getIdTokenResult(true);
-      final Map<String, dynamic> claims = results.claims!;
+        final firebase_auth.IdTokenResult results =
+            await user.getIdTokenResult(true);
+        final Map<String, dynamic> claims = results.claims!;
 
-      final bool child = claims['child'] as bool;
-      final bool parent = claims['parent'] as bool;
-      print('Child is $child \n Parent is $parent');
-      if (child) {
-        print('child found');
-        return Right<Failure, UserEntity>(
-            _getUserEntity(user, userType: UserType.child));
+        if (claims.containsKey('child')) {
+          if (claims['child'] as bool) {
+            return Right<Failure, UserEntity>(
+                _getUserEntity(user, userType: UserType.child));
+          }
+        } else if (claims.containsKey('parent')) {
+          if (claims['parent'] as bool) {
+            return Right<Failure, UserEntity>(
+                _getUserEntity(user, userType: UserType.parent));
+          }
+        }
+
+        return Right<Failure, UserEntity>(_getUserEntity(user));
+      } on FirebaseException catch (e) {
+        return Left<Failure, UserEntity>(
+            AuthenticationFailure(errMsg: e.message ?? ''));
+      } catch (e) {
+        return Left<Failure, UserEntity>(
+            AuthenticationFailure(errMsg: e.toString()));
       }
-      if (parent) {
-        print('Parent found! auth repo');
-        return Right<Failure, UserEntity>(
-            _getUserEntity(user, userType: UserType.parent));
-      }
-      return Right<Failure, UserEntity>(_getUserEntity(user));
-      // } catch (e) {
-      //   print(e);
-      //   return Left<Failure, UserEntity>(AuthenticationFailure());
-      // }
     }
     return Left<Failure, UserEntity>(AuthenticationFailure());
   }
