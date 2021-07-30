@@ -15,6 +15,8 @@
     "editor.fontFamily": "Fira Code",
     "editor.fontWeight": "300",
     "editor.fontSize": 16,
+    "cSpell.enabled": true,
+    "cSpell.language": "en,en-US,en-GB",
 }
 
 
