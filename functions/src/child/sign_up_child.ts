@@ -86,9 +86,11 @@ async function initParentAcc(
     result["success"]= true;
     result["parentUID"] =user.uid;
     }else{
-      result["errorMsg"] = "User not authorized to create a child account, please use valid account. "
+      throw Error("User not authorized to create a child account, please use valid account. ");
     }
-  }).catch( async ()=>{
+  }).catch( async (error)=>{
+    console.log(error);
+    result['errorMsg'] = error;
     await admin.auth().createUser({
       email,
       password,
@@ -96,6 +98,8 @@ async function initParentAcc(
       await setParentClaims(user, childUID);
       result["success"]= true;
       result["parentUID"] =user.uid;
+    }).catch((error)=>{
+      result['errorMsg'] = error;
     });
   });
   return result;
