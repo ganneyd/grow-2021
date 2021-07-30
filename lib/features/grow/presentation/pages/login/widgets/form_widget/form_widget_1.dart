@@ -17,7 +17,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
         form: () => LoginFormGroup.buildLoginPageInputs(),
-        builder: (context, form, child) {
+        builder: (BuildContext context, FormGroup form, Widget? child) {
           return Column(
             children: <Widget>[
               DefaultUIElements.getEmailInput(
@@ -47,7 +47,7 @@ class LoginForm extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.bold),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(context, ChildSignUpForm.route());
+                              Navigator.pushNamed(context, '/child-sign-up');
                             })
                     ]),
               ),
