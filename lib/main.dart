@@ -15,7 +15,7 @@ Future<void> main() async {
   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
 
-  FirebaseFirestore.instance.settings = Settings(
+  FirebaseFirestore.instance.settings = const Settings(
     host: 'localhost:8080',
     sslEnabled: false,
   );
