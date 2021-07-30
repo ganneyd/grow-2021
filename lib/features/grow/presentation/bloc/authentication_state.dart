@@ -18,6 +18,27 @@ enum AuthenticationStatus {
   unauthenticated,
 }
 
+///Exposes methods to return if the state is of a particular Authentication
+///state
+extension StateStatusExtension on AuthenticationStatus {
+  ///if the state is authenticated
+  bool isAuthenticated() => this == AuthenticationStatus.authenticated;
+
+  ///if the state has a parent that is authenticated
+  bool isChildAuthenticated() =>
+      this == AuthenticationStatus.childAuthenticated;
+
+  ///if the state has a parent that is authenticated
+  bool isParentAuthenticated() =>
+      this == AuthenticationStatus.parentAuthenticated;
+
+  ///if the state is unauthenticated
+  bool isUnauthenticated() => this == AuthenticationStatus.unauthenticated;
+
+  ///if the state is uninitialized
+  bool isUninitialized() => this == AuthenticationStatus.uninitialized;
+}
+
 ///
 class AuthenticationState extends Equatable {
   const AuthenticationState._({
