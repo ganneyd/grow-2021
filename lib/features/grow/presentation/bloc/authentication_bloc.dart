@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
@@ -33,7 +32,6 @@ class AuthenticationBloc
       final Either<Failure, UserEntity> results =
           await _authenticationRepository.getCredentials();
       yield results.fold((Failure l) {
-        print('Failure ${l.message}');
         return _mapAuthenticationUserChangedToState(event);
       }, (UserEntity user) {
         print('The user returned from repo in bloc \n $user');
@@ -59,13 +57,13 @@ class AuthenticationBloc
   }
 
   ///Returns the user id of the authenticated user
-  Future<String> getCurrentUserUID() async {
-    final Either<Failure, UserEntity> userEntity =
-        await _authenticationRepository.getCredentials();
+  // Future<String> getCurrentUserUID() async {
+  //   final Either<Failure, UserEntity> userEntity =
+  //       await _authenticationRepository.getCredentials();
 
-    return userEntity.fold((_) => Future<String>.value(UserEntity.empty.userID),
-        (UserEntity userEntity) => Future<String>.value(userEntity.userID));
-  }
+  //   return userEntity.fold((_) => Future<String>.value(UserEntity.empty.userID),
+  //       (UserEntity userEntity) => Future<String>.value(userEntity.userID));
+  // }
 
   @override
   Future<void> close() {
