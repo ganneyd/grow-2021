@@ -27,6 +27,7 @@ class _ChildSignUpFormState extends State<ChildSignUpForm> {
           authenticationRepository: context.read<AuthenticationRepository>())
         ..getData(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: DefaultUIElements.getDefaultAppBar(
             context: context, appBarName: 'SignUP'),
         body: Center(
