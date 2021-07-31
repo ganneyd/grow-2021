@@ -1,0 +1,15 @@
+"filename", "language", "Groovy", "XML", "Properties", "JSON", "comment", "blank", "total"
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/build.gradle", "Groovy", 47, 0, 0, 0, 4, 11, 62
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/google-services.json", "JSON", 0, 0, 0, 46, 0, 0, 46
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/debug/AndroidManifest.xml", "XML", 0, 4, 0, 0, 3, 1, 8
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/main/AndroidManifest.xml", "XML", 0, 32, 0, 0, 11, 1, 44
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/main/res/drawable-v21/launch_background.xml", "XML", 0, 4, 0, 0, 7, 2, 13
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/main/res/drawable/launch_background.xml", "XML", 0, 4, 0, 0, 7, 2, 13
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/main/res/values-night/styles.xml", "XML", 0, 9, 0, 0, 9, 1, 19
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/main/res/values/styles.xml", "XML", 0, 9, 0, 0, 9, 1, 19
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/app/src/profile/AndroidManifest.xml", "XML", 0, 4, 0, 0, 3, 1, 8
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/build.gradle", "Groovy", 26, 0, 0, 0, 0, 5, 31
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/gradle.properties", "Properties", 0, 0, 3, 0, 0, 1, 4
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/gradle/wrapper/gradle-wrapper.properties", "Properties", 0, 0, 5, 0, 1, 1, 7
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/android/settings.gradle", "Groovy", 8, 0, 0, 0, 0, 4, 12
+"Total", "-", 81, 66, 8, 46, 54, 31, 286

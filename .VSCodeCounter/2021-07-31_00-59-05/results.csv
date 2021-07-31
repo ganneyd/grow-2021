@@ -1,0 +1,9 @@
+"filename", "language", "JSON", "TypeScript", "JavaScript", "comment", "blank", "total"
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/.eslintrc.js", "JavaScript", 0, 0, 31, 0, 1, 32
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/package-lock.json", "JSON", 7655, 0, 0, 0, 1, 7656
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/package.json", "JSON", 30, 0, 0, 0, 1, 31
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/src/child/sign_up_child.ts", "TypeScript", 0, 87, 0, 26, 10, 123
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/src/index.ts", "TypeScript", 0, 30, 0, 8, 4, 42
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/tsconfig.dev.json", "JSON", 5, 0, 0, 0, 1, 6
+"/Users/ganneyd/SofwareDev/flutter/grow-2021/functions/tsconfig.json", "JSON", 15, 0, 0, 0, 1, 16
+"Total", "-", 7705, 117, 31, 34, 19, 7906
