@@ -17,6 +17,7 @@
     "editor.fontSize": 16,
     "cSpell.enabled": true,
     "cSpell.language": "en,en-US,en-GB",
+    "java.configuration.updateBuildConfiguration": "automatic",
 }
 
 
