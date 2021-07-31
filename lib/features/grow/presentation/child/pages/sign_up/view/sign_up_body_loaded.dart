@@ -37,8 +37,7 @@ Widget getLoadedBody(BuildContext context, ChildSignUpState state,
           child: getFormPage(pageNumber, state),
         ),
       ),
-      Expanded(
-          child: Center(
+      Center(
         child: pageNumber < state.formGroups.length - 1
             ? ElevatedButton(
                 onPressed: () {
@@ -71,7 +70,7 @@ Widget getLoadedBody(BuildContext context, ChildSignUpState state,
                 },
                 child: const Text('Submit'),
               ),
-      )),
+      ),
     ],
   );
 }

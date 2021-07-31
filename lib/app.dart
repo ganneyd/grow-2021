@@ -56,7 +56,7 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
@@ -72,11 +72,13 @@ class _AppViewState extends State<AppView> {
               _navigator.pushNamedAndRemoveUntil('/child-home', (_) => false);
             }
             if (state.status == AuthenticationStatus.unauthenticated) {
-              _navigator.pushNamedAndRemoveUntil('/login', (_) => false);
+              _navigator.pushNamedAndRemoveUntil(
+                  '/child-sign-up', (_) => false);
             }
             if (state.status == AuthenticationStatus.parentAuthenticated) {
               _navigator.pushNamedAndRemoveUntil('/parent-home', (_) => false);
             }
+            _navigator.pushNamedAndRemoveUntil('/child-sign-up', (_) => false);
           },
           child: child,
         );

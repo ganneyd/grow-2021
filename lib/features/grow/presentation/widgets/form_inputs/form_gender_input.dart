@@ -35,20 +35,19 @@ class GenderInput extends StatelessWidget {
           Expanded(
             child: Image.asset(
               'assets/avatar/male/male.png',
-              height: 3000,
+              height: 160,
               filterQuality: FilterQuality.high,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fitHeight,
             ),
           ),
-          Flexible(
-              child: IconButton(
-            icon: const FaIcon(FontAwesomeIcons.female),
-            color: value.isFemale()
-                ? girlGender.withOpacity(1)
-                : girlGender.withOpacity(0.5),
-            iconSize: 150,
-            onPressed: onFemalePressed,
-          )),
+          Expanded(
+            child: Image.asset(
+              'assets/avatar/female/female.png',
+              height: 160,
+              filterQuality: FilterQuality.high,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
         ],
       );
     });

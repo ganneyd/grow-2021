@@ -45,7 +45,8 @@ class _SignUpPageBodyState extends State<SignUpPageBody> {
       if (state.status.isFetchingData() || state.status.isSubmittingForm()) {
         return SplashPage();
       } //if the data were retrived then show the form pages
-      else if (state.status.isFetchingDataSuccessfully()) {
+      // else if (state.status.isFetchingDataSuccessfully()) {
+      else {
         return getLoadedBody(context, state, pageNumber, () {
           setState(() {
             if (pageNumber < state.formGroups.length - 1) {
@@ -53,9 +54,10 @@ class _SignUpPageBodyState extends State<SignUpPageBody> {
             }
           });
         });
-      } else {
-        return const Text('Problem getting the data');
       }
+      // } else {
+      //   return const Text('Problem getting the data');
+      // }
     });
   }
 }

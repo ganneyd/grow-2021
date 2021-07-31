@@ -6,11 +6,40 @@ import 'package:reactive_forms/reactive_forms.dart';
 ///
 class ChildSignUpFormOne extends StatelessWidget {
   ////
-  const ChildSignUpFormOne({required this.formgroup})
+  ChildSignUpFormOne({required this.formgroup})
       : super(key: const Key('child-sign-up-form-1'));
 
   ///Formgroup for the first page
   final FormGroup formgroup;
+
+  ///List of the form inputs
+  final List<Widget> _formInputs = [
+    ReactiveTextField<String>(
+      formControlName: 'username',
+      decoration: const InputDecoration(hintText: 'Username'),
+    ),
+    DefaultUIElements.getEmailInput(formControlName: 'child_email'),
+    Row(
+      children: <Widget>[
+        Flexible(
+          child: ReactiveTextField<String>(
+            formControlName: 'firstname',
+            decoration: const InputDecoration(hintText: 'First Name'),
+          ),
+        ),
+        Spacer(),
+        Flexible(
+          child: ReactiveTextField<String>(
+            formControlName: 'lastname',
+            decoration: const InputDecoration(hintText: 'Last Name'),
+          ),
+        ),
+      ],
+    ),
+    ReactiveGenderInput(
+      formControlName: 'gender',
+    ),
+  ];
 
   ///the form group for this form
   @override
@@ -18,47 +47,14 @@ class ChildSignUpFormOne extends StatelessWidget {
     return ReactiveFormBuilder(
         form: () => formgroup,
         builder: (BuildContext context, FormGroup form, Widget? child) {
-          return DefaultUIElements.getDefaultPaddingContainer(
-              child: Column(
-            children: <Widget>[
-              Flexible(
-                child: ReactiveTextField<String>(
-                  formControlName: 'username',
-                  decoration: const InputDecoration(hintText: 'Username'),
-                ),
-              ),
-              DefaultUIElements.getDefaultFormPadding(),
-              Flexible(
-                child: DefaultUIElements.getEmailInput(
-                    formControlName: 'child_email'),
-              ),
-              DefaultUIElements.getDefaultFormPadding(),
-              Flexible(
-                  child: Row(
-                children: <Widget>[
-                  Flexible(
-                    child: ReactiveTextField<String>(
-                      formControlName: 'firstname',
-                      decoration: const InputDecoration(hintText: 'First Name'),
-                    ),
-                  ),
-                  Spacer(),
-                  Flexible(
-                    child: ReactiveTextField<String>(
-                      formControlName: 'lastname',
-                      decoration: const InputDecoration(hintText: 'Last Name'),
-                    ),
-                  ),
-                ],
-              )),
-              Spacer(),
-              Expanded(
-                child: ReactiveGenderInput(
-                  formControlName: 'gender',
-                ),
-              )
-            ],
-          ));
+          return ListView.separated(
+            itemCount: _formInputs.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _formInputs[index];
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+          );
         });
   }
 }
