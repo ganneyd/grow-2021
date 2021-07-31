@@ -16,9 +16,6 @@ abstract class AuthenticationRepository {
   /// Emits [User.empty] if the user is not authenticated.
   Stream<UserEntity> get user;
 
-  ///Returns an UserEntity for the currently signed in user
-  Future<Either<Failure, UserEntity>> getAuthenticatedUser();
-
   ///Authenticates a user's account using a second instance of firebase auth
   Future<Either<Failure, UserEntity>> authenticateUser(
       String email, String password);

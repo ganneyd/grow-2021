@@ -122,12 +122,6 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   }
 
   @override
-  Future<Either<Failure, UserEntity>> getAuthenticatedUser() async {
-    print('why am i being calledd');
-    return getCredentials();
-  }
-
-  @override
   Stream<UserEntity> get user {
     //TODO fix this shit, cleaner code
     print('user changed');
