@@ -15,7 +15,7 @@ class GetAuthenticatedUser implements UseCase<UserEntity, NoParams> {
   @override
   Future<Either<Failure, UserEntity>> call(_) async {
     final Either<Failure, UserEntity> userCredential =
-        await _authenticationRepository.getAuthenticatedUser();
+        await _authenticationRepository.getCredentials();
     return userCredential.fold(
         (_) => Left<Failure, UserEntity>(AuthenticationFailure()),
         (UserEntity user) => Right<Failure, UserEntity>(user));

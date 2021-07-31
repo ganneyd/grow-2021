@@ -23,7 +23,7 @@ class GetCurrentChildUser implements UseCase<ChildEntity, NoParams> {
   @override
   Future<Either<Failure, ChildEntity>> call(_) async {
     final Either<Failure, UserEntity> currentUser =
-        await _authenticationRepository.getAuthenticatedUser();
+        await _authenticationRepository.getCredentials();
     return await currentUser
         .fold((Failure failure) => Left<Failure, ChildEntity>(failure),
             (UserEntity user) async {

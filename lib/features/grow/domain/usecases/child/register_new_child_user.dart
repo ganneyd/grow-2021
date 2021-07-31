@@ -27,7 +27,7 @@ class RegisterNewChildUser implements UseCase<UserEntity, Params> {
   @override
   Future<Either<Failure, UserEntity>> call(Params params) async {
     final Either<Failure, UserEntity> parentCredential =
-        await _authenticationRepository.getAuthenticatedUser();
+        await _authenticationRepository.getCredentials();
 
     return await parentCredential
         .fold((_) => Left<Failure, UserEntity>(AuthenticationFailure()),
