@@ -9,15 +9,11 @@ import 'package:enum_to_string/enum_to_string.dart';
 ///gender
 class GenderInput extends StatelessWidget {
   ///
-  const GenderInput(
-      {required this.value,
-      required this.onFemalePressed,
-      required this.onMalePressed,
-      required this.size})
-      : super(key: const Key('gender_input'));
-
-  ///the size for the constraints
-  final Size size;
+  const GenderInput({
+    required this.value,
+    required this.onFemalePressed,
+    required this.onMalePressed,
+  }) : super(key: const Key('gender_input'));
 
   /// the value of the user's selection
   final Gender value;
@@ -32,32 +28,30 @@ class GenderInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-          maxWidth: size.width * 0.6, maxHeight: size.height * 0.3),
-      child: Row(
-        children: <Flexible>[
-          Flexible(
-              child: GestureDetector(
-            onTap: onMalePressed,
-            child: Image(
-              image: const AssetImage('assets/avatar/male/male.png'),
-              height: size.height * 0.3,
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Row(
+        children: [
+          Expanded(
+            child: Image.asset(
+              'assets/avatar/male/male.png',
+              height: 3000,
+              filterQuality: FilterQuality.high,
+              fit: BoxFit.fitWidth,
             ),
-          )),
+          ),
           Flexible(
-              flex: 1,
               child: IconButton(
-                icon: const FaIcon(FontAwesomeIcons.female),
-                color: value.isFemale()
-                    ? girlGender.withOpacity(1)
-                    : girlGender.withOpacity(0.5),
-                iconSize: 150,
-                onPressed: onFemalePressed,
-              )),
+            icon: const FaIcon(FontAwesomeIcons.female),
+            color: value.isFemale()
+                ? girlGender.withOpacity(1)
+                : girlGender.withOpacity(0.5),
+            iconSize: 150,
+            onPressed: onFemalePressed,
+          )),
         ],
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -67,12 +61,10 @@ class ReactiveGenderInput extends ReactiveFormField<String, String> {
   ///
   ReactiveGenderInput({
     required String formControlName,
-    required Size size,
   }) : super(
             formControlName: formControlName,
             builder: (ReactiveFormFieldState<String, String> field) {
               return GenderInput(
-                  size: size,
                   value: EnumToString.fromString(Gender.values, field.value!) ??
                       Gender.unknown,
                   onFemalePressed: () => field
