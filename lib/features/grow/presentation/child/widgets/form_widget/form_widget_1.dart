@@ -8,7 +8,8 @@ class ChildSignUpFormOne extends StatelessWidget {
   ////
   const ChildSignUpFormOne({required this.formgroup})
       : super(key: const Key('child-sign-up-form-1'));
-      ///Formgroup for the first page
+
+  ///Formgroup for the first page
   final FormGroup formgroup;
 
   ///the form group for this form
@@ -41,7 +42,7 @@ class ChildSignUpFormOne extends StatelessWidget {
                       decoration: const InputDecoration(hintText: 'First Name'),
                     ),
                   ),
-                  DefaultUIElements.getDefaultFormPadding(),
+                  Spacer(),
                   Flexible(
                     child: ReactiveTextField<String>(
                       formControlName: 'lastname',
@@ -50,10 +51,9 @@ class ChildSignUpFormOne extends StatelessWidget {
                   ),
                 ],
               )),
-              DefaultUIElements.getDefaultFormPadding(),
-              Flexible(
+              Spacer(),
+              Expanded(
                 child: ReactiveGenderInput(
-                  size: MediaQuery.of(context).size,
                   formControlName: 'gender',
                 ),
               )
