@@ -1,4 +1,4 @@
-package com.example.grow_run_v1
+package com.ganneyd.growRunV1
 
 import io.flutter.embedding.android.FlutterActivity
 
