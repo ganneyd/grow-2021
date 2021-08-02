@@ -17,7 +17,18 @@ final ThemeData theme = ThemeData(
   primaryIconTheme: const IconThemeData(color: Colors.black),
   accentIconTheme: const IconThemeData(color: Colors.black),
   iconTheme: const IconThemeData(color: Color.fromRGBO(2, 108, 73, 1)),
-  appBarTheme: const AppBarTheme(color: Color.fromRGBO(144, 223, 43, 1)),
+  appBarTheme: const AppBarTheme(
+    color: Color.fromRGBO(144, 223, 43, 1),
+    textTheme: TextTheme(
+      headline6: TextStyle(
+        fontSize: 36,
+        color: Colors.white,
+        fontFamily: 'Arial Rounded MT Bold',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 2.0,
+      ),
+    ),
+  ),
   snackBarTheme: const SnackBarThemeData(
       actionTextColor: Colors.pink,
       contentTextStyle: TextStyle(color: Colors.white)),
