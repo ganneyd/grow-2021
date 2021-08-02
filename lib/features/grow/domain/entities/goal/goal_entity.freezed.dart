@@ -17,8 +17,8 @@ class _$GoalEntityTearOff {
   const _$GoalEntityTearOff();
 
   _GoalEntity call(
-      {GOAL_OCCURANCE goalOccurance = GOAL_OCCURANCE.UNKNOWN,
-      GOAL_TYPE goalType = GOAL_TYPE.UNKNOWN,
+      {GOAL_OCCURANCE goalOccurance = GOAL_OCCURANCE.unknown,
+      GOAL_TYPE goalType = GOAL_TYPE.unknown,
       String name = 'goal-name',
       String description = 'goal-description',
       List<DateTime>? dateCompleted,
@@ -193,18 +193,18 @@ class __$GoalEntityCopyWithImpl<$Res> extends _$GoalEntityCopyWithImpl<$Res>
 
 class _$_GoalEntity with DiagnosticableTreeMixin implements _GoalEntity {
   _$_GoalEntity(
-      {this.goalOccurance = GOAL_OCCURANCE.UNKNOWN,
-      this.goalType = GOAL_TYPE.UNKNOWN,
+      {this.goalOccurance = GOAL_OCCURANCE.unknown,
+      this.goalType = GOAL_TYPE.unknown,
       this.name = 'goal-name',
       this.description = 'goal-description',
       this.dateCompleted,
       this.dateMade,
       this.threshold = 0});
 
-  @JsonKey(defaultValue: GOAL_OCCURANCE.UNKNOWN)
+  @JsonKey(defaultValue: GOAL_OCCURANCE.unknown)
   @override
   final GOAL_OCCURANCE goalOccurance;
-  @JsonKey(defaultValue: GOAL_TYPE.UNKNOWN)
+  @JsonKey(defaultValue: GOAL_TYPE.unknown)
   @override
   final GOAL_TYPE goalType;
   @JsonKey(defaultValue: 'goal-name')
@@ -223,7 +223,7 @@ class _$_GoalEntity with DiagnosticableTreeMixin implements _GoalEntity {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GoalEntity(goalOccurance: $goalOccurance, goalType: $goalType, name: $name, description: $description, dateCompleted: $dateCompleted, dateMade: $dateMade, threshold: $threshold)';
+    return '${'${"GoalEntity(goalOccurance: $goalOccurance, goalType: $goalType,"}'}${'${' name: $name, description: $description, dateCompleted: $dateCompleted,'}'}${'${" dateMade: $dateMade, threshold: $threshold)"}'}';
   }
 
   @override
