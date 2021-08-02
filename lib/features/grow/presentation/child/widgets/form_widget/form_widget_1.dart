@@ -21,14 +21,16 @@ class ChildSignUpFormOne extends StatelessWidget {
     DefaultUIElements.getEmailInput(formControlName: 'child_email'),
     Row(
       children: <Widget>[
-        Flexible(
+        Expanded(
+          flex: 6,
           child: ReactiveTextField<String>(
             formControlName: 'firstname',
             decoration: const InputDecoration(hintText: 'First Name'),
           ),
         ),
-        Spacer(),
-        Flexible(
+        const Spacer(),
+        Expanded(
+          flex: 6,
           child: ReactiveTextField<String>(
             formControlName: 'lastname',
             decoration: const InputDecoration(hintText: 'Last Name'),
@@ -53,7 +55,9 @@ class ChildSignUpFormOne extends StatelessWidget {
               return _formInputs[index];
             },
             separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+                const SizedBox(
+              height: 50,
+            ),
           );
         });
   }
