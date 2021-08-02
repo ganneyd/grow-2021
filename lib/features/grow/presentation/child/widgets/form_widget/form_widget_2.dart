@@ -8,24 +8,30 @@ class ChildSignUpFormTwo extends StatelessWidget {
   ///
   const ChildSignUpFormTwo({required this.schools, required this.formGroup})
       : super(key: const Key('child-sign-up-form-2'));
+
+  ///The list of schools that will be presented to the user
   final List<SchoolModel> schools;
+
+  ///Tghe formgroup that controls the reactive form
   final FormGroup formGroup;
+
   @override
   Widget build(BuildContext context) {
     return DefaultUIElements.getDefaultPaddingContainer(
         child: ReactiveFormBuilder(
             form: () => formGroup,
-            builder: (context, form, child) {
+            builder: (BuildContext context, FormGroup form, Widget? child) {
               return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Expanded(
+                  Flexible(
                     child: ReactiveTextField<int>(
                       formControlName: 'age',
                       decoration: const InputDecoration(hintText: 'Age'),
                     ),
                   ),
                   DefaultUIElements.getDefaultFormPadding(),
-                  Expanded(
+                  Flexible(
                       child: ReactiveDropdownField<SchoolModel>(
                           formControlName: 'school',
                           items: schools.map((SchoolModel e) {
@@ -35,7 +41,7 @@ class ChildSignUpFormTwo extends StatelessWidget {
                             );
                           }).toList())),
                   DefaultUIElements.getDefaultFormPadding(),
-                  Expanded(
+                  Flexible(
                       child: ReactiveTextField<int>(
                     formControlName: 'gradeLevel',
                     decoration: const InputDecoration(hintText: 'Grade Level'),
