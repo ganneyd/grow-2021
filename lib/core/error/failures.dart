@@ -1,12 +1,16 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
+///Failure class, represents errors encountered during app use
+///takes a [errmsg] that can be extracted
 abstract class Failure extends Equatable {
+  ///Takes the message param
+  const Failure({required this.message});
+
+  ///The error message that will be returned
   final String message;
-  Failure({required this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => <Object>[];
 }
 
 // General failures
@@ -17,7 +21,7 @@ class SignUpFailure extends Failure {
   ///Takes a error message that is then passed to the super class
   ///by default the error msg is
   ///[Unable to sign up right now, please try again later.]
-  SignUpFailure(
+  const SignUpFailure(
       {String errMsg = 'Unable to sign up right now, please try again later.'})
       : super(message: errMsg);
 }
@@ -27,7 +31,7 @@ class AuthenticationFailure extends Failure {
   ///Takes a error message that is then passed to the super class
   ///by default the error message is
   ///[Unable to authenticate your credentials, please try again later.]
-  AuthenticationFailure(
+  const AuthenticationFailure(
       {String errMsg =
           'Unable to authenticate your credentials, please try again later.'})
       : super(message: errMsg);
@@ -39,7 +43,7 @@ class DisableFailure extends Failure {
   ///Takes a error message that is then passed to the super class
   ///by default the error message is
   ///[Unable to disable your account, please try again later.]
-  DisableFailure(
+  const DisableFailure(
       {String errMsg =
           'Unable to disable your account, please try again later.'})
       : super(message: errMsg);
@@ -52,7 +56,7 @@ class RegistrationFailure extends Failure {
   ///Takes a error message that is then passed to the super class
   ///by default the error msg is
   /// [Unable to register the user right now, please try again later.]
-  RegistrationFailure(
+  const RegistrationFailure(
       {String errMsg =
           'Unable to register the user right now, please try again later.'})
       : super(message: errMsg);
@@ -64,7 +68,7 @@ class FetchDataFailure extends Failure {
   ///Takes a error message that is then passed to the super class
   ///by default the error message is
   ///[Unable to retrive the document right now, please try later.]
-  FetchDataFailure(
+  const FetchDataFailure(
       {String errMsg =
           'Unable to retrive the document right now, please try later.'})
       : super(message: errMsg);
@@ -76,7 +80,7 @@ class CreateDataFailure extends Failure {
   ///Takes an error message that is then passed to the super class
   ///by default the error message is
   ///[Unable to store your info in the database, please try again later.]
-  CreateDataFailure(
+  const CreateDataFailure(
       {String errMsg =
           'Unable to store your info in the database, please try again later.'})
       : super(message: errMsg);
@@ -88,7 +92,7 @@ class UpdateDataFailure extends Failure {
   ///Takes an error message that is then passed to the super class
   ///by default the error message is
   ///[Unable to update the document right now, please try again later.]
-  UpdateDataFailure(
+  const UpdateDataFailure(
       {String errMsg =
           'Unable to update the document right now, please try again later.'})
       : super(message: errMsg);
@@ -99,7 +103,7 @@ class DeleteDataFailure extends Failure {
   ///Takes an error message that is then passed to the super class
   ///by default the error message is
   ///[Unable to delete the document right now, please try again later.]
-  DeleteDataFailure(
+  const DeleteDataFailure(
       {String errMsg =
           'Unable to delete the document right now, please try again later.'})
       : super(message: errMsg);
