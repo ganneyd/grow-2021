@@ -10,13 +10,13 @@ import 'package:enum_to_string/enum_to_string.dart';
 class GenderInput extends StatelessWidget {
   ///
   const GenderInput({
-    required this.value,
+    required this.gender,
     required this.onFemalePressed,
     required this.onMalePressed,
   }) : super(key: const Key('gender_input'));
 
   /// the value of the user's selection
-  final Gender value;
+  final Gender gender;
 
   ///The callback to notify that the user selected the male gender
   final VoidCallback onMalePressed;
@@ -33,24 +33,33 @@ class GenderInput extends StatelessWidget {
       return Row(
         children: [
           Expanded(
-            child: Image.asset(
-              'assets/avatar/male/male.png',
-              height: 160,
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.fitHeight,
-            ),
-          ),
+              child: GestureDetector(
+                  onTap: onMalePressed,
+                  child: _getGenderBtn(
+                      filename: 'assets/avatar/male/male.png',
+                      opacity: gender.isMale() ? 1 : 0.45))),
           Expanded(
-            child: Image.asset(
-              'assets/avatar/female/female.png',
-              height: 160,
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.fitHeight,
-            ),
-          ),
+              child: GestureDetector(
+                  onTap: onFemalePressed,
+                  child: _getGenderBtn(
+                      filename: 'assets/avatar/female/female.png',
+                      opacity: gender.isFemale() ? 1 : 0.45))),
         ],
       );
     });
+  }
+
+//returns the gender button which is a image with a color
+  ///TODO: add dropshadow to image
+  Widget _getGenderBtn({required String filename, required double opacity}) {
+    return Image.asset(
+      filename,
+      height: 250,
+      filterQuality: FilterQuality.high,
+      fit: BoxFit.fitHeight,
+      color: Colors.black.withOpacity(opacity),
+      colorBlendMode: BlendMode.dstIn,
+    );
   }
 }
 
@@ -64,8 +73,9 @@ class ReactiveGenderInput extends ReactiveFormField<String, String> {
             formControlName: formControlName,
             builder: (ReactiveFormFieldState<String, String> field) {
               return GenderInput(
-                  value: EnumToString.fromString(Gender.values, field.value!) ??
-                      Gender.unknown,
+                  gender:
+                      EnumToString.fromString(Gender.values, field.value!) ??
+                          Gender.unknown,
                   onFemalePressed: () => field
                       .didChange(EnumToString.convertToString(Gender.female)),
                   onMalePressed: () => field
