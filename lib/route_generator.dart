@@ -34,7 +34,11 @@ class RouteGenerator {
     return MaterialPageRoute<void>(builder: (_) {
       return Scaffold(
           appBar: AppBar(
-            title: const Text('ERROR'),
+            title: const Text(
+              'Error',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: const Color.fromRGBO(255, 85, 51, 1),
           ),
           body: const Center(
             child: Text('Error'),
