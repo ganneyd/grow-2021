@@ -17,8 +17,9 @@ class LoginPage extends StatelessWidget {
         create: (_) => LoginPageCubit(
             authenticationRepository: context.read<AuthenticationRepository>()),
         child: Scaffold(
-          appBar: DefaultUIElements.getDefaultAppBar(
-              context: context, appBarName: 'Login'),
+          appBar: AppBar(
+            title: const Text('Login'),
+          ),
           body: Center(
             child: DefaultUIElements.getDefaultPaddingContainer(
                 child: const LoginPageBody()),

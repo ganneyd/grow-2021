@@ -28,8 +28,9 @@ class _ChildSignUpFormState extends State<ChildSignUpForm> {
         ..getData(),
       child: Scaffold(
         //resizeToAvoidBottomInset: false,
-        appBar: DefaultUIElements.getDefaultAppBar(
-            context: context, appBarName: 'SignUP'),
+        appBar: AppBar(
+          title: const Text('Sign Up'),
+        ),
         body: Center(
           child: DefaultUIElements.getDefaultPaddingContainer(
               child: const SignUpPageBody()),
