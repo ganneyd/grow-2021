@@ -1,12 +1,36 @@
 ///A [GOAL_OCCURANCE] tells what category the goal belongs to
-/// [GOAL_OCCURANCE.WEEKLY] specifies that a goal is going to be attempted every week
-/// [GOAL_OCCURANCE.DAILY] specifies that a goal is going to be attempted every day
 
-enum GOAL_OCCURANCE { WEEKLY, DAILY, UNKNOWN }
+enum GOAL_OCCURANCE {
+  /// specifies that a goal is going to be
+  /// attempted every week
+  weekly,
+
+  /// specifies that a goal is going to be
+  /// attempted every day
+  daily,
+
+  ///if the occurance of the goal is not specified
+  unknown
+}
 
 ///[GOAL_TYPE] specifies what kind of activity the goal is for
-///[GOAL_TYPE.DISTANCE] specifies that the goal is achieved if an activity is completed in x distance
-///[GOAL_TYPE.TIME] specifies that the goal is achieved if an activity is completed  in x number of time
-///[GOAL_TYPE.FREQUENCY] specifies that the goal is achieved if an activity is completed x number of times over a number of days
-///[GOAL_TYPE.NUMBER]specifies that the goal is achieved if an activity is completed x number of times
-enum GOAL_TYPE { DISTANCE, TIME, FREQUENCY, NUMBER, UNKNOWN }
+enum GOAL_TYPE {
+  ///specifies that the goal is achieved if an activity
+  ///is completed in x distance
+  distance,
+
+  /// specifies that the goal is achieved if an activity is
+  ///completed  in x number of times
+  time,
+
+  ///specifies that the goal is achieved if an activity
+  /// is completed x number of times over a number of days
+  frequency,
+
+  ///specifies that the goal is achieved if an activity is
+  ///completed x number of times
+  number,
+
+  ///If the goal type is unknown
+  unknown,
+}
