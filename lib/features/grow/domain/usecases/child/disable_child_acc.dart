@@ -1,12 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grow_run_v1/core/util/util.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
-import '../../entities/child/child_entity.dart';
-import '../../repositories/grow_repository.dart';
 
 ///when a user is trying to disable a child's account
 ///they just need the child id
@@ -24,7 +20,7 @@ class DisableChildAccount implements UseCase<void, Params> {
   }
 }
 
-///Pramaeters required by the [DisableChildAccount] UseCase
+///Parameters required by the [DisableChildAccount] UseCase
 class Params extends Equatable {
   ///Params needed to disable a child's account, only takes the [childID] as a
   ///param
