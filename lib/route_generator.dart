@@ -1,3 +1,4 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:grow_run_v1/features/grow/presentation/parent/pages/home/view/home_page.dart'
     as parent_view;
@@ -13,13 +14,20 @@ class RouteGenerator {
     switch (settings.name) {
       case '/login':
         return MaterialPageRoute<void>(builder: (_) => const LoginPage());
-      case '/child-sign-up':
+      //**********************Child routes************************************
+      case '/child/goals':
+      case '/child/home':
+        return MaterialPageRoute<void>(builder: (_) => child_view.HomePage());
+      case 'child/leaderboard':
+      case '/child/profile':
+      case '/child/shop':
+      case '/child/sign-up':
         return MaterialPageRoute<void>(
             builder: (_) => const child_view.ChildSignUpForm());
-      case '/child-home':
-        return MaterialPageRoute<void>(
-            builder: (_) => const child_view.HomePage());
-      case '/parent-home':
+      case '/child/statistics':
+
+      //**********************Child routes************************************
+      case '/parent/home':
         return MaterialPageRoute<void>(
             builder: (_) => const parent_view.HomePage());
       default:
