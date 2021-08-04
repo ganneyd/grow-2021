@@ -1,32 +1,32 @@
 # Details
 
-Date : 2021-07-30 23:20:03
+Date : 2021-08-03 12:12:56
 
 Directory /Users/ganneyd/SofwareDev/flutter/grow-2021/lib
 
-Total : 132 files,  6564 codes, 1117 comments, 1061 blanks, all 8742 lines
+Total : 140 files,  6831 codes, 1155 comments, 1094 blanks, all 9080 lines
 
 [summary](results.md)
 
 ## Files
 | filename | language | code | comment | blank | total |
 | :--- | :--- | ---: | ---: | ---: | ---: |
-| [lib/app.dart](/lib/app.dart) | Dart | 77 | 4 | 7 | 88 |
+| [lib/app.dart](/lib/app.dart) | Dart | 76 | 5 | 7 | 88 |
 | [lib/core/error/exceptions.dart](/lib/core/error/exceptions.dart) | Dart | 6 | 11 | 6 | 23 |
-| [lib/core/error/failures.dart](/lib/core/error/failures.dart) | Dart | 55 | 39 | 13 | 107 |
+| [lib/core/error/failures.dart](/lib/core/error/failures.dart) | Dart | 54 | 43 | 14 | 111 |
 | [lib/core/usecases/usecases.dart](/lib/core/usecases/usecases.dart) | Dart | 10 | 0 | 4 | 14 |
 | [lib/core/util/authentication.dart](/lib/core/util/authentication.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/core/util/clothing_util.dart](/lib/core/util/clothing_util.dart) | Dart | 1 | 4 | 2 | 7 |
 | [lib/core/util/gender.dart](/lib/core/util/gender.dart) | Dart | 5 | 6 | 3 | 14 |
-| [lib/core/util/goal_util.dart](/lib/core/util/goal_util.dart) | Dart | 2 | 8 | 3 | 13 |
-| [lib/core/util/privallge_util.dart](/lib/core/util/privallge_util.dart) | Dart | 22 | 16 | 2 | 40 |
+| [lib/core/util/goal_util.dart](/lib/core/util/goal_util.dart) | Dart | 12 | 16 | 9 | 37 |
+| [lib/core/util/privilege_util.dart](/lib/core/util/privilege_util.dart) | Dart | 22 | 16 | 2 | 40 |
 | [lib/core/util/school_util.dart](/lib/core/util/school_util.dart) | Dart | 5 | 7 | 3 | 15 |
 | [lib/core/util/trophy_util.dart](/lib/core/util/trophy_util.dart) | Dart | 1 | 6 | 2 | 9 |
 | [lib/core/util/user_type_util.dart](/lib/core/util/user_type_util.dart) | Dart | 9 | 1 | 1 | 11 |
 | [lib/core/util/util.dart](/lib/core/util/util.dart) | Dart | 7 | 0 | 1 | 8 |
 | [lib/features/grow/data/datasources/datasources.dart](/lib/features/grow/data/datasources/datasources.dart) | Dart | 2 | 1 | 2 | 5 |
 | [lib/features/grow/data/datasources/local/local_datasource.dart](/lib/features/grow/data/datasources/local/local_datasource.dart) | Dart | 0 | 0 | 1 | 1 |
-| [lib/features/grow/data/datasources/remote/firebase/grow_remote_datasoure.dart](/lib/features/grow/data/datasources/remote/firebase/grow_remote_datasoure.dart) | Dart | 141 | 44 | 17 | 202 |
+| [lib/features/grow/data/datasources/remote/firebase/grow_remote_datasource.dart](/lib/features/grow/data/datasources/remote/firebase/grow_remote_datasource.dart) | Dart | 141 | 44 | 17 | 202 |
 | [lib/features/grow/data/models/admin/admin_model.dart](/lib/features/grow/data/models/admin/admin_model.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/features/grow/data/models/background/background_model.dart](/lib/features/grow/data/models/background/background_model.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/features/grow/data/models/child/child_model.dart](/lib/features/grow/data/models/child/child_model.dart) | Dart | 68 | 14 | 7 | 89 |
@@ -58,7 +58,7 @@ Total : 132 files,  6564 codes, 1117 comments, 1061 blanks, all 8742 lines
 | [lib/features/grow/domain/entities/clothing/clothing_entity.freezed.dart](/lib/features/grow/domain/entities/clothing/clothing_entity.freezed.dart) | Dart | 224 | 14 | 28 | 266 |
 | [lib/features/grow/domain/entities/entities_bucket.dart](/lib/features/grow/domain/entities/entities_bucket.dart) | Dart | 11 | 0 | 1 | 12 |
 | [lib/features/grow/domain/entities/entity.dart](/lib/features/grow/domain/entities/entity.dart) | Dart | 14 | 4 | 4 | 22 |
-| [lib/features/grow/domain/entities/goal/goal_entity.dart](/lib/features/grow/domain/entities/goal/goal_entity.dart) | Dart | 17 | 0 | 2 | 19 |
+| [lib/features/grow/domain/entities/goal/goal_entity.dart](/lib/features/grow/domain/entities/goal/goal_entity.dart) | Dart | 17 | 2 | 3 | 22 |
 | [lib/features/grow/domain/entities/goal/goal_entity.freezed.dart](/lib/features/grow/domain/entities/goal/goal_entity.freezed.dart) | Dart | 273 | 14 | 28 | 315 |
 | [lib/features/grow/domain/entities/parent/parent_entity.dart](/lib/features/grow/domain/entities/parent/parent_entity.dart) | Dart | 18 | 9 | 9 | 36 |
 | [lib/features/grow/domain/entities/route/route_entity.dart](/lib/features/grow/domain/entities/route/route_entity.dart) | Dart | 13 | 2 | 2 | 17 |
@@ -97,29 +97,37 @@ Total : 132 files,  6564 codes, 1117 comments, 1061 blanks, all 8742 lines
 | [lib/features/grow/presentation/bloc/authentication_bloc.dart](/lib/features/grow/presentation/bloc/authentication_bloc.dart) | Dart | 56 | 9 | 9 | 74 |
 | [lib/features/grow/presentation/bloc/authentication_event.dart](/lib/features/grow/presentation/bloc/authentication_event.dart) | Dart | 13 | 6 | 6 | 25 |
 | [lib/features/grow/presentation/bloc/authentication_state.dart](/lib/features/grow/presentation/bloc/authentication_state.dart) | Dart | 38 | 19 | 18 | 75 |
+| [lib/features/grow/presentation/child/pages/goals/view/goals_page.dart](/lib/features/grow/presentation/child/pages/goals/view/goals_page.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/features/grow/presentation/child/pages/home/cubit/home_cubit.dart](/lib/features/grow/presentation/child/pages/home/cubit/home_cubit.dart) | Dart | 31 | 3 | 5 | 39 |
 | [lib/features/grow/presentation/child/pages/home/cubit/home_state.dart](/lib/features/grow/presentation/child/pages/home/cubit/home_state.dart) | Dart | 16 | 6 | 5 | 27 |
 | [lib/features/grow/presentation/child/pages/home/cubit/home_state.freezed.dart](/lib/features/grow/presentation/child/pages/home/cubit/home_state.freezed.dart) | Dart | 158 | 14 | 30 | 202 |
-| [lib/features/grow/presentation/child/pages/home/view/drawer.dart](/lib/features/grow/presentation/child/pages/home/view/drawer.dart) | Dart | 62 | 2 | 4 | 68 |
-| [lib/features/grow/presentation/child/pages/home/view/home_page.dart](/lib/features/grow/presentation/child/pages/home/view/home_page.dart) | Dart | 72 | 4 | 5 | 81 |
-| [lib/features/grow/presentation/child/pages/home/view/home_page_buttons.dart](/lib/features/grow/presentation/child/pages/home/view/home_page_buttons.dart) | Dart | 82 | 4 | 4 | 90 |
+| [lib/features/grow/presentation/child/pages/home/view/drawer.dart](/lib/features/grow/presentation/child/pages/home/view/drawer.dart) | Dart | 138 | 3 | 5 | 146 |
+| [lib/features/grow/presentation/child/pages/home/view/home_page.dart](/lib/features/grow/presentation/child/pages/home/view/home_page.dart) | Dart | 170 | 7 | 6 | 183 |
+| [lib/features/grow/presentation/child/pages/home/view/home_page_buttons.dart](/lib/features/grow/presentation/child/pages/home/view/home_page_buttons.dart) | Dart | 133 | 7 | 9 | 149 |
+| [lib/features/grow/presentation/child/pages/leaderboard/view/leaderboard_page.dart](/lib/features/grow/presentation/child/pages/leaderboard/view/leaderboard_page.dart) | Dart | 0 | 0 | 1 | 1 |
+| [lib/features/grow/presentation/child/pages/profile/view/profile_page.dart](/lib/features/grow/presentation/child/pages/profile/view/profile_page.dart) | Dart | 0 | 0 | 1 | 1 |
+| [lib/features/grow/presentation/child/pages/routes/view/routes_page.dart](/lib/features/grow/presentation/child/pages/routes/view/routes_page.dart) | Dart | 0 | 0 | 1 | 1 |
+| [lib/features/grow/presentation/child/pages/run/view/run_page.dart](/lib/features/grow/presentation/child/pages/run/view/run_page.dart) | Dart | 0 | 0 | 1 | 1 |
+| [lib/features/grow/presentation/child/pages/shop/view/shop_page.dart](/lib/features/grow/presentation/child/pages/shop/view/shop_page.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_cubit.dart](/lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_cubit.dart) | Dart | 106 | 34 | 12 | 152 |
 | [lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.dart](/lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.dart) | Dart | 44 | 22 | 19 | 85 |
 | [lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.freezed.dart](/lib/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_state.freezed.dart) | Dart | 267 | 14 | 30 | 311 |
-| [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body.dart) | Dart | 69 | 27 | 7 | 103 |
-| [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_loaded.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_loaded.dart) | Dart | 75 | 1 | 2 | 78 |
+| [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body.dart) | Dart | 67 | 31 | 7 | 105 |
+| [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_loaded.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_loaded.dart) | Dart | 73 | 1 | 2 | 76 |
 | [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_loading.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_loading.dart) | Dart | 1 | 0 | 1 | 2 |
 | [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_submitting.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_body_submitting.dart) | Dart | 1 | 0 | 1 | 2 |
-| [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_page.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_page.dart) | Dart | 34 | 2 | 5 | 41 |
-| [lib/features/grow/presentation/child/views_bucket.dart](/lib/features/grow/presentation/child/views_bucket.dart) | Dart | 2 | 0 | 1 | 3 |
+| [lib/features/grow/presentation/child/pages/sign_up/view/sign_up_page.dart](/lib/features/grow/presentation/child/pages/sign_up/view/sign_up_page.dart) | Dart | 34 | 3 | 5 | 42 |
+| [lib/features/grow/presentation/child/pages/statistics/view/statistics_page.dart](/lib/features/grow/presentation/child/pages/statistics/view/statistics_page.dart) | Dart | 0 | 0 | 1 | 1 |
+| [lib/features/grow/presentation/child/views_bucket.dart](/lib/features/grow/presentation/child/views_bucket.dart) | Dart | 8 | 0 | 1 | 9 |
 | [lib/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart](/lib/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart) | Dart | 32 | 17 | 4 | 53 |
-| [lib/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart](/lib/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart) | Dart | 57 | 4 | 4 | 65 |
-| [lib/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart](/lib/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart) | Dart | 44 | 2 | 2 | 48 |
-| [lib/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart](/lib/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart) | Dart | 47 | 2 | 2 | 51 |
+| [lib/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart](/lib/features/grow/presentation/child/widgets/form_widget/form_widget_1.dart) | Dart | 55 | 5 | 5 | 65 |
+| [lib/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart](/lib/features/grow/presentation/child/widgets/form_widget/form_widget_2.dart) | Dart | 48 | 5 | 5 | 58 |
+| [lib/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart](/lib/features/grow/presentation/child/widgets/form_widget/form_widget_3.dart) | Dart | 44 | 4 | 4 | 52 |
+| [lib/features/grow/presentation/pages/advertisement/view/advertisement_page.dart](/lib/features/grow/presentation/pages/advertisement/view/advertisement_page.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/features/grow/presentation/pages/login/cubit/login_cubit.dart](/lib/features/grow/presentation/pages/login/cubit/login_cubit.dart) | Dart | 23 | 3 | 5 | 31 |
 | [lib/features/grow/presentation/pages/login/cubit/login_state.dart](/lib/features/grow/presentation/pages/login/cubit/login_state.dart) | Dart | 15 | 6 | 7 | 28 |
 | [lib/features/grow/presentation/pages/login/cubit/login_state.freezed.dart](/lib/features/grow/presentation/pages/login/cubit/login_state.freezed.dart) | Dart | 125 | 14 | 27 | 166 |
-| [lib/features/grow/presentation/pages/login/view/login_page.dart](/lib/features/grow/presentation/pages/login/view/login_page.dart) | Dart | 54 | 5 | 4 | 63 |
+| [lib/features/grow/presentation/pages/login/view/login_page.dart](/lib/features/grow/presentation/pages/login/view/login_page.dart) | Dart | 55 | 5 | 4 | 64 |
 | [lib/features/grow/presentation/pages/login/widgets/form_group/login_form_group.dart](/lib/features/grow/presentation/pages/login/widgets/form_group/login_form_group.dart) | Dart | 8 | 5 | 3 | 16 |
 | [lib/features/grow/presentation/pages/login/widgets/form_widget/form_widget_1.dart](/lib/features/grow/presentation/pages/login/widgets/form_widget/form_widget_1.dart) | Dart | 53 | 3 | 3 | 59 |
 | [lib/features/grow/presentation/pages/splash_page.dart](/lib/features/grow/presentation/pages/splash_page.dart) | Dart | 12 | 2 | 3 | 17 |
@@ -129,19 +137,19 @@ Total : 132 files,  6564 codes, 1117 comments, 1061 blanks, all 8742 lines
 | [lib/features/grow/presentation/parent/pages/home/view/home_page.dart](/lib/features/grow/presentation/parent/pages/home/view/home_page.dart) | Dart | 53 | 4 | 5 | 62 |
 | [lib/features/grow/presentation/utils/forms_interface.dart](/lib/features/grow/presentation/utils/forms_interface.dart) | Dart | 6 | 4 | 5 | 15 |
 | [lib/features/grow/presentation/utils/pages_interface.dart](/lib/features/grow/presentation/utils/pages_interface.dart) | Dart | 0 | 0 | 2 | 2 |
-| [lib/features/grow/presentation/widgets/buttons/buttons_with_icon.dart](/lib/features/grow/presentation/widgets/buttons/buttons_with_icon.dart) | Dart | 63 | 7 | 4 | 74 |
+| [lib/features/grow/presentation/widgets/buttons/buttons_with_icon.dart](/lib/features/grow/presentation/widgets/buttons/buttons_with_icon.dart) | Dart | 64 | 7 | 4 | 75 |
 | [lib/features/grow/presentation/widgets/constant_colors.dart](/lib/features/grow/presentation/widgets/constant_colors.dart) | Dart | 22 | 17 | 17 | 56 |
 | [lib/features/grow/presentation/widgets/constant_sizes.dart](/lib/features/grow/presentation/widgets/constant_sizes.dart) | Dart | 3 | 3 | 3 | 9 |
 | [lib/features/grow/presentation/widgets/default_ui_elements.dart](/lib/features/grow/presentation/widgets/default_ui_elements.dart) | Dart | 44 | 6 | 7 | 57 |
 | [lib/features/grow/presentation/widgets/form_group/get_form_validators.dart](/lib/features/grow/presentation/widgets/form_group/get_form_validators.dart) | Dart | 4 | 3 | 2 | 9 |
 | [lib/features/grow/presentation/widgets/form_group/login_group.dart](/lib/features/grow/presentation/widgets/form_group/login_group.dart) | Dart | 8 | 2 | 2 | 12 |
-| [lib/features/grow/presentation/widgets/form_inputs/form_gender_input.dart](/lib/features/grow/presentation/widgets/form_inputs/form_gender_input.dart) | Dart | 61 | 10 | 8 | 79 |
+| [lib/features/grow/presentation/widgets/form_inputs/form_gender_input.dart](/lib/features/grow/presentation/widgets/form_inputs/form_gender_input.dart) | Dart | 67 | 12 | 9 | 88 |
 | [lib/features/grow/presentation/widgets/form_inputs/form_input_controllers.dart](/lib/features/grow/presentation/widgets/form_inputs/form_input_controllers.dart) | Dart | 83 | 11 | 11 | 105 |
 | [lib/features/grow/presentation/widgets/form_inputs/form_input_types.dart](/lib/features/grow/presentation/widgets/form_inputs/form_input_types.dart) | Dart | 13 | 0 | 1 | 14 |
 | [lib/features/grow/presentation/widgets/form_inputs/form_number_inputs.dart](/lib/features/grow/presentation/widgets/form_inputs/form_number_inputs.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/features/grow/presentation/widgets/form_status.dart](/lib/features/grow/presentation/widgets/form_status.dart) | Dart | 69 | 105 | 33 | 207 |
-| [lib/features/grow/theme.dart](/lib/features/grow/theme.dart) | Dart | 34 | 3 | 2 | 39 |
-| [lib/main.dart](/lib/main.dart) | Dart | 17 | 3 | 4 | 24 |
-| [lib/route_generator.dart](/lib/route_generator.dart) | Dart | 35 | 7 | 3 | 45 |
+| [lib/features/grow/theme.dart](/lib/features/grow/theme.dart) | Dart | 49 | 4 | 3 | 56 |
+| [lib/main.dart](/lib/main.dart) | Dart | 18 | 3 | 5 | 26 |
+| [lib/route_generator.dart](/lib/route_generator.dart) | Dart | 44 | 9 | 4 | 57 |
 
 [summary](results.md)
