@@ -1,4 +1,4 @@
-///The different priviallges an admin can have
+///The different privileges an admin can have
 ///[ALL] is for the developer who can practically do everything
 ///[EDIT_SCHOOL]  is for an admin who can edit an school's fields
 ///[READ_SCHOOL] is for an admin who can see an school's data
@@ -13,7 +13,7 @@
 ///[CREATE_GLOBAL_ROUTES] is for an admin who can create global routes that all children can access
 ///[CREATE_SCHOOL_ROUTES] is for an admin who can create routes that are specific  to a school and only children attending that school have access
 ///[DELETE_SCHOOL_ROUTES] is for an admin who can delete a school's route
-///[DELETE_GLOBAL_ROUTES] is for an admin who can delte a global route
+///[DELETE_GLOBAL_ROUTES] is for an admin who can delete a global route
 
 enum Priviallge {
   ALL,
