@@ -38,27 +38,29 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
   }
 
   @override
-  Future<Either<Failure, void>> createChildData(ChildEntity childUser) async {
+  Future<Either<Failure, void>> createChildData(
+      ChildEntity childUser, String childID) async {
     try {
       return Right<Failure, void>(await _remoteDataSource.createData(
-          collectionName, _convertEntityToJson(childUser), childUser.uid!));
+          collectionName, _convertEntityToJson(childUser), childID));
     } on CreateDataException {
-      return Left<Failure, void>(CreateDataFailure());
+      return const Left<Failure, void>(CreateDataFailure());
     } catch (e) {
       //TODO properly log the unexpected error
-      return Left<Failure, void>(CreateDataFailure());
+      return const Left<Failure, void>(CreateDataFailure());
     }
   }
 
   @override
-  Future<Either<Failure, void>> editChildUser(ChildEntity child) async {
+  Future<Either<Failure, void>> editChildUser(
+      ChildEntity child, String childID) async {
     try {
       return Right<Failure, void>(await _remoteDataSource.updateData(
-          collectionName, _convertEntityToJson(child), child.uid!));
+          collectionName, _convertEntityToJson(child), childID));
     } on UpdateDataException {
-      return Left<Failure, void>(UpdateDataFailure());
+      return const Left<Failure, void>(UpdateDataFailure());
     } catch (e) {
-      return Left<Failure, void>(UpdateDataFailure());
+      return const Left<Failure, void>(UpdateDataFailure());
     }
   }
 
@@ -77,12 +79,12 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
       return Right<Failure, List<ChildEntity>>(
           _convertJsonToChildList(childrenJsonList));
     } on ReadDataException {
-      return Left<Failure, List<ChildEntity>>(
+      return const Left<Failure, List<ChildEntity>>(
           FetchDataFailure(errMsg: 'read data'));
     } catch (e) {
       //TODO: log unexpected error
-      return Left<Failure, List<ChildEntity>>(
-          FetchDataFailure(errMsg: 'unforseen'));
+      return const Left<Failure, List<ChildEntity>>(
+          FetchDataFailure(errMsg: 'unforeseen'));
     }
   }
 
@@ -92,7 +94,7 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
     final List<ChildEntity> childrenList = <ChildEntity>[];
     try {
       for (final String childID in childrenIDs) {
-//retrive the document snapshot
+//retrieve the document snapshot
         final Map<String, dynamic> childJson =
             await _remoteDataSource.getData(collectionName, childID);
         //add the child.fromJSon to the list
@@ -100,9 +102,9 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
       }
       return Right<Failure, List<ChildEntity>>(childrenList);
     } on ReadDataException {
-      return Left<Failure, List<ChildEntity>>(FetchDataFailure());
+      return const Left<Failure, List<ChildEntity>>(FetchDataFailure());
     } catch (e) {
-      return Left<Failure, List<ChildEntity>>(FetchDataFailure());
+      return const Left<Failure, List<ChildEntity>>(FetchDataFailure());
     }
   }
 
@@ -114,16 +116,32 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
       final List<Map<String, dynamic>> childrenJsonList =
           await _remoteDataSource.queryCollection(collectionName, 'schoolID',
               isEqualTo: schoolID);
-      //iterate throught the querySnapshot and add the child to the children
+      //iterate throughout the querySnapshot and add the child to the children
       //list
-      // check to make sure the querysnaphot isnt empty
+      // check to make sure the querySnapshot isn't empty
 
       return Right<Failure, List<ChildEntity>>(
           _convertJsonToChildList(childrenJsonList));
     } on ReadDataException {
-      return Left<Failure, List<ChildEntity>>(FetchDataFailure());
+      return const Left<Failure, List<ChildEntity>>(FetchDataFailure());
     } catch (e) {
-      return Left<Failure, List<ChildEntity>>(FetchDataFailure());
+      return const Left<Failure, List<ChildEntity>>(FetchDataFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ChildEntity>> getChild(String childID) async {
+    try {
+      final Map<String, dynamic> result =
+          await _remoteDataSource.getData('children', childID);
+      if (result.isEmpty) {
+        throw Exception("Couldn't find child data.");
+      }
+      final Child child = Child.fromJson(result);
+      return Right<Failure, ChildEntity>(child);
+    } catch (error) {
+      return Left<Failure, ChildEntity>(
+          FetchDataFailure(errMsg: error.toString()));
     }
   }
 }
