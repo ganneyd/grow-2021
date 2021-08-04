@@ -223,7 +223,7 @@ class _$_GoalEntity with DiagnosticableTreeMixin implements _GoalEntity {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return '${'${"GoalEntity(goalOccurance: $goalOccurance, goalType: $goalType,"}'}${'${' name: $name, description: $description, dateCompleted: $dateCompleted,'}'}${'${" dateMade: $dateMade, threshold: $threshold)"}'}';
+    return 'GoalEntity(goalOccurance: $goalOccurance, goalType: $goalType, name: $name, description: $description, dateCompleted: $dateCompleted, dateMade: $dateMade, threshold: $threshold)';
   }
 
   @override
