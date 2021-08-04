@@ -33,7 +33,7 @@ export async function signUpChild(
       }
       
     } else {
-      await setChildCustomClaim(childUser, result["parentUID"] as string);
+      await setChildCustomClaim(childUser, result["parentUID"] as string, child.schoolID as string);
       // by now everything should have completed successfully
       const childData = child.data as Record<string, unknown>;
       childData["parentID"] = result["parentUID"] as string;
@@ -51,13 +51,15 @@ export async function signUpChild(
 /**
 * @param {admin.auth.UserRecord} user is the uid for the child user`
 * @param {string} parentUID
+* @param {string} schoolID 
 * @return {void}
  */
 async function setChildCustomClaim(
-    user: admin.auth.UserRecord, parentUID: string): Promise<void> {
+    user: admin.auth.UserRecord, parentUID: string, schoolID: string): Promise<void> {
   return admin.auth().setCustomUserClaims(user.uid, {
     child: true,
     parentID: parentUID,
+    schoolID: schoolID
 
   });
 }
