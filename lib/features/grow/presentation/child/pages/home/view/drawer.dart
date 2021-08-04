@@ -1,67 +1,176 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:grow_run_v1/core/util/build_info.dart';
+import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
+import 'package:grow_run_v1/features/grow/data/models/child_user_model.dart';
 import 'package:grow_run_v1/features/grow/presentation/bloc/authentication_bloc.dart';
-import 'package:grow_run_v1/features/grow/presentation/parent/pages/home/cubit/home_cubit.dart';
-import 'package:bloc/bloc.dart';
 import 'package:provider/provider.dart';
 
 ///Provides a drawer to the  child homepage
 class HomePageDrawer extends StatelessWidget {
   ///takes no param key is [child-home-page-drawer]
-  const HomePageDrawer() : super(key: const Key('child-home-page-drawer'));
-
+  const HomePageDrawer({BuildInfo? buildInfo, required ChildUserModel child})
+      : _buildInfo = buildInfo,
+        _child = child,
+        super(key: const Key('child-home-page-drawer'));
+  final BuildInfo? _buildInfo;
+  final ChildUserModel _child;
   @override
   Widget build(BuildContext context) {
     return Theme(
-        data: Theme.of(context),
+        data: Theme.of(context).copyWith(splashColor: Colors.blueGrey),
         child: Drawer(
           child: Material(
-            child: ListView(
-              children: <Widget>[
-                _buildMenuItem(
-                  context: context,
-                  label: 'Profile',
-                  icon: FontAwesomeIcons.userCog,
-                  onTap: () {},
-                ),
-                _buildMenuItem(
-                  context: context,
-                  label: 'School',
-                  icon: Icons.school,
-                  onTap: () {},
-                ),
-                _buildMenuItem(
-                  context: context,
-                  label: 'Routes',
-                  icon: FontAwesomeIcons.route,
-                  onTap: () {},
-                ),
-                _buildMenuItem(
-                  context: context,
-                  label: 'Log Out',
-                  icon: FontAwesomeIcons.signOutAlt,
-                  onTap: () => context
-                      .read<AuthenticationBloc>()
-                      .add(AuthenticationLogoutRequested()),
-                ),
-              ],
-            ),
+            child: Stack(children: [
+              ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  _buildExpansionHeader(
+                    icon: FontAwesomeIcons.userCog,
+                    title: 'Profile',
+                    children: <ListTile>[
+                      _buildExpansionItem(
+                        context: context,
+                        title: _child.childEntity.username,
+                        subtitle: 'Username',
+                        onTap: () {},
+                      ),
+                      _buildExpansionItem(
+                        context: context,
+                        title:
+                            // ignore: lines_longer_than_80_chars
+                            '${_child.childEntity.firstname} ${_child.childEntity.lastname}',
+                        subtitle: 'Name',
+                        onTap: () {},
+                      ),
+                      _buildExpansionItem(
+                        context: context,
+                        title: _child.email,
+                        subtitle: 'Email',
+                        onTap: () {},
+                      ),
+                      _buildExpansionItem(
+                        context: context,
+                        title:
+                            // ignore: lines_longer_than_80_chars
+                            '${DateTime.now().year - _child.childEntity.dateOfBirth!.year}',
+                        subtitle: 'Age',
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                  _buildExpansionHeader(
+                    icon: FontAwesomeIcons.school,
+                    title: 'School',
+                    children: <ListTile>[
+                      _buildExpansionItem(
+                        context: context,
+                        title: _child.schoolEntity.name,
+                        subtitle: 'Name',
+                        onTap: () {},
+                      ),
+                      _buildExpansionItem(
+                        context: context,
+                        title: _child.schoolEntity.address,
+                        subtitle: 'Address',
+                        onTap: () {},
+                      ),
+                      _buildExpansionItem(
+                        context: context,
+                        title: '${_child.childEntity.gradeLevel}',
+                        subtitle: 'Your Grade Level',
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            leading: Icon(
+                              FontAwesomeIcons.signOutAlt,
+                              color: Theme.of(context).iconTheme.color ??
+                                  Colors.red,
+                            ),
+                            title: const Text('Log Out'),
+                            onTap: () => context
+                                .read<AuthenticationBloc>()
+                                .add(AuthenticationLogoutRequested()),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          RichText(
+                              text: TextSpan(
+                                  text: 'GROW ',
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 12),
+                                  children: <TextSpan>[
+                                TextSpan(text: _buildInfo?.version),
+                                TextSpan(
+                                    text: '+${_buildInfo?.buildNumber}',
+                                    style: TextStyle(
+                                        color:
+                                            Theme.of(context).iconTheme.color ??
+                                                Colors.red)),
+                              ])),
+                          RichText(
+                              text: const TextSpan(
+                            text: '-Developed By- ',
+                            style: TextStyle(color: Colors.black, fontSize: 8),
+                          )),
+                          RichText(
+                              text: const TextSpan(
+                            text: '👨🏽‍💻 Ganney A. Dortch 👨🏽‍💻',
+                            style: TextStyle(color: Colors.black, fontSize: 10),
+                          )),
+                        ],
+                      ),
+                    )),
+              )
+            ]),
           ),
         ));
   }
 
-  Widget _buildMenuItem(
-      {required String label,
-      required IconData icon,
+  ListTile _buildExpansionItem(
+      {required String subtitle,
+      required String title,
       required VoidCallback onTap,
       required BuildContext context}) {
     return ListTile(
-        leading: Icon(
-          icon,
-          color: Theme.of(context).iconTheme.color ?? Colors.red,
+        trailing: const Icon(
+          CupertinoIcons.arrow_right,
+          size: 15,
         ),
-        title: Text(label),
+        title: Text(title),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(color: Colors.black26, fontSize: 10),
+        ),
         onTap: onTap);
+  }
+
+  Widget _buildExpansionHeader(
+      {required String title,
+      required List<Widget> children,
+      required IconData icon}) {
+    return ExpansionTile(
+      leading: Icon(icon),
+      title: Text(
+        title,
+      ),
+      children: children,
+    );
   }
 }
