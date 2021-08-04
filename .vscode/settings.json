@@ -18,6 +18,23 @@
     "cSpell.enabled": true,
     "cSpell.language": "en,en-US,en-GB",
     "java.configuration.updateBuildConfiguration": "automatic",
+    "cSpell.words": [
+      "Datasource",
+      "Diagnosticable",
+      "Dortch",
+      "Ganney",
+      "RGBO",
+      "crashlytics",
+      "dartz",
+      "datasources",
+      "firstname",
+      "lastname",
+      "leaderboard",
+      "phonenumber",
+      "predeploy",
+      "usecase",
+      "usecases"
+    ],
 }
 
 
