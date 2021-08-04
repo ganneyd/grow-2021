@@ -26,13 +26,15 @@ extension UserTypeExtension on UserType {
 ///such as their [email] and [uid]
 class UserEntity {
   ///Constructor takes
-  ///the [userid]
+  ///the [userID]
   ///and [userEmail]
   ///and [name]
+  ///and [claims]
   const UserEntity(
       {required this.userID,
       required this.userEmail,
       required this.name,
+      this.claims = const <String, dynamic>{},
       this.userType = UserType.unknown});
 
   ///The id for the user
@@ -47,10 +49,10 @@ class UserEntity {
   ///The user type
   final UserType userType;
 
+  ///The claims that belong to the user
+  final Map<String, dynamic> claims;
+
   /// Empty user which represents an unauthenticated user.
   static const UserEntity empty = UserEntity(
-    userEmail: ' ',
-    userID: ' ',
-    name: ' ',
-  );
+      userEmail: ' ', userID: ' ', name: ' ', claims: <String, dynamic>{});
 }
