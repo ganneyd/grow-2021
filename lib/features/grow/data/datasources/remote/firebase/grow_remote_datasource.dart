@@ -2,29 +2,31 @@
 import 'package:grow_run_v1/core/error/exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-///Contract for the RemoteDatasource
+///Contract for the RemoteDatasources
 abstract class RemoteDataSource {
-  ///method to be override so that data is populated in the databse,
+  ///method to be override so that data is populated in the database,
   ///takes the [docID], the [jsonData]  and the [collectionName]
-  ///the then creates the appropiate document in the collection
+  ///the then creates the appropriate document in the collection
   ///with the [docID]  and populates it with the [jsonData] passed
   ///throws a [CreateDataException] for all errors
   ///calls [FirebaseFirestore] methods
   Future<void> createData(
       String collectionName, Map<String, dynamic> jsonData, String? docID);
 
-  ///method to be override so that data is updated in the databse,
+  ///method to be override so that data is updated in the database,
   ///takes the [docID], the [jsonData]  and the [collectionName]
-  ///the then updates the appropiate document in the collection
+  ///the then updates the appropriate document in the collection
   ///with the [docID] updates the document with the  [jsonData] passed
   ///throws a [UpdateDataException] for all errors
   ///calls [FirebaseFirestore] methods
   Future<void> updateData(
       String collectionName, Map<String, dynamic> jsonData, String docID);
 
-  ///method to be override so that data is retrieved from the databse,
+  ///method to be override so that one single entry
+  /// is retrieved from the database,
   ///takes the [docID],and the [collectionName]
-  ///with the [docID]  and [collectionName] it retrives the appropiate document
+  ///with the [docID]  and [collectionName] it retrieves the
+  /// appropriate document
   ///from the database
   ///throws a [ReadDataException] for all errors
   ///calls [FirebaseFirestore] methods
@@ -50,9 +52,9 @@ abstract class RemoteDataSource {
       List<dynamic>? whereNotIn,
       bool? isNull});
 
-  ///method to be override so that data is deleted in the databse,
+  ///method to be override so that data is deleted in the database,
   ///takes the [docID], and the [collectionName]
-  ///to delete the appropiate document
+  ///to delete the appropriate document
   ///throws a [DeleteDataException] for all errors
   ///calls [FirebaseFirestore] methods
   Future<void> deleteData(String collectionName, String docID);
@@ -67,7 +69,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
   ///constructor
   RemoteDataSourceImplementation(this.database);
 
-  ///refrence to firestore database;
+  ///reference to firestore database;
   final FirebaseFirestore database;
 
   ///Function that returns a list of JSON data
@@ -114,7 +116,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
   Future<Map<String, dynamic>> getData(
       String collectionName, String docID) async {
     try {
-      //returns the document snapshot of the document retrived
+      //returns the document snapshot of the document retrieved
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await database.collection(collectionName).doc(docID).get();
       final Map<String, dynamic> data = snapshot.data()!;
@@ -144,7 +146,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
     //list to hold the json data returned from the database
     List<Map<String, dynamic>> jsonList = <Map<String, dynamic>>[];
     try {
-      //returns the query snapshot of the document retrived
+      //returns the query snapshot of the document retrieved
       final QuerySnapshot<Map<String, dynamic>> snapshots =
           await database.collection(collectionName).get();
       if (snapshots.docs.isEmpty) {
@@ -155,7 +157,7 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
       print(jsonList);
       return Future<List<Map<String, dynamic>>>.value(jsonList);
     } catch (e) {
-      print('error in datadpurce $e');
+      print('error in datasources $e');
       throw ReadDataException();
     }
   }
