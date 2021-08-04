@@ -2,15 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grow_run_v1/features/grow/data/datasources/remote/firebase/grow_remote_datasoure.dart';
+import 'package:grow_run_v1/features/grow/data/datasources/remote/firebase/grow_remote_datasource.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/child_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/parent_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/school_repository.dart';
 import 'package:grow_run_v1/route_generator.dart';
 
+import 'features/grow/data/repositories/school_repository.dart';
 import 'features/grow/domain/repositories/authentication_repository.dart';
 import 'features/grow/domain/repositories/child_repository.dart';
 import 'features/grow/presentation/bloc/authentication_bloc.dart';
@@ -35,6 +37,9 @@ class App extends StatelessWidget {
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
           RepositoryProvider<GROWRepository>(
               create: (_) => GROWRepositoryImplementation(
+                  RemoteDataSourceImplementation(FirebaseFirestore.instance))),
+          RepositoryProvider<SchoolRepository>(
+              create: (_) => SchoolRepositoryImplementation(
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
         ],
         child: BlocProvider<AuthenticationBloc>(
@@ -64,18 +69,21 @@ class _AppViewState extends State<AppView> {
     return MaterialApp(
       theme: theme,
       navigatorKey: _navigatorKey,
-      //initialRoute: '/login',
+      initialRoute: '/child/home',
       builder: (BuildContext context, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (BuildContext context, AuthenticationState state) {
             if (state.status == AuthenticationStatus.childAuthenticated) {
-              _navigator.pushNamedAndRemoveUntil('/child-home', (_) => false);
+              _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
             }
             if (state.status == AuthenticationStatus.unauthenticated) {
               _navigator.pushNamedAndRemoveUntil('/login', (_) => false);
             }
             if (state.status == AuthenticationStatus.parentAuthenticated) {
-              _navigator.pushNamedAndRemoveUntil('/parent-home', (_) => false);
+              _navigator.pushNamedAndRemoveUntil('/parent/home', (_) => false);
+            }
+            if (state.status == AuthenticationStatus.uninitialized) {
+              _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
             }
           },
           child: child,
