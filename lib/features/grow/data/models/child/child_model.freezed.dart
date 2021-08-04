@@ -21,24 +21,20 @@ class _$ChildTearOff {
   const _$ChildTearOff();
 
   _ChildModel call(
-      {String? uid = 'no-id',
-      String username = 'username',
+      {String username = 'username',
       String firstname = 'firstname',
       String lastname = 'lastname',
       Gender gender = Gender.unknown,
       DateTime? dateOfBirth,
       int gradeLevel = 0,
-      String parentID = 'no-parentID',
       String schoolID = 'no-schoolID'}) {
     return _ChildModel(
-      uid: uid,
       username: username,
       firstname: firstname,
       lastname: lastname,
       gender: gender,
       dateOfBirth: dateOfBirth,
       gradeLevel: gradeLevel,
-      parentID: parentID,
       schoolID: schoolID,
     );
   }
@@ -53,14 +49,12 @@ const $Child = _$ChildTearOff();
 
 /// @nodoc
 mixin _$Child {
-  String? get uid => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String get lastname => throw _privateConstructorUsedError;
   Gender get gender => throw _privateConstructorUsedError;
   DateTime? get dateOfBirth => throw _privateConstructorUsedError;
   int get gradeLevel => throw _privateConstructorUsedError;
-  String get parentID => throw _privateConstructorUsedError;
   String get schoolID => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -73,14 +67,12 @@ abstract class $ChildCopyWith<$Res> {
   factory $ChildCopyWith(Child value, $Res Function(Child) then) =
       _$ChildCopyWithImpl<$Res>;
   $Res call(
-      {String? uid,
-      String username,
+      {String username,
       String firstname,
       String lastname,
       Gender gender,
       DateTime? dateOfBirth,
       int gradeLevel,
-      String parentID,
       String schoolID});
 }
 
@@ -94,21 +86,15 @@ class _$ChildCopyWithImpl<$Res> implements $ChildCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? uid = freezed,
     Object? username = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
     Object? gradeLevel = freezed,
-    Object? parentID = freezed,
     Object? schoolID = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -133,10 +119,6 @@ class _$ChildCopyWithImpl<$Res> implements $ChildCopyWith<$Res> {
           ? _value.gradeLevel
           : gradeLevel // ignore: cast_nullable_to_non_nullable
               as int,
-      parentID: parentID == freezed
-          ? _value.parentID
-          : parentID // ignore: cast_nullable_to_non_nullable
-              as String,
       schoolID: schoolID == freezed
           ? _value.schoolID
           : schoolID // ignore: cast_nullable_to_non_nullable
@@ -152,14 +134,12 @@ abstract class _$ChildModelCopyWith<$Res> implements $ChildCopyWith<$Res> {
       __$ChildModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? uid,
-      String username,
+      {String username,
       String firstname,
       String lastname,
       Gender gender,
       DateTime? dateOfBirth,
       int gradeLevel,
-      String parentID,
       String schoolID});
 }
 
@@ -175,21 +155,15 @@ class __$ChildModelCopyWithImpl<$Res> extends _$ChildCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? uid = freezed,
     Object? username = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
     Object? gradeLevel = freezed,
-    Object? parentID = freezed,
     Object? schoolID = freezed,
   }) {
     return _then(_ChildModel(
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -214,10 +188,6 @@ class __$ChildModelCopyWithImpl<$Res> extends _$ChildCopyWithImpl<$Res>
           ? _value.gradeLevel
           : gradeLevel // ignore: cast_nullable_to_non_nullable
               as int,
-      parentID: parentID == freezed
-          ? _value.parentID
-          : parentID // ignore: cast_nullable_to_non_nullable
-              as String,
       schoolID: schoolID == freezed
           ? _value.schoolID
           : schoolID // ignore: cast_nullable_to_non_nullable
@@ -230,22 +200,17 @@ class __$ChildModelCopyWithImpl<$Res> extends _$ChildCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
   _$_ChildModel(
-      {this.uid = 'no-id',
-      this.username = 'username',
+      {this.username = 'username',
       this.firstname = 'firstname',
       this.lastname = 'lastname',
       this.gender = Gender.unknown,
       this.dateOfBirth,
       this.gradeLevel = 0,
-      this.parentID = 'no-parentID',
       this.schoolID = 'no-schoolID'});
 
   factory _$_ChildModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ChildModelFromJson(json);
 
-  @JsonKey(defaultValue: 'no-id')
-  @override
-  final String? uid;
   @JsonKey(defaultValue: 'username')
   @override
   final String username;
@@ -263,16 +228,13 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
   @JsonKey(defaultValue: 0)
   @override
   final int gradeLevel;
-  @JsonKey(defaultValue: 'no-parentID')
-  @override
-  final String parentID;
   @JsonKey(defaultValue: 'no-schoolID')
   @override
   final String schoolID;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Child(uid: $uid, username: $username, firstname: $firstname, lastname: $lastname, gender: $gender, dateOfBirth: $dateOfBirth, gradeLevel: $gradeLevel, parentID: $parentID, schoolID: $schoolID)';
+    return 'Child(username: $username, firstname: $firstname, lastname: $lastname, gender: $gender, dateOfBirth: $dateOfBirth, gradeLevel: $gradeLevel, schoolID: $schoolID)';
   }
 
   @override
@@ -280,14 +242,12 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Child'))
-      ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('firstname', firstname))
       ..add(DiagnosticsProperty('lastname', lastname))
       ..add(DiagnosticsProperty('gender', gender))
       ..add(DiagnosticsProperty('dateOfBirth', dateOfBirth))
       ..add(DiagnosticsProperty('gradeLevel', gradeLevel))
-      ..add(DiagnosticsProperty('parentID', parentID))
       ..add(DiagnosticsProperty('schoolID', schoolID));
   }
 
@@ -295,8 +255,6 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ChildModel &&
-            (identical(other.uid, uid) ||
-                const DeepCollectionEquality().equals(other.uid, uid)) &&
             (identical(other.username, username) ||
                 const DeepCollectionEquality()
                     .equals(other.username, username)) &&
@@ -314,9 +272,6 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
             (identical(other.gradeLevel, gradeLevel) ||
                 const DeepCollectionEquality()
                     .equals(other.gradeLevel, gradeLevel)) &&
-            (identical(other.parentID, parentID) ||
-                const DeepCollectionEquality()
-                    .equals(other.parentID, parentID)) &&
             (identical(other.schoolID, schoolID) ||
                 const DeepCollectionEquality()
                     .equals(other.schoolID, schoolID)));
@@ -325,14 +280,12 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(uid) ^
       const DeepCollectionEquality().hash(username) ^
       const DeepCollectionEquality().hash(firstname) ^
       const DeepCollectionEquality().hash(lastname) ^
       const DeepCollectionEquality().hash(gender) ^
       const DeepCollectionEquality().hash(dateOfBirth) ^
       const DeepCollectionEquality().hash(gradeLevel) ^
-      const DeepCollectionEquality().hash(parentID) ^
       const DeepCollectionEquality().hash(schoolID);
 
   @JsonKey(ignore: true)
@@ -348,21 +301,17 @@ class _$_ChildModel with DiagnosticableTreeMixin implements _ChildModel {
 
 abstract class _ChildModel implements Child {
   factory _ChildModel(
-      {String? uid,
-      String username,
+      {String username,
       String firstname,
       String lastname,
       Gender gender,
       DateTime? dateOfBirth,
       int gradeLevel,
-      String parentID,
       String schoolID}) = _$_ChildModel;
 
   factory _ChildModel.fromJson(Map<String, dynamic> json) =
       _$_ChildModel.fromJson;
 
-  @override
-  String? get uid => throw _privateConstructorUsedError;
   @override
   String get username => throw _privateConstructorUsedError;
   @override
@@ -375,8 +324,6 @@ abstract class _ChildModel implements Child {
   DateTime? get dateOfBirth => throw _privateConstructorUsedError;
   @override
   int get gradeLevel => throw _privateConstructorUsedError;
-  @override
-  String get parentID => throw _privateConstructorUsedError;
   @override
   String get schoolID => throw _privateConstructorUsedError;
   @override

@@ -1,3 +1,4 @@
+import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/child/child_entity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,12 @@ class Child extends ChildEntity with _$Child {
   ///         [parentID]
   ///         [schoolID]
   factory Child(
-      {@Default('no-id') String? uid,
-      @Default('username') String username,
+      {@Default('username') String username,
       @Default('firstname') String firstname,
       @Default('lastname') String lastname,
       @Default(Gender.unknown) Gender gender,
       DateTime? dateOfBirth,
       @Default(0) int gradeLevel,
-      @Default('no-parentID') String parentID,
       @Default('no-schoolID') String schoolID}) = _ChildModel;
 
   ///Returns a [Child] from [json] data
@@ -37,14 +36,12 @@ class Child extends ChildEntity with _$Child {
   ///converts the child entity to an child model so that the [toJson]
   ///can be used
   factory Child.toChild(ChildEntity childEntity) => Child(
-      uid: childEntity.uid,
       username: childEntity.username,
       firstname: childEntity.firstname,
       lastname: childEntity.lastname,
       gender: childEntity.gender,
       dateOfBirth: childEntity.dateOfBirth,
       gradeLevel: childEntity.gradeLevel,
-      parentID: childEntity.parentID,
       schoolID: childEntity.schoolID);
 
   factory Child.initialChild() => Child();
@@ -54,9 +51,6 @@ class Child extends ChildEntity with _$Child {
     print('Init child username is ${initChild.username}');
     print('form child username is ${formChild.username}');
     final Child newChild = initChild.copyWith(
-      uid: formChild.uid != Child.initialChild().uid
-          ? formChild.uid
-          : initChild.uid,
       username: formChild.username != Child.initialChild().username
           ? formChild.username
           : initChild.username,
@@ -75,9 +69,6 @@ class Child extends ChildEntity with _$Child {
       gradeLevel: formChild.gradeLevel != Child.initialChild().gradeLevel
           ? formChild.gradeLevel
           : initChild.gradeLevel,
-      parentID: formChild.parentID != Child.initialChild().parentID
-          ? formChild.parentID
-          : initChild.parentID,
       schoolID: formChild.schoolID != Child.initialChild().schoolID
           ? formChild.schoolID
           : initChild.schoolID,

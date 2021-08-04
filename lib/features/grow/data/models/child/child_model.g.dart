@@ -8,7 +8,6 @@ part of 'child_model.dart';
 
 _$_ChildModel _$_$_ChildModelFromJson(Map<String, dynamic> json) {
   return _$_ChildModel(
-    uid: json['uid'] as String? ?? 'no-id',
     username: json['username'] as String? ?? 'username',
     firstname: json['firstname'] as String? ?? 'firstname',
     lastname: json['lastname'] as String? ?? 'lastname',
@@ -18,7 +17,6 @@ _$_ChildModel _$_$_ChildModelFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['dateOfBirth'] as String),
     gradeLevel: json['gradeLevel'] as int? ?? 0,
-    parentID: json['parentID'] as String? ?? 'no-parentID',
     schoolID: json['schoolID'] as String? ?? 'no-schoolID',
   );
 }
@@ -31,7 +29,6 @@ Map<String, dynamic> _$_$_ChildModelToJson(_$_ChildModel instance) =>
       'gender': _$GenderEnumMap[instance.gender],
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'gradeLevel': instance.gradeLevel,
-      'parentID': instance.parentID,
       'schoolID': instance.schoolID,
     };
 
