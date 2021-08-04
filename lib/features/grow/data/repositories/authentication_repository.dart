@@ -33,13 +33,15 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
       _enableUserCallable;
 
   UserEntity _getUserEntity(firebase_auth.User user,
-      {UserType userType = UserType.unknown}) {
+      {UserType userType = UserType.unknown,
+      Map<String, dynamic> claims = const <String, dynamic>{}}) {
     print('user type passed to me $userType');
     return UserEntity(
         userEmail: user.email ?? '',
         userID: user.uid,
         name: user.displayName ?? ' ',
-        userType: userType);
+        userType: userType,
+        claims: claims);
   }
 
   @override
@@ -58,7 +60,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   Future<Either<Failure, void>> loginUser(String email, String password) async {
     try {
       print('login in');
-      firebase_auth.UserCredential user = await _firebaseAuth
+      final firebase_auth.UserCredential user = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       print(user.user!.email);
       return const Right<Failure, void>(null);
@@ -68,7 +70,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
           AuthenticationFailure(errMsg: e.message!));
     } catch (e) {
       print('FAILURE: ${e.toString()}');
-      return Left<Failure, UserEntity>(AuthenticationFailure());
+      return const Left<Failure, UserEntity>(AuthenticationFailure());
     }
   }
 
@@ -99,7 +101,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
       return Left<Failure, UserEntity>(
           AuthenticationFailure(errMsg: e.message!));
     } catch (e) {
-      return Left<Failure, UserEntity>(AuthenticationFailure());
+      return const Left<Failure, UserEntity>(AuthenticationFailure());
     }
   }
 
@@ -138,6 +140,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   Future<Either<Failure, UserEntity>> getCredentials() async {
     print('getting credentials');
     if (firebase_auth.FirebaseAuth.instance.currentUser != null) {
+      print('not null');
       try {
         final firebase_auth.User user =
             firebase_auth.FirebaseAuth.instance.currentUser!;
@@ -145,11 +148,13 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
         final firebase_auth.IdTokenResult results =
             await user.getIdTokenResult(true);
         final Map<String, dynamic> claims = results.claims!;
+        print('THESE ARE THE CLAIMS \n $claims');
 
-        if (claims.containsKey('child')) {
+        if (claims.containsKey('child') && claims.containsKey('schoolID')) {
           if (claims['child'] as bool) {
-            return Right<Failure, UserEntity>(
-                _getUserEntity(user, userType: UserType.child));
+            return Right<Failure, UserEntity>(_getUserEntity(user,
+                userType: UserType.child,
+                claims: <String, dynamic>{'schoolID': claims['schoolID']}));
           }
         } else if (claims.containsKey('parent')) {
           if (claims['parent'] as bool) {
@@ -160,14 +165,18 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
 
         return Right<Failure, UserEntity>(_getUserEntity(user));
       } on FirebaseException catch (e) {
+        print('Firebase Failure ${e.code}');
+
         return Left<Failure, UserEntity>(
             AuthenticationFailure(errMsg: e.message ?? ''));
       } catch (e) {
+        print("failure");
         return Left<Failure, UserEntity>(
             AuthenticationFailure(errMsg: e.toString()));
       }
     }
-    return Left<Failure, UserEntity>(AuthenticationFailure());
+    print('thing null g');
+    return const Left<Failure, UserEntity>(AuthenticationFailure());
   }
 
   @override
@@ -206,7 +215,10 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
 
       //return the credentials of the newly created user
       return Right<Failure, UserEntity>(UserEntity(
-          userID: result.data['user'] as String, userEmail: ' ', name: ' '));
+        userID: result.data['user'] as String,
+        userEmail: ' ',
+        name: ' ',
+      ));
     } on FirebaseFunctionsException catch (e) {
       return Left<Failure, UserEntity>(
           AuthenticationFailure(errMsg: e.message!));
@@ -214,14 +226,5 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
       return Left<Failure, UserEntity>(
           AuthenticationFailure(errMsg: e.toString()));
     }
-  }
-}
-
-extension on firebase_auth.User {
-  UserEntity get toUser {
-    return UserEntity(
-        userID: uid,
-        userEmail: email ?? UserEntity.empty.userEmail,
-        name: displayName ?? UserEntity.empty.name);
   }
 }
