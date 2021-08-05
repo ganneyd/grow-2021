@@ -21,6 +21,8 @@ class RouteGenerator {
       case 'child/leaderboard':
       case '/child/profile':
       case '/child/shop':
+        return MaterialPageRoute<void>(
+            builder: (_) => const child_view.StorePage());
       case '/child/sign-up':
         return MaterialPageRoute<void>(
             builder: (_) => const child_view.ChildSignUpForm());
