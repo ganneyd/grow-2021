@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grow_run_v1/core/error/exceptions.dart';
@@ -28,11 +30,13 @@ class GROWRepositoryImplementation extends GROWRepository {
   @override
   Future<Either<Failure, BuildInfo>> getBuildInfo() async {
     try {
+      final bool isAndroid = Platform.isAndroid;
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
       final BuildInfo buildInfo = BuildInfo(
           appName: packageInfo.appName,
           version: packageInfo.version,
-          buildNumber: packageInfo.buildNumber);
+          buildNumber: packageInfo.buildNumber,
+          isAndroid: isAndroid);
 
       return Right<Failure, BuildInfo>(buildInfo);
     } catch (error) {
