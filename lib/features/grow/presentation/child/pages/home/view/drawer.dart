@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grow_run_v1/core/util/build_info.dart';
-import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/child_user_model.dart';
-import 'package:grow_run_v1/features/grow/presentation/bloc/authentication_bloc.dart';
-import 'package:provider/provider.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/drawer_bottom_info.dart';
 
 ///Provides a drawer to the  child homepage
 class HomePageDrawer extends StatelessWidget {
   ///takes no param key is [child-home-page-drawer]
-  const HomePageDrawer({BuildInfo? buildInfo, required ChildUserModel child})
+  const HomePageDrawer(
+      {required BuildInfo buildInfo, required ChildUserModel child})
       : _buildInfo = buildInfo,
         _child = child,
         super(key: const Key('child-home-page-drawer'));
-  final BuildInfo? _buildInfo;
+  final BuildInfo _buildInfo;
   final ChildUserModel _child;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class HomePageDrawer extends StatelessWidget {
         data: Theme.of(context).copyWith(splashColor: Colors.blueGrey),
         child: Drawer(
           child: Material(
-            child: Stack(children: [
+            child: Stack(children: <Widget>[
               ListView(
                 shrinkWrap: true,
                 children: <Widget>[
@@ -87,57 +86,7 @@ class HomePageDrawer extends StatelessWidget {
                   ),
                 ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(
-                              FontAwesomeIcons.signOutAlt,
-                              color: Theme.of(context).iconTheme.color ??
-                                  Colors.red,
-                            ),
-                            title: const Text('Log Out'),
-                            onTap: () => context
-                                .read<AuthenticationBloc>()
-                                .add(AuthenticationLogoutRequested()),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          RichText(
-                              text: TextSpan(
-                                  text: 'GROW ',
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 12),
-                                  children: <TextSpan>[
-                                TextSpan(text: _buildInfo?.version),
-                                TextSpan(
-                                    text: '+${_buildInfo?.buildNumber}',
-                                    style: TextStyle(
-                                        color:
-                                            Theme.of(context).iconTheme.color ??
-                                                Colors.red)),
-                              ])),
-                          RichText(
-                              text: const TextSpan(
-                            text: '-Developed By- ',
-                            style: TextStyle(color: Colors.black, fontSize: 8),
-                          )),
-                          RichText(
-                              text: const TextSpan(
-                            text: '👨🏽‍💻 Ganney A. Dortch 👨🏽‍💻',
-                            style: TextStyle(color: Colors.black, fontSize: 10),
-                          )),
-                        ],
-                      ),
-                    )),
-              )
+              getDrawerBottomInfo(context, _buildInfo),
             ]),
           ),
         ));
