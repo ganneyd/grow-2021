@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
-import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/school_repository.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/cubit/child_sign_up_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/view/sign_up_body.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/default_ui_elements.dart';
@@ -22,8 +22,7 @@ class _ChildSignUpFormState extends State<ChildSignUpForm> {
   Widget build(BuildContext context) {
     return BlocProvider<ChildSignUpCubit>(
       create: (_) => ChildSignUpCubit(
-          growRepository: context.read<GROWRepository>(),
-          childRepository: context.read<ChildRepository>(),
+          schoolRepository: context.read<SchoolRepository>(),
           authenticationRepository: context.read<AuthenticationRepository>())
         ..getData(),
       child: Scaffold(

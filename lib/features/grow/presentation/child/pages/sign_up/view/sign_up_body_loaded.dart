@@ -4,7 +4,7 @@ part of 'sign_up_body.dart';
 Widget getLoadedBody(BuildContext context, ChildSignUpState state,
     int pageNumber, Function function) {
   return Column(
-    children: [
+    children: <Widget>[
       Expanded(
         flex: 2,
         child: AnimatedSwitcher(
@@ -57,7 +57,6 @@ Widget getLoadedBody(BuildContext context, ChildSignUpState state,
             : ElevatedButton(
                 onPressed: () {
                   if (state.formGroups[pageNumber].valid) {
-                    print('im pressed');
                     context.read<ChildSignUpCubit>().signUpChildUser();
                   } else {
                     ScaffoldMessenger.of(context)

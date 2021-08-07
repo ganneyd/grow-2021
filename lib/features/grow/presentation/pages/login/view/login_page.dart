@@ -18,6 +18,7 @@ class LoginPage extends StatelessWidget {
             authenticationRepository: context.read<AuthenticationRepository>()),
         child: Scaffold(
           appBar: AppBar(
+            centerTitle: true,
             title: const Text('Login'),
           ),
           body: Center(

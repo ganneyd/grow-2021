@@ -5,17 +5,13 @@ import 'package:grow_run_v1/core/usecases/usecases.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/school/school_entity.dart';
-import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
-import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
-import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
-import 'package:grow_run_v1/features/grow/domain/usecases/school/get_schools.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/widgets/form_group/sign_up_form_group.dart';
-import 'package:grow_run_v1/features/grow/presentation/widgets/form_status.dart';
+
+import 'package:grow_run_v1/features/grow/domain/repositories/school_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/usecases/school/get_list_of_schools.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/sign_up/widgets/form_group/sign_up_form_group.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../../../../domain/usecases/child/register_new_child_user.dart'
-    as register_new_child_user_usecase;
 import '../../../../../domain/usecases/child/sign_up_new_child_user.dart'
     as sign_up_new_child_user_usecase;
 import 'child_sign_up_state.dart';
@@ -25,20 +21,20 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
   ///
   ///TODO remove auth and child repo?
   ChildSignUpCubit(
-      {required ChildRepository childRepository,
+      { //required ChildRepository childRepository,
       required AuthenticationRepository authenticationRepository,
-      required GROWRepository growRepository})
+      required SchoolRepository schoolRepository})
       :
         //initialize the register child usecase
-        _registerNewChildUser =
-            register_new_child_user_usecase.RegisterNewChildUser(
-                authenticationRepository: authenticationRepository,
-                childRepository: childRepository),
+        // _registerNewChildUser =
+        //     register_new_child_user_usecase.RegisterNewChildUser(
+        //         authenticationRepository: authenticationRepository,
+        //         childRepository: childRepository),
         //initialize the sign up child usecase
         _signUpNewChildUser = sign_up_new_child_user_usecase.SignUpNewChildUser(
             authenticationRepository),
-        //initialize the getschools usecase
-        _getSchools = GetSchools(growRepository),
+        //initialize the getSchools usecase
+        _getSchools = GetListOfSchools(schoolRepository),
         //initialize the state and set default values
         super(ChildSignUpState(
             formGroups: <FormGroup>[
@@ -54,12 +50,12 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
             signUpMehtod: SignUpMethod.unkown));
 
   //usecase that registers child
-  final register_new_child_user_usecase.RegisterNewChildUser
-      _registerNewChildUser;
+  // final register_new_child_user_usecase.RegisterNewChildUser
+  //     _registerNewChildUser;
   //usecase that signs up child
   final sign_up_new_child_user_usecase.SignUpNewChildUser _signUpNewChildUser;
   //usecase that fetches the list of schools from the db
-  final GetSchools _getSchools;
+  final GetListOfSchools _getSchools;
 
   ///gets the necessary  data to populate the form with
   Future<void> getData() async {
@@ -117,9 +113,7 @@ class ChildSignUpCubit extends Cubit<ChildSignUpState> {
         (String uid) {
       print('passed with $uid');
       return state.copyWith(
-          childModel: state.childModel.copyWith(uid: uid),
-          error: null,
-          status: Status.submittedFormSuccessfully);
+          error: null, status: Status.submittedFormSuccessfully);
     }));
   }
 

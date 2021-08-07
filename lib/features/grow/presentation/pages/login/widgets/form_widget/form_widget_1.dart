@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grow_run_v1/features/grow/presentation/pages/login/widgets/form_group/login_form_group.dart';
@@ -34,22 +35,25 @@ class LoginForm extends StatelessWidget {
                     : null,
                 child: const Text('SUBMIT'),
               ),
-              RichText(
-                text: TextSpan(
-                    text: "Don't have an account? ",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Don't have an account?",
                     style: Theme.of(context).textTheme.bodyText2,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Sign up Here.',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontWeight: FontWeight.bold),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.pushNamed(context, '/child-sign-up');
-                            })
-                    ]),
+                  ),
+                  CupertinoButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, '/child/sign-up'),
+                    child: Text(
+                      'Sign up',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
               ),
             ],
           );
