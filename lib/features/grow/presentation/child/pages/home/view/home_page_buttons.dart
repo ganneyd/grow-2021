@@ -11,32 +11,31 @@ class HomePageButtons extends StatelessWidget {
     Widget body, {
     double edgeInset = 20,
     double spacingFactor = 20,
+    required BuildContext context,
   })  : _body = body,
         _edgeInset = edgeInset,
         _spacingFactor = spacingFactor,
+        _context = context,
         super(key: const Key('child-home-page-buttons'));
   final Widget _body;
   final double _edgeInset;
   final double _spacingFactor;
+  final BuildContext _context;
 
   List<ButtonWithIcon> get _leftButtonsWithIcon => <ButtonWithIcon>[
         ButtonWithIcon(
             icon: FontAwesomeIcons.trophy,
             onPressed: () {
-              print('routing to rank');
+              Navigator.of(_context).pushNamed('/child/leaderboard');
             },
             buttonName: 'rank'),
         ButtonWithIcon(
             icon: FontAwesomeIcons.calendar,
-            onPressed: () {
-              print('routing to goals');
-            },
+            onPressed: () => Navigator.of(_context).pushNamed('/child/goals'),
             buttonName: 'goals'),
         ButtonWithIcon(
             icon: FontAwesomeIcons.chartPie,
-            onPressed: () {
-              print('routing to stats');
-            },
+            onPressed: () => Navigator.of(_context).pushNamed('/child/stats'),
             buttonName: 'Stats'),
       ];
 
@@ -52,9 +51,7 @@ class HomePageButtons extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: ButtonWithIcon(
               icon: FontAwesomeIcons.route,
-              onPressed: () {
-                print('routing to routes');
-              },
+              onPressed: () => Navigator.of(_context).pushNamed('/child/route'),
               buttonName: 'routes'),
         )
       ];
@@ -70,9 +67,7 @@ class HomePageButtons extends StatelessWidget {
         ButtonWithIcon(
           buttonName: 'shop',
           icon: FontAwesomeIcons.storeAlt,
-          onPressed: () {
-            print('routing to shop');
-          },
+          onPressed: () => Navigator.of(_context).pushNamed('/child/shop'),
         ),
       ];
   @override
