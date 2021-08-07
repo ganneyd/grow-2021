@@ -1,4 +1,6 @@
-import 'package:enum_to_string/enum_to_string.dart';
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grow_run_v1/features/grow/presentation/parent/pages/home/view/home_page.dart'
     as parent_view;
@@ -16,17 +18,27 @@ class RouteGenerator {
         return MaterialPageRoute<void>(builder: (_) => const LoginPage());
       //**********************Child routes************************************
       case '/child/goals':
+        return MaterialPageRoute<void>(builder: (_) => child_view.GoalsPage());
       case '/child/home':
         return MaterialPageRoute<void>(builder: (_) => child_view.HomePage());
-      case 'child/leaderboard':
+      case '/child/leaderboard':
+        return MaterialPageRoute<void>(
+            builder: (_) => const child_view.LeaderBoard());
       case '/child/profile':
+
+      case '/child/route':
+        return MaterialPageRoute<void>(builder: (_) => child_view.RoutesPage());
+      case '/child/run':
+        return MaterialPageRoute<void>(builder: (_) => child_view.RunPage());
       case '/child/shop':
         return MaterialPageRoute<void>(
             builder: (_) => const child_view.StorePage());
       case '/child/sign-up':
         return MaterialPageRoute<void>(
             builder: (_) => const child_view.ChildSignUpForm());
-      case '/child/statistics':
+      case '/child/stats':
+        return MaterialPageRoute<void>(
+            builder: (_) => const child_view.StatsPage());
 
       //**********************Child routes************************************
       case '/parent/home':
@@ -41,18 +53,23 @@ class RouteGenerator {
   ///Default Error page
   ///TODO IMPLEMENT OTHER ERROR PAGES such as network err etc
   static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute<void>(builder: (_) {
-      return Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'Error',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: const Color.fromRGBO(255, 85, 51, 1),
-          ),
-          body: const Center(
-            child: Text('Error'),
-          ));
-    });
+    return MaterialPageRoute<void>(
+        maintainState: false,
+        builder: (_) {
+          return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: const Text(
+                  'Error',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: const Color.fromRGBO(255, 85, 51, 1),
+              ),
+              body: Center(
+                child: Platform.isAndroid
+                    ? const CircularProgressIndicator()
+                    : const CupertinoActivityIndicator(),
+              ));
+        });
   }
 }
