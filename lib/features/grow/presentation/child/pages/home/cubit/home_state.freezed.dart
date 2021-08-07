@@ -19,7 +19,7 @@ class _$HomePageStateTearOff {
   _HomePageState call(
       {required ChildUserModel child,
       String? error,
-      BuildInfo? buildInfo,
+      BuildInfo buildInfo = const BuildInfo(),
       HomeStateStatus status = HomeStateStatus.loading}) {
     return _HomePageState(
       child: child,
@@ -37,7 +37,7 @@ const $HomePageState = _$HomePageStateTearOff();
 mixin _$HomePageState {
   ChildUserModel get child => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
-  BuildInfo? get buildInfo => throw _privateConstructorUsedError;
+  BuildInfo get buildInfo => throw _privateConstructorUsedError;
   HomeStateStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -53,7 +53,7 @@ abstract class $HomePageStateCopyWith<$Res> {
   $Res call(
       {ChildUserModel child,
       String? error,
-      BuildInfo? buildInfo,
+      BuildInfo buildInfo,
       HomeStateStatus status});
 }
 
@@ -85,7 +85,7 @@ class _$HomePageStateCopyWithImpl<$Res>
       buildInfo: buildInfo == freezed
           ? _value.buildInfo
           : buildInfo // ignore: cast_nullable_to_non_nullable
-              as BuildInfo?,
+              as BuildInfo,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ abstract class _$HomePageStateCopyWith<$Res>
   $Res call(
       {ChildUserModel child,
       String? error,
-      BuildInfo? buildInfo,
+      BuildInfo buildInfo,
       HomeStateStatus status});
 }
 
@@ -138,7 +138,7 @@ class __$HomePageStateCopyWithImpl<$Res>
       buildInfo: buildInfo == freezed
           ? _value.buildInfo
           : buildInfo // ignore: cast_nullable_to_non_nullable
-              as BuildInfo?,
+              as BuildInfo,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -153,15 +153,16 @@ class _$_HomePageState implements _HomePageState {
   _$_HomePageState(
       {required this.child,
       this.error,
-      this.buildInfo,
+      this.buildInfo = const BuildInfo(),
       this.status = HomeStateStatus.loading});
 
   @override
   final ChildUserModel child;
   @override
   final String? error;
+  @JsonKey(defaultValue: const BuildInfo())
   @override
-  final BuildInfo? buildInfo;
+  final BuildInfo buildInfo;
   @JsonKey(defaultValue: HomeStateStatus.loading)
   @override
   final HomeStateStatus status;
@@ -204,7 +205,7 @@ abstract class _HomePageState implements HomePageState {
   factory _HomePageState(
       {required ChildUserModel child,
       String? error,
-      BuildInfo? buildInfo,
+      BuildInfo buildInfo,
       HomeStateStatus status}) = _$_HomePageState;
 
   @override
@@ -212,7 +213,7 @@ abstract class _HomePageState implements HomePageState {
   @override
   String? get error => throw _privateConstructorUsedError;
   @override
-  BuildInfo? get buildInfo => throw _privateConstructorUsedError;
+  BuildInfo get buildInfo => throw _privateConstructorUsedError;
   @override
   HomeStateStatus get status => throw _privateConstructorUsedError;
   @override

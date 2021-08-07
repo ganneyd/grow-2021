@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grow_run_v1/core/util/build_info.dart';
-import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/child_user_model.dart';
 
 part 'home_state.freezed.dart';
@@ -24,7 +23,7 @@ class HomePageState with _$HomePageState {
   factory HomePageState({
     required ChildUserModel child,
     String? error,
-    BuildInfo? buildInfo,
+    @Default(BuildInfo()) BuildInfo buildInfo,
     @Default(HomeStateStatus.loading) HomeStateStatus status,
   }) = _HomePageState;
 }
