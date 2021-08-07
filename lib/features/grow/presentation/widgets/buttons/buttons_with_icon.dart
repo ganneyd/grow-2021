@@ -9,10 +9,10 @@ class ButtonWithIcon extends StatelessWidget {
   ///[onPressed] for when the button is pressed
   ///[button name]
   //TODO sized box might overflow fix
-  ButtonWithIcon({
+  const ButtonWithIcon({
     required IconData icon,
-    double width = 80,
-    double height = 80,
+    double width = 70,
+    double height = 70,
     double scaleFactor = 0.55,
     required VoidCallback onPressed,
     required String buttonName,
@@ -22,7 +22,7 @@ class ButtonWithIcon extends StatelessWidget {
         _onPressed = onPressed,
         _buttonName = buttonName,
         _scaleFactor = scaleFactor,
-        super(key: Key('$buttonName-button'));
+        super();
 
   final IconData _icon;
   final double _width;
@@ -34,40 +34,41 @@ class ButtonWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-        shape: const RoundedRectangleBorder().copyWith(
-            borderRadius: const BorderRadius.all(Radius.circular(15))),
-        fillColor: Theme.of(context).buttonColor,
-        splashColor: Theme.of(context).splashColor,
-        onPressed: _onPressed,
-        child: SizedBox(
-          height: _height,
-          width: _width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FaIcon(
-                    _icon,
-                    size: _height < _width
-                        ? _height * _scaleFactor
-                        : _width * _scaleFactor,
-                  ),
-                ),
+      constraints: BoxConstraints(
+        maxHeight: _height,
+        maxWidth: _width,
+      ),
+      shape: const RoundedRectangleBorder()
+          .copyWith(borderRadius: const BorderRadius.all(Radius.circular(15))),
+      fillColor: Theme.of(context).buttonColor,
+      splashColor: Theme.of(context).splashColor,
+      onPressed: _onPressed,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Flexible(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: FaIcon(
+                _icon,
+                size: _height < _width
+                    ? _height * _scaleFactor
+                    : _width * _scaleFactor,
               ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: RichText(
-                  text: TextSpan(
-                      text: _buttonName.toUpperCase(),
-                      style: Theme.of(context).primaryTextTheme.button),
-                ),
-              ))
-            ],
+            ),
           ),
-        ));
+          Flexible(
+              child: Align(
+            alignment: Alignment.bottomCenter,
+            child: RichText(
+              text: TextSpan(
+                  text: _buttonName.toUpperCase(),
+                  style: Theme.of(context).primaryTextTheme.button),
+            ),
+          ))
+        ],
+      ),
+    );
   }
 }
