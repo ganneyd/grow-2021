@@ -60,12 +60,15 @@ class HomePage extends StatelessWidget {
             appBar: AppBar(
                 centerTitle: true,
                 automaticallyImplyLeading: false,
-                leadingWidth: 100,
-                leading: GestureDetector(
-                  onTap: () => print('getting coins'),
-                  child: const CoinsDisplay('1234'),
+                leadingWidth: 120,
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: GestureDetector(
+                    onTap: () => print('getting coins'),
+                    child: const CoinsDisplay('1234'),
+                  ),
                 ),
-                actions: <IconButton>[
+                actions: <Widget>[
                   IconButton(
                     icon: const Icon(
                       FontAwesomeIcons.cog,
@@ -110,9 +113,7 @@ class HomeBody extends StatelessWidget {
       GestureDetector(
           //let the white piece respond to gestures too
           behavior: HitTestBehavior.translucent,
-          onTap: () {
-            print('Background tapped');
-          },
+          onTap: () => Navigator.of(context).pushNamed('/child/run'),
           child: Align(
             child: Image.asset(
               pathToGenderAvatar,
@@ -121,6 +122,7 @@ class HomeBody extends StatelessWidget {
               fit: BoxFit.fitWidth,
             ),
           )),
+      context: context,
     );
   }
 }
@@ -178,7 +180,7 @@ class CoinsDisplay extends StatelessWidget {
               height: 45,
               child: const Icon(
                 FontAwesomeIcons.plus,
-                color: Color.fromRGBO(255, 132, 10, 1),
+                color: Colors.black26,
               ),
             ),
           )
