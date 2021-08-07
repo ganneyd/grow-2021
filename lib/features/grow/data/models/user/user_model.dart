@@ -15,5 +15,6 @@ class UserModel extends UserEntity with _$UserModel {
       {@Default('no-id') String userID,
       @Default('user-email') String userEmail,
       @Default(UserType.unknown) UserType userType,
+      @Default(<String, dynamic>{}) Map<String, dynamic> claims,
       @Default('user-name') String name}) = _UserModel;
 }

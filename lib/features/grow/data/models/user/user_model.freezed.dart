@@ -20,11 +20,13 @@ class _$UserModelTearOff {
       {String userID = 'no-id',
       String userEmail = 'user-email',
       UserType userType = UserType.unknown,
+      Map<String, dynamic> claims = const <String, dynamic>{},
       String name = 'user-name'}) {
     return _UserModel(
       userID: userID,
       userEmail: userEmail,
       userType: userType,
+      claims: claims,
       name: name,
     );
   }
@@ -38,6 +40,7 @@ mixin _$UserModel {
   String get userID => throw _privateConstructorUsedError;
   String get userEmail => throw _privateConstructorUsedError;
   UserType get userType => throw _privateConstructorUsedError;
+  Map<String, dynamic> get claims => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -49,7 +52,12 @@ mixin _$UserModel {
 abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res>;
-  $Res call({String userID, String userEmail, UserType userType, String name});
+  $Res call(
+      {String userID,
+      String userEmail,
+      UserType userType,
+      Map<String, dynamic> claims,
+      String name});
 }
 
 /// @nodoc
@@ -65,6 +73,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? userID = freezed,
     Object? userEmail = freezed,
     Object? userType = freezed,
+    Object? claims = freezed,
     Object? name = freezed,
   }) {
     return _then(_value.copyWith(
@@ -80,6 +89,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.userType
           : userType // ignore: cast_nullable_to_non_nullable
               as UserType,
+      claims: claims == freezed
+          ? _value.claims
+          : claims // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -94,7 +107,12 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
           _UserModel value, $Res Function(_UserModel) then) =
       __$UserModelCopyWithImpl<$Res>;
   @override
-  $Res call({String userID, String userEmail, UserType userType, String name});
+  $Res call(
+      {String userID,
+      String userEmail,
+      UserType userType,
+      Map<String, dynamic> claims,
+      String name});
 }
 
 /// @nodoc
@@ -111,6 +129,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? userID = freezed,
     Object? userEmail = freezed,
     Object? userType = freezed,
+    Object? claims = freezed,
     Object? name = freezed,
   }) {
     return _then(_UserModel(
@@ -126,6 +145,10 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.userType
           : userType // ignore: cast_nullable_to_non_nullable
               as UserType,
+      claims: claims == freezed
+          ? _value.claims
+          : claims // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -141,6 +164,7 @@ class _$_UserModel implements _UserModel {
       {this.userID = 'no-id',
       this.userEmail = 'user-email',
       this.userType = UserType.unknown,
+      this.claims = const <String, dynamic>{},
       this.name = 'user-name'});
 
   @JsonKey(defaultValue: 'no-id')
@@ -152,13 +176,16 @@ class _$_UserModel implements _UserModel {
   @JsonKey(defaultValue: UserType.unknown)
   @override
   final UserType userType;
+  @JsonKey(defaultValue: const <String, dynamic>{})
+  @override
+  final Map<String, dynamic> claims;
   @JsonKey(defaultValue: 'user-name')
   @override
   final String name;
 
   @override
   String toString() {
-    return 'UserModel(userID: $userID, userEmail: $userEmail, userType: $userType, name: $name)';
+    return 'UserModel(userID: $userID, userEmail: $userEmail, userType: $userType, claims: $claims, name: $name)';
   }
 
   @override
@@ -173,6 +200,8 @@ class _$_UserModel implements _UserModel {
             (identical(other.userType, userType) ||
                 const DeepCollectionEquality()
                     .equals(other.userType, userType)) &&
+            (identical(other.claims, claims) ||
+                const DeepCollectionEquality().equals(other.claims, claims)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)));
   }
@@ -183,6 +212,7 @@ class _$_UserModel implements _UserModel {
       const DeepCollectionEquality().hash(userID) ^
       const DeepCollectionEquality().hash(userEmail) ^
       const DeepCollectionEquality().hash(userType) ^
+      const DeepCollectionEquality().hash(claims) ^
       const DeepCollectionEquality().hash(name);
 
   @JsonKey(ignore: true)
@@ -196,6 +226,7 @@ abstract class _UserModel implements UserModel {
       {String userID,
       String userEmail,
       UserType userType,
+      Map<String, dynamic> claims,
       String name}) = _$_UserModel;
 
   @override
@@ -204,6 +235,8 @@ abstract class _UserModel implements UserModel {
   String get userEmail => throw _privateConstructorUsedError;
   @override
   UserType get userType => throw _privateConstructorUsedError;
+  @override
+  Map<String, dynamic> get claims => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
   @override
