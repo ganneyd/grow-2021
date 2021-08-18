@@ -108,3 +108,17 @@ class DeleteDataFailure extends Failure {
           'Unable to delete the document right now, please try again later.'})
       : super(message: errMsg);
 }
+
+///Returned when an error is encounter while checking permissions
+
+class PermissionFailure extends Failure {
+  ///Takes an error message that is then passed to the super class
+  ///by default the error message is
+  ///[Location permissions are permanently denied, we cannot request
+  ///permissions.]
+  const PermissionFailure(
+      {String errMsg =
+          // ignore: lines_longer_than_80_chars
+          'Location permissions are permanently denied, we cannot request permissions.'})
+      : super(message: errMsg);
+}
