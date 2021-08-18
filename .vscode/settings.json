@@ -23,6 +23,8 @@
       "Diagnosticable",
       "Dortch",
       "Ganney",
+      "Geolocator",
+      "Mixins",
       "RGBO",
       "crashlytics",
       "dartz",
@@ -32,6 +34,7 @@
       "leaderboard",
       "phonenumber",
       "predeploy",
+      "unawaited",
       "usecase",
       "usecases"
     ],
