@@ -6,8 +6,10 @@ import 'package:grow_run_v1/features/grow/data/datasources/remote/firebase/grow_
 import 'package:grow_run_v1/features/grow/data/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/child_repository.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/grow_repository.dart';
+import 'package:grow_run_v1/features/grow/data/repositories/location_repositor_implementation.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/parent_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/location_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/school_repository.dart';
 import 'package:grow_run_v1/route_generator.dart';
@@ -38,6 +40,8 @@ class App extends StatelessWidget {
           RepositoryProvider<GROWRepository>(
               create: (_) => GROWRepositoryImplementation(
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
+          RepositoryProvider<LocationRepository>(
+              create: (_) => LocationRepositoryImplementation()),
           RepositoryProvider<SchoolRepository>(
               create: (_) => SchoolRepositoryImplementation(
                   RemoteDataSourceImplementation(FirebaseFirestore.instance))),
@@ -77,7 +81,7 @@ class _AppViewState extends State<AppView> {
               _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
             }
             if (state.status == AuthenticationStatus.unauthenticated) {
-              _navigator.pushNamedAndRemoveUntil('/login', (_) => false);
+              _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
             }
             if (state.status == AuthenticationStatus.parentAuthenticated) {
               _navigator.pushNamedAndRemoveUntil('/parent/home', (_) => false);
