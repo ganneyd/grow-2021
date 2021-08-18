@@ -7,11 +7,12 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:grow_run_v1/features/grow/data/repositories/repository_mixins.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
+import 'package:logging/logging.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/entities_bucket.dart';
 
-///Implementation for the Authenticaton Repository
+///Implementation for the Authentication Repository
 ///Takes an [FireBaseAuth] instance;
 class AuthenticationRepositoryImplementation extends AuthenticationRepository
     with RepoMixins {
@@ -27,15 +28,21 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
             FirebaseFunctions.instance.httpsCallable('enableUser');
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
+
+  final Logger _authLogger = Logger('Auth-Repo');
   //Firebase Function reference
   final HttpsCallable _signUpUserCallable,
       _disableUserCallable,
       _enableUserCallable;
 
-  UserEntity _getUserEntity(firebase_auth.User user,
+  UserEntity _getUserEntity(firebase_auth.User? user,
       {UserType userType = UserType.unknown,
       Map<String, dynamic> claims = const <String, dynamic>{}}) {
-    print('user type passed to me $userType');
+    _authLogger.fine('user type passed to me $userType');
+    if (user == null) {
+      _authLogger.info('user was empty', user);
+      return UserEntity.empty;
+    }
     return UserEntity(
         userEmail: user.email ?? '',
         userID: user.uid,
@@ -59,17 +66,17 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   @override
   Future<Either<Failure, void>> loginUser(String email, String password) async {
     try {
-      print('login in');
+      _authLogger.finer('login user called');
       final firebase_auth.UserCredential user = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
-      print(user.user!.email);
+      _authLogger.fine('User from firebase auth', user);
       return const Right<Failure, void>(null);
     } on firebase_auth.FirebaseAuthException catch (e) {
-      print('FAILURE: ${e.stackTrace}');
+      _authLogger.severe('Firebase auth failure:', e, e.stackTrace);
       return Left<Failure, UserEntity>(
           AuthenticationFailure(errMsg: e.message!));
     } catch (e) {
-      print('FAILURE: ${e.toString()}');
+      _authLogger.severe('Firebase auth failure:', e);
       return const Left<Failure, UserEntity>(AuthenticationFailure());
     }
   }
@@ -108,11 +115,17 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   @override
   Future<Either<Failure, void>> signOutUser() async {
     try {
+      _authLogger.finer('sign out user called');
       return Right<Failure, void>(_firebaseAuth.signOut());
     } on firebase_auth.FirebaseAuthException catch (e) {
+      _authLogger.severe('Firebase auth failure:', e, e.stackTrace);
       return Left<Failure, void>(AuthenticationFailure(errMsg: e.message!));
     } catch (e) {
-      return Left<Failure, void>(AuthenticationFailure(
+      _authLogger.severe(
+        'failure:',
+        e,
+      );
+      return const Left<Failure, void>(AuthenticationFailure(
           errMsg: 'Unable to sign out, please try again.'));
     }
   }
@@ -120,41 +133,44 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   @override
   Future<Either<Failure, UserEntity>> authenticateUser(
       String email, String password) async {
-    return Left<Failure, UserEntity>(AuthenticationFailure());
+    _authLogger.severe(
+      'Method authenticateUser() called',
+    );
+    return const Left<Failure, UserEntity>(AuthenticationFailure());
   }
 
   @override
   Stream<UserEntity> get user {
     //TODO fix this shit, cleaner code
-    print('user changed');
+    _authLogger.fine('auth user changed');
     return _firebaseAuth
         .authStateChanges()
-        .map((firebase_auth.User? firebaseUser) {
-      return firebaseUser != null
-          ? _getUserEntity(firebaseUser)
-          : UserEntity.empty;
+        .map<UserEntity>((firebase_auth.User? firebaseUser) {
+      return _getUserEntity(firebaseUser);
     });
   }
 
   @override
   Future<Either<Failure, UserEntity>> getCredentials() async {
-    print('getting credentials');
+    _authLogger.finer('get credentials called');
     if (firebase_auth.FirebaseAuth.instance.currentUser != null) {
-      print('not null');
+      _authLogger.fine(' user was not null',
+          firebase_auth.FirebaseAuth.instance.currentUser);
       try {
         final firebase_auth.User user =
             firebase_auth.FirebaseAuth.instance.currentUser!;
-
+        _authLogger.info('Attempting to fetch auth claims');
         final firebase_auth.IdTokenResult results =
-            await user.getIdTokenResult(true);
+            await user.getIdTokenResult();
         final Map<String, dynamic> claims = results.claims!;
-        print('THESE ARE THE CLAIMS \n $claims');
+        _authLogger.fine('Claims that were received', claims);
 
-        if (claims.containsKey('child') && claims.containsKey('schoolID')) {
+        if (claims.containsKey('child')) {
           if (claims['child'] as bool) {
-            return Right<Failure, UserEntity>(_getUserEntity(user,
-                userType: UserType.child,
-                claims: <String, dynamic>{'schoolID': claims['schoolID']}));
+            return Right<Failure, UserEntity>(_getUserEntity(
+              user,
+              userType: UserType.child,
+            ));
           }
         } else if (claims.containsKey('parent')) {
           if (claims['parent'] as bool) {
@@ -165,17 +181,26 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
 
         return Right<Failure, UserEntity>(_getUserEntity(user));
       } on FirebaseException catch (e) {
-        print('Firebase Failure ${e.code}');
+        _authLogger.severe(
+            'Firebase Exception ${e.message} ${e.code} ${e.plugin}',
+            e,
+            e.stackTrace);
 
         return Left<Failure, UserEntity>(
             AuthenticationFailure(errMsg: e.message ?? ''));
       } catch (e) {
-        print("failure");
+        _authLogger.severe(
+          'Unknown Exception ',
+          e,
+        );
+
         return Left<Failure, UserEntity>(
             AuthenticationFailure(errMsg: e.toString()));
       }
     }
-    print('thing null g');
+    _authLogger.severe(
+      'User was probably null ',
+    );
     return const Left<Failure, UserEntity>(AuthenticationFailure());
   }
 
@@ -196,6 +221,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
         'user_type': EnumToString.convertToString(dependentUserType)
       }
     };
+
     if (dependencyEmail != null &&
         dependencyPassword != null &&
         dependencyUserType != null) {
@@ -204,15 +230,18 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
         'password': dependencyPassword,
         'user_type': EnumToString.convertToString(dependencyUserType)
       };
+      _authLogger.finest(
+          'The json being passed to the firebase functions is : ',
+          functionJSON);
     }
     try {
-      print(functionJSON);
+      _authLogger.fine('Calling the function');
       //create user with the email and password passed
       final HttpsCallableResult<Map<String, dynamic>> result =
           await _signUpUserCallable.call<Map<String, dynamic>>(functionJSON);
       //parse the uid of the user from the  results and get the credentials
       //for that user
-
+      _authLogger.fine('Function executed with this result', result);
       //return the credentials of the newly created user
       return Right<Failure, UserEntity>(UserEntity(
         userID: result.data['user'] as String,
@@ -220,6 +249,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
         name: ' ',
       ));
     } on FirebaseFunctionsException catch (e) {
+      _authLogger.severe('FirebaseFunction  exception', e, e.stackTrace);
       return Left<Failure, UserEntity>(
           AuthenticationFailure(errMsg: e.message!));
     } catch (e) {

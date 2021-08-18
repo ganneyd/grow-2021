@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
+import 'package:logging/logging.dart';
 import 'package:pedantic/pedantic.dart';
 part 'authentication_state.dart';
 part 'authentication_event.dart';
@@ -20,7 +21,7 @@ class AuthenticationBloc
     _userSubscription = _authenticationRepository.user
         .listen((UserEntity user) => add(AuthenticationUserChanged(user)));
   }
-
+  final Logger _authBlocLogger = Logger('Auth-Bloc-Logger');
   final AuthenticationRepository _authenticationRepository;
   late StreamSubscription<UserEntity> _userSubscription;
 
@@ -28,13 +29,13 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
     if (event is AuthenticationUserChanged) {
-      print('User changed');
+      _authBlocLogger.info('User changed');
       final Either<Failure, UserEntity> results =
           await _authenticationRepository.getCredentials();
       yield results.fold((Failure l) {
         return _mapAuthenticationUserChangedToState(event);
       }, (UserEntity user) {
-        print('The user returned from repo in bloc \n $user');
+        _authBlocLogger.info('The user returned from repo in bloc \n $user');
         return _mapAuthenticationUserChangedToState(
             AuthenticationUserChanged(user));
       });
@@ -45,11 +46,7 @@ class AuthenticationBloc
 
   AuthenticationState _mapAuthenticationUserChangedToState(
       AuthenticationUserChanged event) {
-    print(event.user.userID);
-    print(event.user.name);
-    print(event.user.userType);
-    print(event.user.userEmail);
-    print('map auth chan');
+    _authBlocLogger.info('Map  auth user called with new event', event);
 
     return event.user != UserEntity.empty
         ? AuthenticationState.authenticated(event.user)
