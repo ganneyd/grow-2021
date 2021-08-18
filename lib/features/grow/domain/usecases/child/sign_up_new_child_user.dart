@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:grow_run_v1/features/grow/data/models/child/child_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
+import 'package:logging/logging.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/usecases/usecases.dart';
 
@@ -11,18 +12,19 @@ import '../../../../../core/usecases/usecases.dart';
 class SignUpNewChildUser implements UseCase<String, Params> {
   ///Constructor
   SignUpNewChildUser(AuthenticationRepository authenticationRepository)
-      : _callable =
-            FirebaseFunctions.instance.httpsCallable('signUpNewChildAcc'),
-        _authenticationRepository = authenticationRepository;
-
-  final HttpsCallable _callable;
+      : _authenticationRepository = authenticationRepository;
+  final Logger _usecaseLogger = Logger('SignUpNewUserUsecase');
   final AuthenticationRepository _authenticationRepository;
   @override
   Future<Either<Failure, String>> call(Params params) async {
     // when a child acc is created a parent is always attached to the account
-    //convert formJSON intot a child obj thne back to JSON
+    //convert formJSON into a child obj then back to JSON
+    _usecaseLogger.finer('Usecase called with these  params', params);
     try {
+      //to ensure that all child data are posses the same structure as
+      //defined in the child entity
       final Child child = Child.fromJson(params.childJSON);
+
       final Either<Failure, UserEntity> result =
           await _authenticationRepository.signUpUser(
               dependentEmail: params.childEmail,
@@ -33,23 +35,32 @@ class SignUpNewChildUser implements UseCase<String, Params> {
               dependencyPassword: params.parentPassword,
               dependencyUserType: UserType.parent);
 //return the failure with the message
-      return result.fold(
-          (Failure l) =>
-              Left<Failure, String>(SignUpFailure(errMsg: l.message)),
-          (UserEntity user) async {
+      _usecaseLogger.fine('Folding the result');
+      return result.fold((Failure l) {
+        _usecaseLogger.severe(
+          'Fold resulted in failure',
+          l,
+        );
+        return Left<Failure, String>(SignUpFailure(errMsg: l.message));
+      }, (UserEntity user) async {
         //attempt to log the user in
+        _usecaseLogger.info('User signed up now login in', user);
         final Either<Failure, void> loginResult =
             await _authenticationRepository.loginUser(
                 params.childEmail, params.childPassword);
         //return either a failure or the user's id
-        return loginResult.fold(
-            (Failure l) =>
-                Left<Failure, String>(SignUpFailure(errMsg: l.message)), (_) {
+        _usecaseLogger.fine('Folding auth result');
+        return loginResult.fold((Failure l) {
+          _usecaseLogger.severe('Auth resulted in failure, ', l);
+          return Left<Failure, String>(SignUpFailure(errMsg: l.message));
+        }, (_) {
+          _usecaseLogger.info('Logged in user');
           return Right<Failure, String>(user.userID);
         });
       });
     } catch (e) {
-      return Left<Failure, String>(AuthenticationFailure());
+      _usecaseLogger.severe('Unhandled err ', e);
+      return const Left<Failure, String>(AuthenticationFailure());
     }
   }
 }
@@ -71,6 +82,11 @@ class Params extends Equatable {
   final Map<String, dynamic> childJSON;
 
   @override
-  List<Object> get props =>
-      [childEmail, childPassword, parentEmail, parentPassword, childJSON];
+  List<Object> get props => <Object>[
+        childEmail,
+        childPassword,
+        parentEmail,
+        parentPassword,
+        childJSON
+      ];
 }
