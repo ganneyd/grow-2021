@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grow_run_v1/core/util/build_info.dart';
+import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_model.dart';
 
 part 'run_state.freezed.dart';
 
@@ -23,18 +26,6 @@ enum RunPageStatus {
 
   ///Data was processed with some error(s)
   processUnsuccessfully,
-
-  ///The run has been initialized
-  running,
-
-  ///the running session has been paused
-  runPaused,
-
-  ///the running session has been resumed
-  runResumed,
-
-  ///The running session has been ended
-  runEnded
 }
 
 ///
