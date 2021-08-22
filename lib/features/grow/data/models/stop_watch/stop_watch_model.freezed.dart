@@ -144,7 +144,7 @@ class __$ElapsedTimeModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ElapsedTimeModel implements _ElapsedTimeModel {
-  _$_ElapsedTimeModel(
+  const _$_ElapsedTimeModel(
       {this.hours = '00',
       this.minutes = '00',
       this.seconds = '00',
@@ -200,7 +200,7 @@ class _$_ElapsedTimeModel implements _ElapsedTimeModel {
 }
 
 abstract class _ElapsedTimeModel implements ElapsedTimeModel {
-  factory _ElapsedTimeModel(
+  const factory _ElapsedTimeModel(
       {String hours,
       String minutes,
       String seconds,

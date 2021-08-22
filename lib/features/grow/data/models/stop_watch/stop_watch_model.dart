@@ -13,7 +13,7 @@ class ElapsedTimeModel extends ElapsedTimeEntity with _$ElapsedTimeModel {
   ///[minutes],
   ///[seconds],
   ///[milliseconds]
-  factory ElapsedTimeModel({
+  const factory ElapsedTimeModel({
     @Default('00') String hours,
     @Default('00') String minutes,
     @Default('00') String seconds,
