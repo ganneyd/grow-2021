@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
+import 'package:grow_run_v1/features/grow/data/models/previous/previous_model.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/previous/previous_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/location_repository.dart';
 import 'package:logging/logging.dart';
@@ -11,110 +13,45 @@ import 'package:pedometer/pedometer.dart';
 ///Implements the LocationRepository
 class LocationRepositoryImplementation extends LocationRepository {
   Logger locationLogger = Logger('LocationRepoImpl');
+
+  ///callback to get the prevLong and lat and distance
+
   //stream to get the users steps
 
   @override
   Stream<RunDetailsEntity> get runDetailsStream {
     late StreamController<RunDetailsEntity> _controller;
     late StreamSubscription<Position> subscription;
-    late StreamSubscription<StepCount> _stepCountStream;
-    late StreamSubscription<PedestrianStatus> _pedestrianStatus;
-    double distance = 0.0;
-    List<Position> coordsList = <Position>[];
-    double prevLat = 0;
-    double prevLong = 0;
-    double pace = 0.0;
-    int steps = 0;
+
     RunStatus status = RunStatus.unknown;
     void startTracking() {
-      _stepCountStream =
-          Pedometer.stepCountStream.listen((StepCount stepCount) {
-        steps = stepCount.steps;
-        _controller.add(RunDetailsEntity(
-            latitude: prevLong,
-            longitude: prevLat,
-            pace: pace,
-            distance: distance,
-            steps: stepCount.steps,
-            status: status));
-        locationLogger.fine('The step count is ${stepCount.steps}');
-      });
-      _pedestrianStatus = Pedometer.pedestrianStatusStream
-          .listen((PedestrianStatus pedestrianStatus) {
-        _controller.add(RunDetailsEntity(
-            latitude: prevLong,
-            longitude: prevLat,
-            pace: pace,
-            distance: distance,
-            steps: steps,
-            status: status));
-        locationLogger.fine('The status is ${pedestrianStatus.status}');
-      });
       subscription = Geolocator.getPositionStream(
               intervalDuration: const Duration(milliseconds: 1))
           .listen((Position position) {
         locationLogger.fine('The current speed ${position.speed} ');
-        locationLogger.fine('The current distance $distance ');
 
-        if (position.speed > 0.5) {
-          coordsList.add(position);
-          locationLogger.fine('Coords list count ${coordsList.length}');
-          if (coordsList.length == 5) {
-            double avgLong, avgLat;
-            avgLong = 0;
-            avgLat = 0;
-            for (final Position pos in coordsList) {
-              avgLat += pos.latitude;
-              avgLong += pos.longitude;
-            }
-            locationLogger.fine('AvgLat $avgLat AvgLong $avgLong');
-            avgLong /= 5;
-            avgLat /= 5;
-            locationLogger.fine('AvgLat $avgLat AvgLong $avgLong');
-
-            if (prevLong != 0 && prevLat != 0) {
-              locationLogger.fine('Old pos is not null, walk detected');
-              distance += Geolocator.distanceBetween(
-                  prevLat, prevLong, avgLat, avgLong);
-            }
-            prevLat = avgLat;
-            prevLong = avgLong;
-            pace = position.speed;
-            coordsList.clear();
-          }
-        }
         _controller.add(RunDetailsEntity(
-            latitude: prevLong,
-            longitude: prevLat,
-            pace: pace,
-            distance: distance,
-            steps: steps,
-            status: status));
+          previous: Previous(
+              distance: 0,
+              latitude: position.latitude,
+              longitude: position.latitude),
+          pace: position.speed,
+          status: status,
+        ));
       });
     }
 
     void pauseTracking() {
       subscription.pause();
-      _stepCountStream.pause();
-      _pedestrianStatus.pause();
     }
 
     void resumeTracking() {
       subscription.resume();
-      _stepCountStream.resume();
-      _pedestrianStatus.resume();
     }
 
     void endTracking() {
-      distance = 0.0;
-      prevLong = 0;
-      prevLat = 0;
-      steps = 0;
-      pace = 0;
-      coordsList.clear();
       _controller.close();
-      _stepCountStream.cancel();
-      _pedestrianStatus.cancel();
+
       subscription.cancel();
     }
 
@@ -127,12 +64,32 @@ class LocationRepositoryImplementation extends LocationRepository {
     return _controller.stream;
   }
 
-  double _calculateDistance(
-      {required double lat1,
-      required double long1,
-      required double lat2,
-      required double long2}) {
-    return 0.0;
+  ///Method to calculate the distance between averaged gps points
+  @override
+  PreviousModel calculateDistance(
+      {required double lat,
+      required double long,
+      required List<Previous> previousLatNLong}) {
+    if (lat == 0 && long == 0) {
+      return const PreviousModel(
+          distance: 0987632, latitude: -57693.003, longitude: 080809.199);
+    }
+    double avgLat = 0;
+    double avgLong = 0;
+    double distance = 0;
+    for (final Previous previous in previousLatNLong) {
+      distance += previous.distance;
+      avgLat += previous.latitude;
+      avgLong += previous.longitude;
+    }
+    avgLong /= previousLatNLong.length;
+    distance /= previousLatNLong.length;
+    avgLat /= previousLatNLong.length;
+    return PreviousModel(
+        latitude: avgLat,
+        longitude: avgLong,
+        distance:
+            distance + Geolocator.distanceBetween(lat, long, avgLat, avgLong));
   }
 
   /// When the location services are not enabled or permissions
