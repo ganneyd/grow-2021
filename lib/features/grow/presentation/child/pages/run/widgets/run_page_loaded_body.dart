@@ -25,24 +25,6 @@ class RunLoadedPage extends StatefulWidget {
 }
 
 class _RunLoadedPageState extends State<RunLoadedPage> {
-  bool _isUnlocked = true;
-  late StreamSubscription<ElapsedTimeModel> streamSubscription;
-  late StreamSubscription<RunDetailsModel> runDetsStreamSubscription;
-  ElapsedTimeModel elapsedTimeModel = ElapsedTimeModel();
-  RunDetailsModel runDetailsModel = RunDetailsModel();
-  void lockToggle() {
-    setState(() {
-      _isUnlocked = !_isUnlocked;
-    });
-  }
-
-  @override
-  void dispose() {
-    streamSubscription.cancel();
-    runDetsStreamSubscription.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TimerCubit>(
@@ -51,37 +33,7 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
         growRepository: context.read<GROWRepository>(),
       )..init(context),
       child: BlocConsumer<TimerCubit, TimerState>(
-        listener: (BuildContext context, TimerState state) {
-          if (state.status.isRunning()) {
-            RunDetailsModel runDetailsModels = RunDetailsModel(distance: 46);
-            runDetsStreamSubscription =
-                state.runDetailsStream!.listen((RunDetailsModel eModel) {
-              runDetailsModels = eModel;
-            });
-            streamSubscription =
-                state.timerStream!.listen((ElapsedTimeModel model) {
-              setState(() {
-                elapsedTimeModel = model;
-                runDetailsModel = runDetailsModels;
-              });
-            });
-          }
-          if (state.status.isRunningPaused()) {
-            streamSubscription.pause();
-            runDetsStreamSubscription.pause();
-          }
-          if (state.status.isRunningResumed()) {
-            streamSubscription.resume();
-            runDetsStreamSubscription.resume();
-          }
-          if (state.status.isRunningEnded()) {
-            setState(() {
-              elapsedTimeModel = ElapsedTimeModel();
-            });
-            runDetsStreamSubscription.cancel();
-            streamSubscription.cancel();
-          }
-        },
+        listener: (BuildContext context, TimerState state) {},
         builder: (BuildContext context, TimerState state) {
           const TextStyle bodyTextStyle = TextStyle(color: Colors.white);
           final TextStyle bodyTextStyle2 =
@@ -92,40 +44,38 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                   backgroundColor: Colors.black,
                   leadingWidth: 100,
                   leading: _getInfoDisplay(
-                    mainText: '${runDetailsModel.steps}',
-                    subText: 'steps',
+                    mainText: '97865',
+                    subText: 'time',
                     textColor: Theme.of(context).primaryColor,
                   ),
                   actions: [
                     _getInfoDisplay(
-                        mainText: runDetailsModel.latitude.toStringAsFixed(2),
+                        mainText: state.runDetailsModel.previous.latitude
+                            .toStringAsFixed(2),
                         subText: 'lat',
                         textColor: Theme.of(context).primaryColor),
                     _getInfoDisplay(
-                        mainText: runDetailsModel.longitude.toStringAsFixed(2),
+                        mainText: state.runDetailsModel.previous.longitude
+                            .toStringAsFixed(2),
                         subText: 'long',
-                        textColor: Theme.of(context).primaryColor),
-                    _getInfoDisplay(
-                        mainText: '${runDetailsModel.status}',
-                        subText: 'status',
                         textColor: Theme.of(context).primaryColor),
                   ],
                   centerTitle: true,
                   title: Visibility(
-                    visible: _isUnlocked,
+                    visible: false,
                     replacement: IconButton(
+                      onPressed: () {},
                       splashColor: widget._runPageState.splashColor,
                       icon: const Icon(
                         FontAwesomeIcons.unlockAlt,
                         color: Colors.white,
                       ),
-                      onPressed: lockToggle,
                     ),
                     child: IconButton(
+                      onPressed: () {},
                       splashColor: widget._runPageState.splashColor,
                       icon: const Icon(FontAwesomeIcons.lock,
                           color: Colors.white),
-                      onPressed: lockToggle,
                     ),
                   )),
               body: Center(
@@ -139,7 +89,8 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                         children: [
                           Flexible(
                             child: Text(
-                              runDetailsModel.distance.toStringAsFixed(2),
+                              state.runDetailsModel.previous.distance
+                                  .toStringAsFixed(2),
                               textScaleFactor: 2,
                               maxLines: 2,
                               textWidthBasis: TextWidthBasis.longestLine,
@@ -192,7 +143,7 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                             child: MaterialButton(
                               onPressed: () =>
                                   context.read<TimerCubit>().timerEnded(),
-                              child: Text(
+                              child: const Text(
                                 'End',
                                 textScaleFactor: 2,
                                 style: bodyTextStyle,
@@ -213,18 +164,20 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                                     child: RichText(
                                         textScaleFactor: 3,
                                         text: TextSpan(
-                                            text: elapsedTimeModel.minutes,
+                                            text: state.runDetailsModel
+                                                .elapsedTime.minutes,
                                             children: <TextSpan>[
                                               const TextSpan(
                                                 text: ':',
                                               ),
                                               TextSpan(
-                                                  text: elapsedTimeModel.seconds
+                                                  text: state.runDetailsModel
+                                                      .elapsedTime.seconds
                                                       .padLeft(2, '0')),
                                               const TextSpan(text: '.'),
                                               TextSpan(
-                                                  text: elapsedTimeModel
-                                                      .milliseconds
+                                                  text: state.runDetailsModel
+                                                      .elapsedTime.milliseconds
                                                       .padLeft(2, '0')),
                                             ]))),
                                 Flexible(
@@ -240,7 +193,8 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                               children: [
                                 Flexible(
                                   child: Text(
-                                    runDetailsModel.pace.toStringAsFixed(2),
+                                    state.runDetailsModel.pace
+                                        .toStringAsFixed(2),
                                     textScaleFactor: 3,
                                     style: bodyTextStyle,
                                   ),
