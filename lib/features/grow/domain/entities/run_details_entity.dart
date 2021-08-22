@@ -1,3 +1,5 @@
+import 'package:grow_run_v1/features/grow/domain/entities/previous/previous_entity.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/stop_watch_entity.dart';
 import 'package:pedometer/pedometer.dart';
 
 enum RunStatus { running, stopped, unknown }
@@ -6,29 +8,18 @@ enum RunStatus { running, stopped, unknown }
 ///the user
 class RunDetailsEntity {
   ///Takes in [latitude], [longitude] and [pace]
-  const RunDetailsEntity(
-      {required this.latitude,
-      required this.longitude,
-      required this.pace,
-      required this.distance,
-      required this.status,
-      required this.steps});
+  const RunDetailsEntity({
+    required this.previous,
+    required this.pace,
+    required this.status,
+  });
 
-  ///GPS LAt
-  final double latitude;
-
-  ///GPS LONG
-  final double longitude;
+  ///Previous entity
+  final Previous previous;
 
   ///Pace of the user
   final double pace;
 
-  ///the distance covered so far
-  final double distance;
-
   ///whether the user is walking, stopped or unknown
   final RunStatus status;
-
-  ///the amount of steps the user has taken
-  final int steps;
 }
