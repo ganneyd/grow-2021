@@ -19,13 +19,11 @@ class _$TimerStateTearOff {
   _TimerState call(
       {TimerStatus status = TimerStatus.fresh,
       bool isTimerRunning = false,
-      Stream<RunDetailsModel>? runDetailsStream,
-      Stream<ElapsedTimeModel>? timerStream}) {
+      RunDetailsModel runDetailsModel = const RunDetailsModel()}) {
     return _TimerState(
       status: status,
       isTimerRunning: isTimerRunning,
-      runDetailsStream: runDetailsStream,
-      timerStream: timerStream,
+      runDetailsModel: runDetailsModel,
     );
   }
 }
@@ -37,10 +35,7 @@ const $TimerState = _$TimerStateTearOff();
 mixin _$TimerState {
   TimerStatus get status => throw _privateConstructorUsedError;
   bool get isTimerRunning => throw _privateConstructorUsedError;
-  Stream<RunDetailsModel>? get runDetailsStream =>
-      throw _privateConstructorUsedError;
-  Stream<ElapsedTimeModel>? get timerStream =>
-      throw _privateConstructorUsedError;
+  RunDetailsModel get runDetailsModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TimerStateCopyWith<TimerState> get copyWith =>
@@ -55,8 +50,9 @@ abstract class $TimerStateCopyWith<$Res> {
   $Res call(
       {TimerStatus status,
       bool isTimerRunning,
-      Stream<RunDetailsModel>? runDetailsStream,
-      Stream<ElapsedTimeModel>? timerStream});
+      RunDetailsModel runDetailsModel});
+
+  $RunDetailsModelCopyWith<$Res> get runDetailsModel;
 }
 
 /// @nodoc
@@ -71,8 +67,7 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
   $Res call({
     Object? status = freezed,
     Object? isTimerRunning = freezed,
-    Object? runDetailsStream = freezed,
-    Object? timerStream = freezed,
+    Object? runDetailsModel = freezed,
   }) {
     return _then(_value.copyWith(
       status: status == freezed
@@ -83,15 +78,18 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
           ? _value.isTimerRunning
           : isTimerRunning // ignore: cast_nullable_to_non_nullable
               as bool,
-      runDetailsStream: runDetailsStream == freezed
-          ? _value.runDetailsStream
-          : runDetailsStream // ignore: cast_nullable_to_non_nullable
-              as Stream<RunDetailsModel>?,
-      timerStream: timerStream == freezed
-          ? _value.timerStream
-          : timerStream // ignore: cast_nullable_to_non_nullable
-              as Stream<ElapsedTimeModel>?,
+      runDetailsModel: runDetailsModel == freezed
+          ? _value.runDetailsModel
+          : runDetailsModel // ignore: cast_nullable_to_non_nullable
+              as RunDetailsModel,
     ));
+  }
+
+  @override
+  $RunDetailsModelCopyWith<$Res> get runDetailsModel {
+    return $RunDetailsModelCopyWith<$Res>(_value.runDetailsModel, (value) {
+      return _then(_value.copyWith(runDetailsModel: value));
+    });
   }
 }
 
@@ -104,8 +102,10 @@ abstract class _$TimerStateCopyWith<$Res> implements $TimerStateCopyWith<$Res> {
   $Res call(
       {TimerStatus status,
       bool isTimerRunning,
-      Stream<RunDetailsModel>? runDetailsStream,
-      Stream<ElapsedTimeModel>? timerStream});
+      RunDetailsModel runDetailsModel});
+
+  @override
+  $RunDetailsModelCopyWith<$Res> get runDetailsModel;
 }
 
 /// @nodoc
@@ -122,8 +122,7 @@ class __$TimerStateCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? isTimerRunning = freezed,
-    Object? runDetailsStream = freezed,
-    Object? timerStream = freezed,
+    Object? runDetailsModel = freezed,
   }) {
     return _then(_TimerState(
       status: status == freezed
@@ -134,14 +133,10 @@ class __$TimerStateCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
           ? _value.isTimerRunning
           : isTimerRunning // ignore: cast_nullable_to_non_nullable
               as bool,
-      runDetailsStream: runDetailsStream == freezed
-          ? _value.runDetailsStream
-          : runDetailsStream // ignore: cast_nullable_to_non_nullable
-              as Stream<RunDetailsModel>?,
-      timerStream: timerStream == freezed
-          ? _value.timerStream
-          : timerStream // ignore: cast_nullable_to_non_nullable
-              as Stream<ElapsedTimeModel>?,
+      runDetailsModel: runDetailsModel == freezed
+          ? _value.runDetailsModel
+          : runDetailsModel // ignore: cast_nullable_to_non_nullable
+              as RunDetailsModel,
     ));
   }
 }
@@ -152,8 +147,7 @@ class _$_TimerState implements _TimerState {
   _$_TimerState(
       {this.status = TimerStatus.fresh,
       this.isTimerRunning = false,
-      this.runDetailsStream,
-      this.timerStream});
+      this.runDetailsModel = const RunDetailsModel()});
 
   @JsonKey(defaultValue: TimerStatus.fresh)
   @override
@@ -161,14 +155,13 @@ class _$_TimerState implements _TimerState {
   @JsonKey(defaultValue: false)
   @override
   final bool isTimerRunning;
+  @JsonKey(defaultValue: RunDetailsModel)
   @override
-  final Stream<RunDetailsModel>? runDetailsStream;
-  @override
-  final Stream<ElapsedTimeModel>? timerStream;
+  final RunDetailsModel runDetailsModel;
 
   @override
   String toString() {
-    return 'TimerState(status: $status, isTimerRunning: $isTimerRunning, runDetailsStream: $runDetailsStream, timerStream: $timerStream)';
+    return 'TimerState(status: $status, isTimerRunning: $isTimerRunning, runDetailsModel: $runDetailsModel)';
   }
 
   @override
@@ -180,12 +173,9 @@ class _$_TimerState implements _TimerState {
             (identical(other.isTimerRunning, isTimerRunning) ||
                 const DeepCollectionEquality()
                     .equals(other.isTimerRunning, isTimerRunning)) &&
-            (identical(other.runDetailsStream, runDetailsStream) ||
+            (identical(other.runDetailsModel, runDetailsModel) ||
                 const DeepCollectionEquality()
-                    .equals(other.runDetailsStream, runDetailsStream)) &&
-            (identical(other.timerStream, timerStream) ||
-                const DeepCollectionEquality()
-                    .equals(other.timerStream, timerStream)));
+                    .equals(other.runDetailsModel, runDetailsModel)));
   }
 
   @override
@@ -193,8 +183,7 @@ class _$_TimerState implements _TimerState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(isTimerRunning) ^
-      const DeepCollectionEquality().hash(runDetailsStream) ^
-      const DeepCollectionEquality().hash(timerStream);
+      const DeepCollectionEquality().hash(runDetailsModel);
 
   @JsonKey(ignore: true)
   @override
@@ -206,19 +195,14 @@ abstract class _TimerState implements TimerState {
   factory _TimerState(
       {TimerStatus status,
       bool isTimerRunning,
-      Stream<RunDetailsModel>? runDetailsStream,
-      Stream<ElapsedTimeModel>? timerStream}) = _$_TimerState;
+      RunDetailsModel runDetailsModel}) = _$_TimerState;
 
   @override
   TimerStatus get status => throw _privateConstructorUsedError;
   @override
   bool get isTimerRunning => throw _privateConstructorUsedError;
   @override
-  Stream<RunDetailsModel>? get runDetailsStream =>
-      throw _privateConstructorUsedError;
-  @override
-  Stream<ElapsedTimeModel>? get timerStream =>
-      throw _privateConstructorUsedError;
+  RunDetailsModel get runDetailsModel => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TimerStateCopyWith<_TimerState> get copyWith =>

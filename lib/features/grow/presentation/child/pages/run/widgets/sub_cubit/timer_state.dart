@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:grow_run_v1/features/grow/data/models/previous/previous_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_details_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_model.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 part 'timer_state.freezed.dart';
 
 enum TimerStatus {
@@ -39,11 +41,13 @@ extension RunPageStatusExtensions on TimerStatus {
 }
 
 @freezed
+
+///
 class TimerState with _$TimerState {
+  ///
   factory TimerState({
     @Default(TimerStatus.fresh) TimerStatus status,
     @Default(false) bool isTimerRunning,
-    Stream<RunDetailsModel>? runDetailsStream,
-    Stream<ElapsedTimeModel>? timerStream,
+    @Default(RunDetailsModel) RunDetailsModel runDetailsModel,
   }) = _TimerState;
 }
