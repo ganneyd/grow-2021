@@ -1,6 +1,6 @@
-///A [GOAL_OCCURANCE] tells what category the goal belongs to
+///A [GOAL_OCCURRENCE] tells what category the goal belongs to
 
-enum GOAL_OCCURANCE {
+enum GOAL_OCCURRENCE {
   /// specifies that a goal is going to be
   /// attempted every week
   weekly,
@@ -9,7 +9,7 @@ enum GOAL_OCCURANCE {
   /// attempted every day
   daily,
 
-  ///if the occurance of the goal is not specified
+  ///if the occurrence of the goal is not specified
   unknown
 }
 

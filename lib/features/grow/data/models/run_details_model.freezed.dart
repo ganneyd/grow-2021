@@ -17,16 +17,18 @@ class _$RunDetailsModelTearOff {
   const _$RunDetailsModelTearOff();
 
   _RunDetails call(
-      {PreviousModel previous =
-          const PreviousModel(latitude: 0, longitude: 0, distance: 0),
+      {List<double> longitudeList = const <double>[0],
+      List<double> latitudeList = const <double>[0],
+      double distance = 0,
+      double elapsedSeconds = 0,
       double pace = 0,
-      ElapsedTimeModel elapsedTime = const ElapsedTimeModel(
-          hours: '0', milliseconds: '0', minutes: '0', seconds: '0'),
       RunStatus status = RunStatus.unknown}) {
     return _RunDetails(
-      previous: previous,
+      longitudeList: longitudeList,
+      latitudeList: latitudeList,
+      distance: distance,
+      elapsedSeconds: elapsedSeconds,
       pace: pace,
-      elapsedTime: elapsedTime,
       status: status,
     );
   }
@@ -37,9 +39,11 @@ const $RunDetailsModel = _$RunDetailsModelTearOff();
 
 /// @nodoc
 mixin _$RunDetailsModel {
-  PreviousModel get previous => throw _privateConstructorUsedError;
+  List<double> get longitudeList => throw _privateConstructorUsedError;
+  List<double> get latitudeList => throw _privateConstructorUsedError;
+  double get distance => throw _privateConstructorUsedError;
+  double get elapsedSeconds => throw _privateConstructorUsedError;
   double get pace => throw _privateConstructorUsedError;
-  ElapsedTimeModel get elapsedTime => throw _privateConstructorUsedError;
   RunStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -53,13 +57,12 @@ abstract class $RunDetailsModelCopyWith<$Res> {
           RunDetailsModel value, $Res Function(RunDetailsModel) then) =
       _$RunDetailsModelCopyWithImpl<$Res>;
   $Res call(
-      {PreviousModel previous,
+      {List<double> longitudeList,
+      List<double> latitudeList,
+      double distance,
+      double elapsedSeconds,
       double pace,
-      ElapsedTimeModel elapsedTime,
       RunStatus status});
-
-  $PreviousModelCopyWith<$Res> get previous;
-  $ElapsedTimeModelCopyWith<$Res> get elapsedTime;
 }
 
 /// @nodoc
@@ -73,43 +76,39 @@ class _$RunDetailsModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? previous = freezed,
+    Object? longitudeList = freezed,
+    Object? latitudeList = freezed,
+    Object? distance = freezed,
+    Object? elapsedSeconds = freezed,
     Object? pace = freezed,
-    Object? elapsedTime = freezed,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
-      previous: previous == freezed
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as PreviousModel,
+      longitudeList: longitudeList == freezed
+          ? _value.longitudeList
+          : longitudeList // ignore: cast_nullable_to_non_nullable
+              as List<double>,
+      latitudeList: latitudeList == freezed
+          ? _value.latitudeList
+          : latitudeList // ignore: cast_nullable_to_non_nullable
+              as List<double>,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
+      elapsedSeconds: elapsedSeconds == freezed
+          ? _value.elapsedSeconds
+          : elapsedSeconds // ignore: cast_nullable_to_non_nullable
+              as double,
       pace: pace == freezed
           ? _value.pace
           : pace // ignore: cast_nullable_to_non_nullable
               as double,
-      elapsedTime: elapsedTime == freezed
-          ? _value.elapsedTime
-          : elapsedTime // ignore: cast_nullable_to_non_nullable
-              as ElapsedTimeModel,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as RunStatus,
     ));
-  }
-
-  @override
-  $PreviousModelCopyWith<$Res> get previous {
-    return $PreviousModelCopyWith<$Res>(_value.previous, (value) {
-      return _then(_value.copyWith(previous: value));
-    });
-  }
-
-  @override
-  $ElapsedTimeModelCopyWith<$Res> get elapsedTime {
-    return $ElapsedTimeModelCopyWith<$Res>(_value.elapsedTime, (value) {
-      return _then(_value.copyWith(elapsedTime: value));
-    });
   }
 }
 
@@ -121,15 +120,12 @@ abstract class _$RunDetailsCopyWith<$Res>
       __$RunDetailsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {PreviousModel previous,
+      {List<double> longitudeList,
+      List<double> latitudeList,
+      double distance,
+      double elapsedSeconds,
       double pace,
-      ElapsedTimeModel elapsedTime,
       RunStatus status});
-
-  @override
-  $PreviousModelCopyWith<$Res> get previous;
-  @override
-  $ElapsedTimeModelCopyWith<$Res> get elapsedTime;
 }
 
 /// @nodoc
@@ -145,24 +141,34 @@ class __$RunDetailsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? previous = freezed,
+    Object? longitudeList = freezed,
+    Object? latitudeList = freezed,
+    Object? distance = freezed,
+    Object? elapsedSeconds = freezed,
     Object? pace = freezed,
-    Object? elapsedTime = freezed,
     Object? status = freezed,
   }) {
     return _then(_RunDetails(
-      previous: previous == freezed
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as PreviousModel,
+      longitudeList: longitudeList == freezed
+          ? _value.longitudeList
+          : longitudeList // ignore: cast_nullable_to_non_nullable
+              as List<double>,
+      latitudeList: latitudeList == freezed
+          ? _value.latitudeList
+          : latitudeList // ignore: cast_nullable_to_non_nullable
+              as List<double>,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
+      elapsedSeconds: elapsedSeconds == freezed
+          ? _value.elapsedSeconds
+          : elapsedSeconds // ignore: cast_nullable_to_non_nullable
+              as double,
       pace: pace == freezed
           ? _value.pace
           : pace // ignore: cast_nullable_to_non_nullable
               as double,
-      elapsedTime: elapsedTime == freezed
-          ? _value.elapsedTime
-          : elapsedTime // ignore: cast_nullable_to_non_nullable
-              as ElapsedTimeModel,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -175,43 +181,55 @@ class __$RunDetailsCopyWithImpl<$Res>
 
 class _$_RunDetails implements _RunDetails {
   const _$_RunDetails(
-      {this.previous =
-          const PreviousModel(latitude: 0, longitude: 0, distance: 0),
+      {this.longitudeList = const <double>[0],
+      this.latitudeList = const <double>[0],
+      this.distance = 0,
+      this.elapsedSeconds = 0,
       this.pace = 0,
-      this.elapsedTime = const ElapsedTimeModel(
-          hours: '0', milliseconds: '0', minutes: '0', seconds: '0'),
       this.status = RunStatus.unknown});
 
-  @JsonKey(defaultValue: PreviousModel)
+  @JsonKey(defaultValue: const <double>[0])
   @override
-  final PreviousModel previous;
+  final List<double> longitudeList;
+  @JsonKey(defaultValue: const <double>[0])
+  @override
+  final List<double> latitudeList;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double distance;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double elapsedSeconds;
   @JsonKey(defaultValue: 0)
   @override
   final double pace;
-  @JsonKey(defaultValue: ElapsedTimeModel)
-  @override
-  final ElapsedTimeModel elapsedTime;
   @JsonKey(defaultValue: RunStatus.unknown)
   @override
   final RunStatus status;
 
   @override
   String toString() {
-    return 'RunDetailsModel(previous: $previous, pace: $pace, elapsedTime: $elapsedTime, status: $status)';
+    return 'RunDetailsModel(longitudeList: $longitudeList, latitudeList: $latitudeList, distance: $distance, elapsedSeconds: $elapsedSeconds, pace: $pace, status: $status)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _RunDetails &&
-            (identical(other.previous, previous) ||
+            (identical(other.longitudeList, longitudeList) ||
                 const DeepCollectionEquality()
-                    .equals(other.previous, previous)) &&
+                    .equals(other.longitudeList, longitudeList)) &&
+            (identical(other.latitudeList, latitudeList) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitudeList, latitudeList)) &&
+            (identical(other.distance, distance) ||
+                const DeepCollectionEquality()
+                    .equals(other.distance, distance)) &&
+            (identical(other.elapsedSeconds, elapsedSeconds) ||
+                const DeepCollectionEquality()
+                    .equals(other.elapsedSeconds, elapsedSeconds)) &&
             (identical(other.pace, pace) ||
                 const DeepCollectionEquality().equals(other.pace, pace)) &&
-            (identical(other.elapsedTime, elapsedTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.elapsedTime, elapsedTime)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)));
   }
@@ -219,9 +237,11 @@ class _$_RunDetails implements _RunDetails {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(previous) ^
+      const DeepCollectionEquality().hash(longitudeList) ^
+      const DeepCollectionEquality().hash(latitudeList) ^
+      const DeepCollectionEquality().hash(distance) ^
+      const DeepCollectionEquality().hash(elapsedSeconds) ^
       const DeepCollectionEquality().hash(pace) ^
-      const DeepCollectionEquality().hash(elapsedTime) ^
       const DeepCollectionEquality().hash(status);
 
   @JsonKey(ignore: true)
@@ -232,17 +252,23 @@ class _$_RunDetails implements _RunDetails {
 
 abstract class _RunDetails implements RunDetailsModel {
   const factory _RunDetails(
-      {PreviousModel previous,
+      {List<double> longitudeList,
+      List<double> latitudeList,
+      double distance,
+      double elapsedSeconds,
       double pace,
-      ElapsedTimeModel elapsedTime,
       RunStatus status}) = _$_RunDetails;
 
   @override
-  PreviousModel get previous => throw _privateConstructorUsedError;
+  List<double> get longitudeList => throw _privateConstructorUsedError;
+  @override
+  List<double> get latitudeList => throw _privateConstructorUsedError;
+  @override
+  double get distance => throw _privateConstructorUsedError;
+  @override
+  double get elapsedSeconds => throw _privateConstructorUsedError;
   @override
   double get pace => throw _privateConstructorUsedError;
-  @override
-  ElapsedTimeModel get elapsedTime => throw _privateConstructorUsedError;
   @override
   RunStatus get status => throw _privateConstructorUsedError;
   @override

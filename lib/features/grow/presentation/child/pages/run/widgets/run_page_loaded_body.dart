@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_details_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_model.dart';
+import 'package:grow_run_v1/features/grow/data/repositories/location_repositor_implementation.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/location_repository.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/run/cubit/run_page_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/run/cubit/run_state.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/run/widgets/sub_cubit/timer_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/run/widgets/sub_cubit/timer_state.dart';
+import 'package:grow_run_v1/service_locator.dart';
 
 ///When the run page has successfully loaded this is shown
 class RunLoadedPage extends StatefulWidget {
@@ -28,10 +30,7 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TimerCubit>(
-      create: (_) => TimerCubit(
-        locationRepository: context.read<LocationRepository>(),
-        growRepository: context.read<GROWRepository>(),
-      )..init(context),
+      create: (_) => serviceLocator<TimerCubit>()..init(context),
       child: BlocConsumer<TimerCubit, TimerState>(
         listener: (BuildContext context, TimerState state) {},
         builder: (BuildContext context, TimerState state) {
@@ -50,12 +49,12 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                   ),
                   actions: [
                     _getInfoDisplay(
-                        mainText: state.runDetailsModel.previous.latitude
+                        mainText: state.runDetailsModel.latitudeList.last
                             .toStringAsFixed(2),
                         subText: 'lat',
                         textColor: Theme.of(context).primaryColor),
                     _getInfoDisplay(
-                        mainText: state.runDetailsModel.previous.longitude
+                        mainText: state.runDetailsModel.longitudeList.last
                             .toStringAsFixed(2),
                         subText: 'long',
                         textColor: Theme.of(context).primaryColor),
@@ -89,8 +88,7 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                         children: [
                           Flexible(
                             child: Text(
-                              state.runDetailsModel.previous.distance
-                                  .toStringAsFixed(2),
+                              state.runDetailsModel.distance.toStringAsFixed(2),
                               textScaleFactor: 2,
                               maxLines: 2,
                               textWidthBasis: TextWidthBasis.longestLine,
@@ -164,21 +162,26 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                                     child: RichText(
                                         textScaleFactor: 3,
                                         text: TextSpan(
-                                            text: state.runDetailsModel
-                                                .elapsedTime.minutes,
+                                            text: state.elapsedTimeModel.minutes
+                                                .toString()
+                                                .padLeft(2, '0'),
                                             children: <TextSpan>[
                                               const TextSpan(
                                                 text: ':',
                                               ),
                                               TextSpan(
-                                                  text: state.runDetailsModel
-                                                      .elapsedTime.seconds
-                                                      .padLeft(2, '0')),
+                                                text: state
+                                                    .elapsedTimeModel.seconds
+                                                    .toString()
+                                                    .padLeft(2, '0'),
+                                              ),
                                               const TextSpan(text: '.'),
                                               TextSpan(
-                                                  text: state.runDetailsModel
-                                                      .elapsedTime.milliseconds
-                                                      .padLeft(2, '0')),
+                                                text: state.elapsedTimeModel
+                                                    .milliseconds
+                                                    .toString()
+                                                    .padLeft(2, '0'),
+                                              ),
                                             ]))),
                                 Flexible(
                                     child: Text('passed',
@@ -190,7 +193,7 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
                           Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
-                              children: [
+                              children: <Flexible>[
                                 Flexible(
                                   child: Text(
                                     state.runDetailsModel.pace
@@ -226,7 +229,7 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
         Flexible(
             child: Text(
           mainText,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         )),
         Flexible(
             child: Text(

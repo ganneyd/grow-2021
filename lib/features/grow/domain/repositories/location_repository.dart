@@ -8,14 +8,8 @@ import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dar
 abstract class LocationRepository {
   ///Stream of , [RunDetailsEntity] which will emit the gps coords and the
   ///pace of the user
-  Stream<RunDetailsEntity> get runDetailsStream;
+  Stream<Previous> get runDetailsStream;
 
   ///Checks if the app has permission to use the GPS services
   Future<Either<Failure, bool>> checkPermissions();
-
-  ///Calculates  the distance between averaged GPS points
-  PreviousModel calculateDistance(
-      {required double lat,
-      required double long,
-      required List<PreviousModel> previousLatNLong});
 }

@@ -17,10 +17,7 @@ class _$ElapsedTimeModelTearOff {
   const _$ElapsedTimeModelTearOff();
 
   _ElapsedTimeModel call(
-      {String hours = '00',
-      String minutes = '00',
-      String seconds = '00',
-      String milliseconds = '00'}) {
+      {int hours = 0, int minutes = 0, int seconds = 0, int milliseconds = 0}) {
     return _ElapsedTimeModel(
       hours: hours,
       minutes: minutes,
@@ -35,10 +32,10 @@ const $ElapsedTimeModel = _$ElapsedTimeModelTearOff();
 
 /// @nodoc
 mixin _$ElapsedTimeModel {
-  String get hours => throw _privateConstructorUsedError;
-  String get minutes => throw _privateConstructorUsedError;
-  String get seconds => throw _privateConstructorUsedError;
-  String get milliseconds => throw _privateConstructorUsedError;
+  int get hours => throw _privateConstructorUsedError;
+  int get minutes => throw _privateConstructorUsedError;
+  int get seconds => throw _privateConstructorUsedError;
+  int get milliseconds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ElapsedTimeModelCopyWith<ElapsedTimeModel> get copyWith =>
@@ -50,8 +47,7 @@ abstract class $ElapsedTimeModelCopyWith<$Res> {
   factory $ElapsedTimeModelCopyWith(
           ElapsedTimeModel value, $Res Function(ElapsedTimeModel) then) =
       _$ElapsedTimeModelCopyWithImpl<$Res>;
-  $Res call(
-      {String hours, String minutes, String seconds, String milliseconds});
+  $Res call({int hours, int minutes, int seconds, int milliseconds});
 }
 
 /// @nodoc
@@ -74,19 +70,19 @@ class _$ElapsedTimeModelCopyWithImpl<$Res>
       hours: hours == freezed
           ? _value.hours
           : hours // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       minutes: minutes == freezed
           ? _value.minutes
           : minutes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       seconds: seconds == freezed
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       milliseconds: milliseconds == freezed
           ? _value.milliseconds
           : milliseconds // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -98,8 +94,7 @@ abstract class _$ElapsedTimeModelCopyWith<$Res>
           _ElapsedTimeModel value, $Res Function(_ElapsedTimeModel) then) =
       __$ElapsedTimeModelCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String hours, String minutes, String seconds, String milliseconds});
+  $Res call({int hours, int minutes, int seconds, int milliseconds});
 }
 
 /// @nodoc
@@ -124,19 +119,19 @@ class __$ElapsedTimeModelCopyWithImpl<$Res>
       hours: hours == freezed
           ? _value.hours
           : hours // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       minutes: minutes == freezed
           ? _value.minutes
           : minutes // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       seconds: seconds == freezed
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       milliseconds: milliseconds == freezed
           ? _value.milliseconds
           : milliseconds // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -145,23 +140,23 @@ class __$ElapsedTimeModelCopyWithImpl<$Res>
 
 class _$_ElapsedTimeModel implements _ElapsedTimeModel {
   const _$_ElapsedTimeModel(
-      {this.hours = '00',
-      this.minutes = '00',
-      this.seconds = '00',
-      this.milliseconds = '00'});
+      {this.hours = 0,
+      this.minutes = 0,
+      this.seconds = 0,
+      this.milliseconds = 0});
 
-  @JsonKey(defaultValue: '00')
+  @JsonKey(defaultValue: 0)
   @override
-  final String hours;
-  @JsonKey(defaultValue: '00')
+  final int hours;
+  @JsonKey(defaultValue: 0)
   @override
-  final String minutes;
-  @JsonKey(defaultValue: '00')
+  final int minutes;
+  @JsonKey(defaultValue: 0)
   @override
-  final String seconds;
-  @JsonKey(defaultValue: '00')
+  final int seconds;
+  @JsonKey(defaultValue: 0)
   @override
-  final String milliseconds;
+  final int milliseconds;
 
   @override
   String toString() {
@@ -201,19 +196,19 @@ class _$_ElapsedTimeModel implements _ElapsedTimeModel {
 
 abstract class _ElapsedTimeModel implements ElapsedTimeModel {
   const factory _ElapsedTimeModel(
-      {String hours,
-      String minutes,
-      String seconds,
-      String milliseconds}) = _$_ElapsedTimeModel;
+      {int hours,
+      int minutes,
+      int seconds,
+      int milliseconds}) = _$_ElapsedTimeModel;
 
   @override
-  String get hours => throw _privateConstructorUsedError;
+  int get hours => throw _privateConstructorUsedError;
   @override
-  String get minutes => throw _privateConstructorUsedError;
+  int get minutes => throw _privateConstructorUsedError;
   @override
-  String get seconds => throw _privateConstructorUsedError;
+  int get seconds => throw _privateConstructorUsedError;
   @override
-  String get milliseconds => throw _privateConstructorUsedError;
+  int get milliseconds => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ElapsedTimeModelCopyWith<_ElapsedTimeModel> get copyWith =>

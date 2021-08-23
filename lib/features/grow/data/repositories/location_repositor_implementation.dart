@@ -8,36 +8,58 @@ import 'package:grow_run_v1/features/grow/domain/entities/previous/previous_enti
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/location_repository.dart';
 import 'package:logging/logging.dart';
-import 'package:pedometer/pedometer.dart';
 
 ///Implements the LocationRepository
 class LocationRepositoryImplementation extends LocationRepository {
-  Logger locationLogger = Logger('LocationRepoImpl');
+  ///if a [avgNum] is provided defaults to 5
+  LocationRepositoryImplementation({this.avgNum = 5, this.paceThreshold = 0.2})
+      : _locationLogger = Logger('LocationRepoImpl');
+
+  ///logger
+  final Logger _locationLogger;
+
+  ///The number of points that should be taken before they are averaged
+  final int avgNum;
+
+  ///The threshold for the pace that determines when the gps points are averaged
+  final double paceThreshold;
 
   ///callback to get the prevLong and lat and distance
 
   //stream to get the users steps
 
   @override
-  Stream<RunDetailsEntity> get runDetailsStream {
-    late StreamController<RunDetailsEntity> _controller;
+  Stream<PreviousModel> get runDetailsStream {
+    late StreamController<PreviousModel> _controller;
     late StreamSubscription<Position> subscription;
-
-    RunStatus status = RunStatus.unknown;
+    final List<PreviousModel> previousModels = <PreviousModel>[];
+    double lat = 0, long = 0, distance = 0;
     void startTracking() {
-      subscription = Geolocator.getPositionStream(
-              intervalDuration: const Duration(milliseconds: 1))
-          .listen((Position position) {
-        locationLogger.fine('The current speed ${position.speed} ');
+      subscription = Geolocator.getPositionStream().listen((Position position) {
+        _locationLogger.fine(
+            'The current speed ${position.speed} with coords ${position.latitude} and ${position.longitude} ');
 
-        _controller.add(RunDetailsEntity(
-          previous: Previous(
-              distance: 0,
-              latitude: position.latitude,
-              longitude: position.latitude),
-          pace: position.speed,
-          status: status,
-        ));
+        if (position.speed > paceThreshold) {
+          _locationLogger.fine('Point over Threshold');
+          previousModels.add(PreviousModel(
+              latitude: position.latitude, longitude: position.longitude));
+        }
+        if (previousModels.length == avgNum) {
+          _locationLogger.fine('calculating distance');
+          final PreviousModel previousModel = _calculateDistance(
+              lat: lat, long: long, previousLatNLong: previousModels);
+          lat = previousModel.latitude;
+          long = previousModel.longitude;
+          distance += previousModel.distance;
+          _locationLogger.fine('Distance is : $distance');
+          _controller.add(previousModel);
+          previousModels.clear();
+        } else {
+          _controller.add(PreviousModel(
+            distance: distance,
+            pace: position.speed,
+          ));
+        }
       });
     }
 
@@ -55,7 +77,7 @@ class LocationRepositoryImplementation extends LocationRepository {
       subscription.cancel();
     }
 
-    _controller = StreamController<RunDetailsEntity>(
+    _controller = StreamController<PreviousModel>(
         onListen: startTracking,
         onPause: pauseTracking,
         onResume: resumeTracking,
@@ -65,31 +87,30 @@ class LocationRepositoryImplementation extends LocationRepository {
   }
 
   ///Method to calculate the distance between averaged gps points
-  @override
-  PreviousModel calculateDistance(
+
+  PreviousModel _calculateDistance(
       {required double lat,
       required double long,
-      required List<Previous> previousLatNLong}) {
-    if (lat == 0 && long == 0) {
-      return const PreviousModel(
-          distance: 0987632, latitude: -57693.003, longitude: 080809.199);
-    }
+      required List<PreviousModel> previousLatNLong}) {
     double avgLat = 0;
     double avgLong = 0;
-    double distance = 0;
-    for (final Previous previous in previousLatNLong) {
-      distance += previous.distance;
+    for (final PreviousModel previous in previousLatNLong) {
+      _locationLogger.fine(
+          'Points are lat: ${previous.latitude} and long: ${previous.longitude}');
       avgLat += previous.latitude;
       avgLong += previous.longitude;
     }
     avgLong /= previousLatNLong.length;
-    distance /= previousLatNLong.length;
     avgLat /= previousLatNLong.length;
+    if (lat == 0 && long == 0) {
+      _locationLogger.fine('both lat and long are 0');
+      return PreviousModel(latitude: avgLat, longitude: avgLong);
+    }
+
     return PreviousModel(
         latitude: avgLat,
         longitude: avgLong,
-        distance:
-            distance + Geolocator.distanceBetween(lat, long, avgLat, avgLong));
+        distance: Geolocator.distanceBetween(lat, long, avgLat, avgLong));
   }
 
   /// When the location services are not enabled or permissions

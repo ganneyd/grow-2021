@@ -3,6 +3,7 @@ class Previous {
   ///
   Previous(
       {required this.distance,
+      required this.pace,
       required this.latitude,
       required this.longitude});
 
@@ -14,4 +15,7 @@ class Previous {
 
   ///the previous latitude
   final double distance;
+
+  ///the pace of the user+
+  final double pace;
 }

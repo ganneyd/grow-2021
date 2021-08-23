@@ -17,11 +17,15 @@ class _$PreviousModelTearOff {
   const _$PreviousModelTearOff();
 
   _PreviousModel call(
-      {double longitude = 0, double latitude = 0, double distance = 0}) {
+      {double longitude = 0,
+      double latitude = 0,
+      double distance = 0,
+      double pace = 0}) {
     return _PreviousModel(
       longitude: longitude,
       latitude: latitude,
       distance: distance,
+      pace: pace,
     );
   }
 }
@@ -34,6 +38,7 @@ mixin _$PreviousModel {
   double get longitude => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
   double get distance => throw _privateConstructorUsedError;
+  double get pace => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PreviousModelCopyWith<PreviousModel> get copyWith =>
@@ -45,7 +50,7 @@ abstract class $PreviousModelCopyWith<$Res> {
   factory $PreviousModelCopyWith(
           PreviousModel value, $Res Function(PreviousModel) then) =
       _$PreviousModelCopyWithImpl<$Res>;
-  $Res call({double longitude, double latitude, double distance});
+  $Res call({double longitude, double latitude, double distance, double pace});
 }
 
 /// @nodoc
@@ -62,6 +67,7 @@ class _$PreviousModelCopyWithImpl<$Res>
     Object? longitude = freezed,
     Object? latitude = freezed,
     Object? distance = freezed,
+    Object? pace = freezed,
   }) {
     return _then(_value.copyWith(
       longitude: longitude == freezed
@@ -76,6 +82,10 @@ class _$PreviousModelCopyWithImpl<$Res>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double,
+      pace: pace == freezed
+          ? _value.pace
+          : pace // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -87,7 +97,7 @@ abstract class _$PreviousModelCopyWith<$Res>
           _PreviousModel value, $Res Function(_PreviousModel) then) =
       __$PreviousModelCopyWithImpl<$Res>;
   @override
-  $Res call({double longitude, double latitude, double distance});
+  $Res call({double longitude, double latitude, double distance, double pace});
 }
 
 /// @nodoc
@@ -106,6 +116,7 @@ class __$PreviousModelCopyWithImpl<$Res>
     Object? longitude = freezed,
     Object? latitude = freezed,
     Object? distance = freezed,
+    Object? pace = freezed,
   }) {
     return _then(_PreviousModel(
       longitude: longitude == freezed
@@ -120,6 +131,10 @@ class __$PreviousModelCopyWithImpl<$Res>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double,
+      pace: pace == freezed
+          ? _value.pace
+          : pace // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -128,7 +143,10 @@ class __$PreviousModelCopyWithImpl<$Res>
 
 class _$_PreviousModel implements _PreviousModel {
   const _$_PreviousModel(
-      {this.longitude = 0, this.latitude = 0, this.distance = 0});
+      {this.longitude = 0,
+      this.latitude = 0,
+      this.distance = 0,
+      this.pace = 0});
 
   @JsonKey(defaultValue: 0)
   @override
@@ -139,10 +157,13 @@ class _$_PreviousModel implements _PreviousModel {
   @JsonKey(defaultValue: 0)
   @override
   final double distance;
+  @JsonKey(defaultValue: 0)
+  @override
+  final double pace;
 
   @override
   String toString() {
-    return 'PreviousModel(longitude: $longitude, latitude: $latitude, distance: $distance)';
+    return 'PreviousModel(longitude: $longitude, latitude: $latitude, distance: $distance, pace: $pace)';
   }
 
   @override
@@ -157,7 +178,9 @@ class _$_PreviousModel implements _PreviousModel {
                     .equals(other.latitude, latitude)) &&
             (identical(other.distance, distance) ||
                 const DeepCollectionEquality()
-                    .equals(other.distance, distance)));
+                    .equals(other.distance, distance)) &&
+            (identical(other.pace, pace) ||
+                const DeepCollectionEquality().equals(other.pace, pace)));
   }
 
   @override
@@ -165,7 +188,8 @@ class _$_PreviousModel implements _PreviousModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(longitude) ^
       const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(distance);
+      const DeepCollectionEquality().hash(distance) ^
+      const DeepCollectionEquality().hash(pace);
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +199,10 @@ class _$_PreviousModel implements _PreviousModel {
 
 abstract class _PreviousModel implements PreviousModel {
   const factory _PreviousModel(
-      {double longitude, double latitude, double distance}) = _$_PreviousModel;
+      {double longitude,
+      double latitude,
+      double distance,
+      double pace}) = _$_PreviousModel;
 
   @override
   double get longitude => throw _privateConstructorUsedError;
@@ -183,6 +210,8 @@ abstract class _PreviousModel implements PreviousModel {
   double get latitude => throw _privateConstructorUsedError;
   @override
   double get distance => throw _privateConstructorUsedError;
+  @override
+  double get pace => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PreviousModelCopyWith<_PreviousModel> get copyWith =>

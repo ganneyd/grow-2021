@@ -7,6 +7,7 @@ import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/features/grow/data/models/previous/previous_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_details_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_model.dart';
+import 'package:grow_run_v1/features/grow/data/repositories/location_repositor_implementation.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/previous/previous_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
@@ -17,8 +18,8 @@ import 'package:grow_run_v1/features/grow/presentation/child/pages/run/widgets/s
 class TimerCubit extends Cubit<TimerState> {
   ///
   TimerCubit(
-      {required GROWRepository growRepository,
-      required LocationRepository locationRepository})
+      {required LocationRepository locationRepository,
+      required GROWRepository growRepository})
       : _growRepository = growRepository,
         _locationRepository = locationRepository,
         super(TimerState());
@@ -32,7 +33,7 @@ class TimerCubit extends Cubit<TimerState> {
   late StreamSubscription<ElapsedTimeModel> streamSubscription;
 
   ///
-  late StreamSubscription<RunDetailsModel> runDetailsStreamSubscription;
+  late StreamSubscription<Previous> previousModelStreamSubscription;
 
   ///The initializer for the cubit
   Future<void> init(BuildContext context) async {
@@ -45,38 +46,28 @@ class TimerCubit extends Cubit<TimerState> {
   ///proceed to process the collected data
   Future<void> timerStarted() async {
     if (!state.status.isRunning() && !state.isTimerRunning) {
-      final List<PreviousModel> previousModels = <PreviousModel>[];
+      final List<double> latList = <double>[-10];
+      final List<double> longList = <double>[-10];
       emit(state.copyWith(
         status: TimerStatus.running,
         isTimerRunning: true,
       ));
       streamSubscription =
           _growRepository.stopWatchStream().listen((ElapsedTimeModel event) {
-        emit(state.copyWith(
-            runDetailsModel:
-                state.runDetailsModel.copyWith(elapsedTime: event)));
+        emit(state.copyWith(elapsedTimeModel: event));
       });
-      runDetailsStreamSubscription = _locationRepository.runDetailsStream
-          .map((RunDetailsEntity runDetailsEntity) => RunDetailsModel(
-              previous: PreviousModel(
-                  distance: state.runDetailsModel.previous.distance,
-                  longitude: runDetailsEntity.previous.longitude,
-                  latitude: runDetailsEntity.previous.latitude),
-              pace: runDetailsEntity.pace))
-          .listen((RunDetailsModel event) {
-        if (event.pace > 0.25) {
-          previousModels.add(event.previous);
+      previousModelStreamSubscription =
+          _locationRepository.runDetailsStream.listen((Previous event) {
+        if (event.latitude != 0 && event.longitude != 0) {
+          longList.add(event.longitude);
+          latList.add(event.latitude);
         }
-        if (previousModels.length == 5) {
-          emit(state.copyWith(
-              runDetailsModel: state.runDetailsModel.copyWith(
-                  previous: _locationRepository.calculateDistance(
-                      lat: state.runDetailsModel.previous.latitude,
-                      long: state.runDetailsModel.previous.longitude,
-                      previousLatNLong: previousModels))));
-          previousModels.clear();
-        }
-        emit(state.copyWith(runDetailsModel: event));
+        emit(state.copyWith(
+            runDetailsModel: state.runDetailsModel.copyWith(
+                distance: event.distance,
+                longitudeList: longList,
+                latitudeList: latList,
+                pace: event.pace)));
       });
     }
   }
@@ -88,7 +79,7 @@ class TimerCubit extends Cubit<TimerState> {
       emit(state.copyWith(
         status: TimerStatus.runPaused,
       ));
-      runDetailsStreamSubscription.pause();
+      previousModelStreamSubscription.pause();
       streamSubscription.pause();
     }
   }
@@ -98,7 +89,7 @@ class TimerCubit extends Cubit<TimerState> {
   Future<void> timerResumed() async {
     if (state.status.isRunningPaused()) {
       emit(state.copyWith(status: TimerStatus.runResumed));
-      runDetailsStreamSubscription.resume();
+      previousModelStreamSubscription.resume();
       streamSubscription.resume();
     }
   }
@@ -109,9 +100,10 @@ class TimerCubit extends Cubit<TimerState> {
     emit(state.copyWith(
       status: TimerStatus.runEnded,
       isTimerRunning: false,
-      runDetailsModel: RunDetailsModel(),
+      runDetailsModel: const RunDetailsModel(),
+      elapsedTimeModel: const ElapsedTimeModel(),
     ));
-    runDetailsStreamSubscription.cancel();
+    previousModelStreamSubscription.cancel();
     streamSubscription.cancel();
   }
 }

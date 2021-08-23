@@ -11,5 +11,6 @@ class PreviousModel extends Previous with _$PreviousModel {
     @Default(0) double longitude,
     @Default(0) double latitude,
     @Default(0) double distance,
+    @Default(0) double pace,
   }) = _PreviousModel;
 }

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grow_run_v1/service_locator.dart';
 import 'package:logging/logging.dart';
 
 import 'app.dart';
@@ -25,6 +26,7 @@ Future<void> main() async {
     host: '192.168.1.9:8080',
     sslEnabled: false,
   );
+  await init();
 
   runApp(const App());
 }

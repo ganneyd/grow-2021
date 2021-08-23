@@ -22,6 +22,7 @@ _$_SchoolModel _$_$_SchoolModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_SchoolModelToJson(_$_SchoolModel instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'name': instance.name,
       'address': instance.address,
       'minGradeLevel': instance.minGradeLevel,

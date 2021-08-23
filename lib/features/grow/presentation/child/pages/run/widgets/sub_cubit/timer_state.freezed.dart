@@ -19,10 +19,12 @@ class _$TimerStateTearOff {
   _TimerState call(
       {TimerStatus status = TimerStatus.fresh,
       bool isTimerRunning = false,
+      ElapsedTimeModel elapsedTimeModel = const ElapsedTimeModel(),
       RunDetailsModel runDetailsModel = const RunDetailsModel()}) {
     return _TimerState(
       status: status,
       isTimerRunning: isTimerRunning,
+      elapsedTimeModel: elapsedTimeModel,
       runDetailsModel: runDetailsModel,
     );
   }
@@ -35,6 +37,7 @@ const $TimerState = _$TimerStateTearOff();
 mixin _$TimerState {
   TimerStatus get status => throw _privateConstructorUsedError;
   bool get isTimerRunning => throw _privateConstructorUsedError;
+  ElapsedTimeModel get elapsedTimeModel => throw _privateConstructorUsedError;
   RunDetailsModel get runDetailsModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -50,8 +53,10 @@ abstract class $TimerStateCopyWith<$Res> {
   $Res call(
       {TimerStatus status,
       bool isTimerRunning,
+      ElapsedTimeModel elapsedTimeModel,
       RunDetailsModel runDetailsModel});
 
+  $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel;
   $RunDetailsModelCopyWith<$Res> get runDetailsModel;
 }
 
@@ -67,6 +72,7 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
   $Res call({
     Object? status = freezed,
     Object? isTimerRunning = freezed,
+    Object? elapsedTimeModel = freezed,
     Object? runDetailsModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -78,11 +84,22 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
           ? _value.isTimerRunning
           : isTimerRunning // ignore: cast_nullable_to_non_nullable
               as bool,
+      elapsedTimeModel: elapsedTimeModel == freezed
+          ? _value.elapsedTimeModel
+          : elapsedTimeModel // ignore: cast_nullable_to_non_nullable
+              as ElapsedTimeModel,
       runDetailsModel: runDetailsModel == freezed
           ? _value.runDetailsModel
           : runDetailsModel // ignore: cast_nullable_to_non_nullable
               as RunDetailsModel,
     ));
+  }
+
+  @override
+  $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel {
+    return $ElapsedTimeModelCopyWith<$Res>(_value.elapsedTimeModel, (value) {
+      return _then(_value.copyWith(elapsedTimeModel: value));
+    });
   }
 
   @override
@@ -102,8 +119,11 @@ abstract class _$TimerStateCopyWith<$Res> implements $TimerStateCopyWith<$Res> {
   $Res call(
       {TimerStatus status,
       bool isTimerRunning,
+      ElapsedTimeModel elapsedTimeModel,
       RunDetailsModel runDetailsModel});
 
+  @override
+  $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel;
   @override
   $RunDetailsModelCopyWith<$Res> get runDetailsModel;
 }
@@ -122,6 +142,7 @@ class __$TimerStateCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? isTimerRunning = freezed,
+    Object? elapsedTimeModel = freezed,
     Object? runDetailsModel = freezed,
   }) {
     return _then(_TimerState(
@@ -133,6 +154,10 @@ class __$TimerStateCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
           ? _value.isTimerRunning
           : isTimerRunning // ignore: cast_nullable_to_non_nullable
               as bool,
+      elapsedTimeModel: elapsedTimeModel == freezed
+          ? _value.elapsedTimeModel
+          : elapsedTimeModel // ignore: cast_nullable_to_non_nullable
+              as ElapsedTimeModel,
       runDetailsModel: runDetailsModel == freezed
           ? _value.runDetailsModel
           : runDetailsModel // ignore: cast_nullable_to_non_nullable
@@ -147,6 +172,7 @@ class _$_TimerState implements _TimerState {
   _$_TimerState(
       {this.status = TimerStatus.fresh,
       this.isTimerRunning = false,
+      this.elapsedTimeModel = const ElapsedTimeModel(),
       this.runDetailsModel = const RunDetailsModel()});
 
   @JsonKey(defaultValue: TimerStatus.fresh)
@@ -155,13 +181,16 @@ class _$_TimerState implements _TimerState {
   @JsonKey(defaultValue: false)
   @override
   final bool isTimerRunning;
+  @JsonKey(defaultValue: ElapsedTimeModel)
+  @override
+  final ElapsedTimeModel elapsedTimeModel;
   @JsonKey(defaultValue: RunDetailsModel)
   @override
   final RunDetailsModel runDetailsModel;
 
   @override
   String toString() {
-    return 'TimerState(status: $status, isTimerRunning: $isTimerRunning, runDetailsModel: $runDetailsModel)';
+    return 'TimerState(status: $status, isTimerRunning: $isTimerRunning, elapsedTimeModel: $elapsedTimeModel, runDetailsModel: $runDetailsModel)';
   }
 
   @override
@@ -173,6 +202,9 @@ class _$_TimerState implements _TimerState {
             (identical(other.isTimerRunning, isTimerRunning) ||
                 const DeepCollectionEquality()
                     .equals(other.isTimerRunning, isTimerRunning)) &&
+            (identical(other.elapsedTimeModel, elapsedTimeModel) ||
+                const DeepCollectionEquality()
+                    .equals(other.elapsedTimeModel, elapsedTimeModel)) &&
             (identical(other.runDetailsModel, runDetailsModel) ||
                 const DeepCollectionEquality()
                     .equals(other.runDetailsModel, runDetailsModel)));
@@ -183,6 +215,7 @@ class _$_TimerState implements _TimerState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(isTimerRunning) ^
+      const DeepCollectionEquality().hash(elapsedTimeModel) ^
       const DeepCollectionEquality().hash(runDetailsModel);
 
   @JsonKey(ignore: true)
@@ -195,12 +228,15 @@ abstract class _TimerState implements TimerState {
   factory _TimerState(
       {TimerStatus status,
       bool isTimerRunning,
+      ElapsedTimeModel elapsedTimeModel,
       RunDetailsModel runDetailsModel}) = _$_TimerState;
 
   @override
   TimerStatus get status => throw _privateConstructorUsedError;
   @override
   bool get isTimerRunning => throw _privateConstructorUsedError;
+  @override
+  ElapsedTimeModel get elapsedTimeModel => throw _privateConstructorUsedError;
   @override
   RunDetailsModel get runDetailsModel => throw _privateConstructorUsedError;
   @override

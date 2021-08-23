@@ -9,13 +9,25 @@ enum RunStatus { running, stopped, unknown }
 class RunDetailsEntity {
   ///Takes in [latitude], [longitude] and [pace]
   const RunDetailsEntity({
-    required this.previous,
+    required this.longitudeList,
+    required this.latitudeList,
+    required this.distance,
+    required this.elapsedSeconds,
     required this.pace,
     required this.status,
   });
 
-  ///Previous entity
-  final Previous previous;
+  ///List of the GPS longitude points
+  final List<double> longitudeList;
+
+  ///List of the GPS longitude points
+  final List<double> latitudeList;
+
+  ///the distance ran so far
+  final double distance;
+
+  ///the seconds that have elapsed so far
+  final double elapsedSeconds;
 
   ///Pace of the user
   final double pace;

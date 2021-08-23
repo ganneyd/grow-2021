@@ -48,6 +48,7 @@ class TimerState with _$TimerState {
   factory TimerState({
     @Default(TimerStatus.fresh) TimerStatus status,
     @Default(false) bool isTimerRunning,
+    @Default(ElapsedTimeModel) ElapsedTimeModel elapsedTimeModel,
     @Default(RunDetailsModel) RunDetailsModel runDetailsModel,
   }) = _TimerState;
 }

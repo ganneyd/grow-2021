@@ -67,27 +67,11 @@ class GROWRepositoryImplementation extends GROWRepository {
     }
 
     void tick(_) {
-      List<String> secondTime = ((stopwatch.elapsedMilliseconds / 1000) % 60)
-          .toStringAsFixed(2)
-          .split('.');
       streamController.add(ElapsedTimeModel(
-        hours: ((stopwatch.elapsedMilliseconds / 3600000) % 60)
-            .floor()
-            .toString()
-            .padLeft(2, '0'),
-        minutes: ((stopwatch.elapsedMilliseconds / 60000) % 60)
-            .floor()
-            .toString()
-            .padLeft(2, '0'),
-        seconds: ((stopwatch.elapsedMilliseconds / 1000) % 60)
-            .floor()
-            .toString()
-            .padLeft(2, '0'),
-        milliseconds: ((stopwatch.elapsedMilliseconds % 1000) / 10)
-            .floor()
-            .toString()
-            .padLeft(2, '0'),
-      ));
+          hours: ((stopwatch.elapsedMilliseconds / 3600000) % 60).floor(),
+          minutes: ((stopwatch.elapsedMilliseconds / 60000) % 60).floor(),
+          seconds: ((stopwatch.elapsedMilliseconds / 1000) % 60).floor(),
+          milliseconds: ((stopwatch.elapsedMilliseconds % 1000) / 10).floor()));
     }
 
     void startTimer() {

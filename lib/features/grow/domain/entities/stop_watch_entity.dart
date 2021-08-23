@@ -9,5 +9,5 @@ class ElapsedTimeEntity {
 
   ///The amount of [hours] ,[minutes] , [seconds], and [milliseconds] that
   ///has elapsed
-  final String hours, seconds, minutes, milliseconds;
+  final int hours, seconds, minutes, milliseconds;
 }
