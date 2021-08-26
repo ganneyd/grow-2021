@@ -1,14 +1,11 @@
-import 'package:grow_run_v1/features/grow/domain/entities/previous/previous_entity.dart';
-import 'package:grow_run_v1/features/grow/domain/entities/stop_watch_entity.dart';
-import 'package:pedometer/pedometer.dart';
-
+///
 enum RunStatus { running, stopped, unknown }
 
 ///Provides details about the run, such as the gps coordinates and the pace of
 ///the user
 class RunDetailsEntity {
   ///Takes in [latitude], [longitude] and [pace]
-  const RunDetailsEntity({
+  RunDetailsEntity({
     required this.longitudeList,
     required this.latitudeList,
     required this.distance,
