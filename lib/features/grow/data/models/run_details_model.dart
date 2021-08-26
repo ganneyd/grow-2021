@@ -4,6 +4,7 @@ import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_mode
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 
 part 'run_details_model.freezed.dart';
+part 'run_details_model.g.dart';
 
 ///
 @freezed
@@ -16,4 +17,17 @@ class RunDetailsModel extends RunDetailsEntity with _$RunDetailsModel {
       @Default(0) double elapsedSeconds,
       @Default(0) double pace,
       @Default(RunStatus.unknown) RunStatus status}) = _RunDetails;
+
+  factory RunDetailsModel.fromJson(Map<String, dynamic> json) =>
+      _$RunDetailsModelFromJson(json);
+
+  factory RunDetailsModel.toRunModel(RunDetailsEntity runDetailsEntity) =>
+      RunDetailsModel(
+        longitudeList: runDetailsEntity.longitudeList,
+        latitudeList: runDetailsEntity.latitudeList,
+        distance: runDetailsEntity.distance,
+        elapsedSeconds: runDetailsEntity.elapsedSeconds,
+        pace: runDetailsEntity.pace,
+        status: runDetailsEntity.status,
+      );
 }

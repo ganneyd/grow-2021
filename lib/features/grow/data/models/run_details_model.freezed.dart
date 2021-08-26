@@ -12,6 +12,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+RunDetailsModel _$RunDetailsModelFromJson(Map<String, dynamic> json) {
+  return _RunDetails.fromJson(json);
+}
+
 /// @nodoc
 class _$RunDetailsModelTearOff {
   const _$RunDetailsModelTearOff();
@@ -32,6 +36,10 @@ class _$RunDetailsModelTearOff {
       status: status,
     );
   }
+
+  RunDetailsModel fromJson(Map<String, Object> json) {
+    return RunDetailsModel.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -46,6 +54,7 @@ mixin _$RunDetailsModel {
   double get pace => throw _privateConstructorUsedError;
   RunStatus get status => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $RunDetailsModelCopyWith<RunDetailsModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -178,7 +187,7 @@ class __$RunDetailsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_RunDetails implements _RunDetails {
   const _$_RunDetails(
       {this.longitudeList = const <double>[0],
@@ -187,6 +196,9 @@ class _$_RunDetails implements _RunDetails {
       this.elapsedSeconds = 0,
       this.pace = 0,
       this.status = RunStatus.unknown});
+
+  factory _$_RunDetails.fromJson(Map<String, dynamic> json) =>
+      _$_$_RunDetailsFromJson(json);
 
   @JsonKey(defaultValue: const <double>[0])
   @override
@@ -248,6 +260,11 @@ class _$_RunDetails implements _RunDetails {
   @override
   _$RunDetailsCopyWith<_RunDetails> get copyWith =>
       __$RunDetailsCopyWithImpl<_RunDetails>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_RunDetailsToJson(this);
+  }
 }
 
 abstract class _RunDetails implements RunDetailsModel {
@@ -258,6 +275,9 @@ abstract class _RunDetails implements RunDetailsModel {
       double elapsedSeconds,
       double pace,
       RunStatus status}) = _$_RunDetails;
+
+  factory _RunDetails.fromJson(Map<String, dynamic> json) =
+      _$_RunDetails.fromJson;
 
   @override
   List<double> get longitudeList => throw _privateConstructorUsedError;
