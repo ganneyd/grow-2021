@@ -11,7 +11,9 @@ abstract class RemoteDataSource {
   ///throws a [CreateDataException] for all errors
   ///calls [FirebaseFirestore] methods
   Future<void> createData(
-      String collectionName, Map<String, dynamic> jsonData, String? docID);
+      {required String collectionName,
+      required Map<String, dynamic> jsonData,
+      String? docID});
 
   ///method to be override so that data is updated in the database,
   ///takes the [docID], the [jsonData]  and the [collectionName]
@@ -91,8 +93,10 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
   }
 
   @override
-  Future<void> createData(String collectionName, Map<String, dynamic> jsonData,
-      String? docID) async {
+  Future<void> createData(
+      {required String collectionName,
+      required Map<String, dynamic> jsonData,
+      String? docID}) async {
     try {
       //returns after the children collection finishes creating the childData
       return await database.collection(collectionName).doc(docID).set(jsonData);
