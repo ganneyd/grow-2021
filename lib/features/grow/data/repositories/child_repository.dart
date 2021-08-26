@@ -42,7 +42,9 @@ class ChildRepositoryImplementation extends ChildRepository with RepoMixins {
       ChildEntity childUser, String childID) async {
     try {
       return Right<Failure, void>(await _remoteDataSource.createData(
-          collectionName, _convertEntityToJson(childUser), childID));
+          collectionName: collectionName,
+          jsonData: _convertEntityToJson(childUser),
+          docID: childID));
     } on CreateDataException {
       return const Left<Failure, void>(CreateDataFailure());
     } catch (e) {

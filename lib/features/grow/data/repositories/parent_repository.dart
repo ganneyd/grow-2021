@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grow_run_v1/features/grow/data/repositories/repository_mixins.dart';
-import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/parent_repository.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -44,12 +40,14 @@ class ParentRepositoryImplementation extends ParentRepository {
       ParentEntity parentUser) async {
     try {
       return Right<Failure, void>(await _remoteDataSource.createData(
-          collectionName, _convertEntityToJson(parentUser), parentUser.uid!));
+          collectionName: collectionName,
+          jsonData: _convertEntityToJson(parentUser),
+          docID: parentUser.uid));
     } on CreateDataException {
-      return Left<Failure, void>(CreateDataFailure());
+      return const Left<Failure, void>(CreateDataFailure());
     } catch (e) {
       //TODO properly log the unexpected error
-      return Left<Failure, void>(CreateDataFailure());
+      return const Left<Failure, void>(CreateDataFailure());
     }
   }
 
