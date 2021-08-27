@@ -35,8 +35,21 @@ class RunRepositoryImplementation extends RunDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, RunDetailsEntity>> getRunSession() {
-    // TODO: implement getRunSession
-    throw UnimplementedError();
+  Future<Either<Failure, List<RunDetailsEntity>>> getRunSession() async {
+    try {
+      final List<RunDetailsModel> models = <RunDetailsModel>[];
+
+      final List<Map<String, dynamic>> results =
+          await _remoteDataSource.getCollection('run-sessions');
+      for (final Map<String, dynamic> element in results) {
+        models.add(RunDetailsModel.fromJson(element));
+      }
+
+      return Future<Either<Failure, List<RunDetailsEntity>>>.value(
+          Right<Failure, List<RunDetailsModel>>(models));
+    } catch (e) {
+      return Future<Either<Failure, List<RunDetailsEntity>>>.value(
+          const Left<Failure, List<RunDetailsEntity>>(FetchDataFailure()));
+    }
   }
 }

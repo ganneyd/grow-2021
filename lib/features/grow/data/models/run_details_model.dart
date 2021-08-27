@@ -1,6 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:grow_run_v1/features/grow/data/models/previous/previous_model.dart';
-import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 
 part 'run_details_model.freezed.dart';
@@ -18,9 +16,11 @@ class RunDetailsModel extends RunDetailsEntity with _$RunDetailsModel {
       @Default(0) double pace,
       @Default(RunStatus.unknown) RunStatus status}) = _RunDetails;
 
+  ///returns a instance from JSON data
   factory RunDetailsModel.fromJson(Map<String, dynamic> json) =>
       _$RunDetailsModelFromJson(json);
 
+  ///returns a model instance from a entity instance
   factory RunDetailsModel.toRunModel(RunDetailsEntity runDetailsEntity) =>
       RunDetailsModel(
         longitudeList: runDetailsEntity.longitudeList,
