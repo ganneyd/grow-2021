@@ -12,6 +12,8 @@ import 'package:grow_run_v1/features/grow/domain/entities/previous/previous_enti
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/location_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/repositories/run_details_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/usecases/run/add_run_session.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/run/widgets/sub_cubit/timer_state.dart';
 
 ///
@@ -19,15 +21,20 @@ class TimerCubit extends Cubit<TimerState> {
   ///
   TimerCubit(
       {required LocationRepository locationRepository,
-      required GROWRepository growRepository})
+      required GROWRepository growRepository,
+      required RunDetailsRepository runDetailsRepository})
       : _growRepository = growRepository,
         _locationRepository = locationRepository,
+        _addRunUseCase = AddRun(runDetailsRepository: runDetailsRepository),
         super(TimerState());
 
   //grow repo
   final GROWRepository _growRepository;
   //location repo
   final LocationRepository _locationRepository;
+
+  //usecase
+  final AddRun _addRunUseCase;
 
   ///
   late StreamSubscription<ElapsedTimeModel> streamSubscription;
