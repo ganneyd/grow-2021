@@ -1,5 +1,6 @@
 import 'package:grow_run_v1/features/grow/data/datasources/remote/firebase/grow_remote_datasource.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_details_model.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/goal/goal_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
@@ -51,5 +52,17 @@ class RunRepositoryImplementation extends RunDetailsRepository {
       return Future<Either<Failure, List<RunDetailsEntity>>>.value(
           const Left<Failure, List<RunDetailsEntity>>(FetchDataFailure()));
     }
+  }
+
+  @override
+  Future<Either<Failure, void>> setGoal({required GoalEntity goal}) {
+    // TODO: implement setGoal
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<RunDetailsEntity>>> queryRunSessions({required}) {
+    // TODO: implement queryRunSessions
+    throw UnimplementedError();
   }
 }
