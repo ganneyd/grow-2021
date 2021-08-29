@@ -12,7 +12,8 @@ class RunDetailsEntity {
     required this.elapsedSeconds,
     required this.pace,
     required this.status,
-  });
+    DateTime? timeStamp,
+  }) : timeStamp = timeStamp ?? DateTime.now();
 
   ///List of the GPS longitude points
   final List<double> longitudeList;
@@ -31,4 +32,7 @@ class RunDetailsEntity {
 
   ///whether the user is walking, stopped or unknown
   final RunStatus status;
+
+  ///when the runsession was recorded
+  final DateTime timeStamp;
 }
