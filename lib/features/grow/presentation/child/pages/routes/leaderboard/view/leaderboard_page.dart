@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/pages/leaderboard/cubit/leaderboard_cubit.dart';
-import 'package:grow_run_v1/features/grow/presentation/child/pages/leaderboard/cubit/leaderboard_state.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/routes/leaderboard/cubit/leaderboard_state.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/routes/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/sliver_app_bar_with_shape.dart';
 
 ///
