@@ -26,6 +26,8 @@ class _$RunDetailsModelTearOff {
       double distance = 0,
       double elapsedSeconds = 0,
       double pace = 0,
+      String uid = '',
+      required DateTime timeStamp,
       RunStatus status = RunStatus.unknown}) {
     return _RunDetails(
       longitudeList: longitudeList,
@@ -33,6 +35,8 @@ class _$RunDetailsModelTearOff {
       distance: distance,
       elapsedSeconds: elapsedSeconds,
       pace: pace,
+      uid: uid,
+      timeStamp: timeStamp,
       status: status,
     );
   }
@@ -52,6 +56,8 @@ mixin _$RunDetailsModel {
   double get distance => throw _privateConstructorUsedError;
   double get elapsedSeconds => throw _privateConstructorUsedError;
   double get pace => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
+  DateTime get timeStamp => throw _privateConstructorUsedError;
   RunStatus get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,6 +77,8 @@ abstract class $RunDetailsModelCopyWith<$Res> {
       double distance,
       double elapsedSeconds,
       double pace,
+      String uid,
+      DateTime timeStamp,
       RunStatus status});
 }
 
@@ -90,6 +98,8 @@ class _$RunDetailsModelCopyWithImpl<$Res>
     Object? distance = freezed,
     Object? elapsedSeconds = freezed,
     Object? pace = freezed,
+    Object? uid = freezed,
+    Object? timeStamp = freezed,
     Object? status = freezed,
   }) {
     return _then(_value.copyWith(
@@ -113,6 +123,14 @@ class _$RunDetailsModelCopyWithImpl<$Res>
           ? _value.pace
           : pace // ignore: cast_nullable_to_non_nullable
               as double,
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      timeStamp: timeStamp == freezed
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -134,6 +152,8 @@ abstract class _$RunDetailsCopyWith<$Res>
       double distance,
       double elapsedSeconds,
       double pace,
+      String uid,
+      DateTime timeStamp,
       RunStatus status});
 }
 
@@ -155,6 +175,8 @@ class __$RunDetailsCopyWithImpl<$Res>
     Object? distance = freezed,
     Object? elapsedSeconds = freezed,
     Object? pace = freezed,
+    Object? uid = freezed,
+    Object? timeStamp = freezed,
     Object? status = freezed,
   }) {
     return _then(_RunDetails(
@@ -178,6 +200,14 @@ class __$RunDetailsCopyWithImpl<$Res>
           ? _value.pace
           : pace // ignore: cast_nullable_to_non_nullable
               as double,
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      timeStamp: timeStamp == freezed
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -195,6 +225,8 @@ class _$_RunDetails implements _RunDetails {
       this.distance = 0,
       this.elapsedSeconds = 0,
       this.pace = 0,
+      this.uid = '',
+      required this.timeStamp,
       this.status = RunStatus.unknown});
 
   factory _$_RunDetails.fromJson(Map<String, dynamic> json) =>
@@ -215,13 +247,18 @@ class _$_RunDetails implements _RunDetails {
   @JsonKey(defaultValue: 0)
   @override
   final double pace;
+  @JsonKey(defaultValue: '')
+  @override
+  final String uid;
+  @override
+  final DateTime timeStamp;
   @JsonKey(defaultValue: RunStatus.unknown)
   @override
   final RunStatus status;
 
   @override
   String toString() {
-    return 'RunDetailsModel(longitudeList: $longitudeList, latitudeList: $latitudeList, distance: $distance, elapsedSeconds: $elapsedSeconds, pace: $pace, status: $status)';
+    return 'RunDetailsModel(longitudeList: $longitudeList, latitudeList: $latitudeList, distance: $distance, elapsedSeconds: $elapsedSeconds, pace: $pace, uid: $uid, timeStamp: $timeStamp, status: $status)';
   }
 
   @override
@@ -242,6 +279,11 @@ class _$_RunDetails implements _RunDetails {
                     .equals(other.elapsedSeconds, elapsedSeconds)) &&
             (identical(other.pace, pace) ||
                 const DeepCollectionEquality().equals(other.pace, pace)) &&
+            (identical(other.uid, uid) ||
+                const DeepCollectionEquality().equals(other.uid, uid)) &&
+            (identical(other.timeStamp, timeStamp) ||
+                const DeepCollectionEquality()
+                    .equals(other.timeStamp, timeStamp)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)));
   }
@@ -254,6 +296,8 @@ class _$_RunDetails implements _RunDetails {
       const DeepCollectionEquality().hash(distance) ^
       const DeepCollectionEquality().hash(elapsedSeconds) ^
       const DeepCollectionEquality().hash(pace) ^
+      const DeepCollectionEquality().hash(uid) ^
+      const DeepCollectionEquality().hash(timeStamp) ^
       const DeepCollectionEquality().hash(status);
 
   @JsonKey(ignore: true)
@@ -274,6 +318,8 @@ abstract class _RunDetails implements RunDetailsModel {
       double distance,
       double elapsedSeconds,
       double pace,
+      String uid,
+      required DateTime timeStamp,
       RunStatus status}) = _$_RunDetails;
 
   factory _RunDetails.fromJson(Map<String, dynamic> json) =
@@ -289,6 +335,10 @@ abstract class _RunDetails implements RunDetailsModel {
   double get elapsedSeconds => throw _privateConstructorUsedError;
   @override
   double get pace => throw _privateConstructorUsedError;
+  @override
+  String get uid => throw _privateConstructorUsedError;
+  @override
+  DateTime get timeStamp => throw _privateConstructorUsedError;
   @override
   RunStatus get status => throw _privateConstructorUsedError;
   @override

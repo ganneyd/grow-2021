@@ -19,6 +19,8 @@ _$_RunDetails _$_$_RunDetailsFromJson(Map<String, dynamic> json) {
     distance: (json['distance'] as num?)?.toDouble() ?? 0,
     elapsedSeconds: (json['elapsedSeconds'] as num?)?.toDouble() ?? 0,
     pace: (json['pace'] as num?)?.toDouble() ?? 0,
+    uid: json['uid'] as String? ?? '',
+    timeStamp: DateTime.parse(json['timeStamp'] as String),
     status: _$enumDecodeNullable(_$RunStatusEnumMap, json['status']) ??
         RunStatus.unknown,
   );
@@ -31,6 +33,8 @@ Map<String, dynamic> _$_$_RunDetailsToJson(_$_RunDetails instance) =>
       'distance': instance.distance,
       'elapsedSeconds': instance.elapsedSeconds,
       'pace': instance.pace,
+      'uid': instance.uid,
+      'timeStamp': instance.timeStamp.toIso8601String(),
       'status': _$RunStatusEnumMap[instance.status],
     };
 

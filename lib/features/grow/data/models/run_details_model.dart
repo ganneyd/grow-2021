@@ -14,6 +14,8 @@ class RunDetailsModel extends RunDetailsEntity with _$RunDetailsModel {
       @Default(0) double distance,
       @Default(0) double elapsedSeconds,
       @Default(0) double pace,
+      @Default('') String uid,
+      required DateTime timeStamp,
       @Default(RunStatus.unknown) RunStatus status}) = _RunDetails;
 
   ///returns a instance from JSON data
@@ -23,6 +25,8 @@ class RunDetailsModel extends RunDetailsEntity with _$RunDetailsModel {
   ///returns a model instance from a entity instance
   factory RunDetailsModel.toRunModel(RunDetailsEntity runDetailsEntity) =>
       RunDetailsModel(
+        uid: runDetailsEntity.uid,
+        timeStamp: runDetailsEntity.timeStamp,
         longitudeList: runDetailsEntity.longitudeList,
         latitudeList: runDetailsEntity.latitudeList,
         distance: runDetailsEntity.distance,
