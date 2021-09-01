@@ -8,7 +8,9 @@ import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dar
 abstract class RunDetailsRepository {
   ///Add a newly completed run session
   Future<Either<Failure, void>> addRunSession(
-      {required RunDetailsEntity runSession, required DateTime sessionDate});
+      {required String uid,
+      required RunDetailsEntity runSession,
+      required DateTime sessionDate});
 
   ///Retrieve all the run sessions
   Future<Either<Failure, List<RunDetailsEntity>>> getRunSession();

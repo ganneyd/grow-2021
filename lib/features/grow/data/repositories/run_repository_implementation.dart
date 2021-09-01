@@ -22,9 +22,12 @@ class RunRepositoryImplementation extends RunDetailsRepository {
 
   @override
   Future<Either<Failure, void>> addRunSession(
-      {required RunDetailsEntity runSession, required DateTime sessionDate}) {
+      {required String uid,
+      required RunDetailsEntity runSession,
+      required DateTime sessionDate}) async {
     try {
-      _remoteDataSource.createData(
+      await _remoteDataSource.createData(
+          docID: uid,
           collectionName: 'run-sessions',
           jsonData: runSessionJSON(runDetailsEntity: runSession));
       return Future<Either<Failure, void>>.value(
