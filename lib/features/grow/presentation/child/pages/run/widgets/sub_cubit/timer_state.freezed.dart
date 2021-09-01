@@ -19,8 +19,8 @@ class _$TimerStateTearOff {
   _TimerState call(
       {TimerStatus status = TimerStatus.fresh,
       bool isTimerRunning = false,
-      ElapsedTimeModel elapsedTimeModel = const ElapsedTimeModel(),
-      RunDetailsModel runDetailsModel = const RunDetailsModel()}) {
+      required ElapsedTimeModel elapsedTimeModel,
+      required RunDetailsModel runDetailsModel}) {
     return _TimerState(
       status: status,
       isTimerRunning: isTimerRunning,
@@ -172,8 +172,8 @@ class _$_TimerState implements _TimerState {
   _$_TimerState(
       {this.status = TimerStatus.fresh,
       this.isTimerRunning = false,
-      this.elapsedTimeModel = const ElapsedTimeModel(),
-      this.runDetailsModel = const RunDetailsModel()});
+      required this.elapsedTimeModel,
+      required this.runDetailsModel});
 
   @JsonKey(defaultValue: TimerStatus.fresh)
   @override
@@ -181,10 +181,8 @@ class _$_TimerState implements _TimerState {
   @JsonKey(defaultValue: false)
   @override
   final bool isTimerRunning;
-  @JsonKey(defaultValue: ElapsedTimeModel)
   @override
   final ElapsedTimeModel elapsedTimeModel;
-  @JsonKey(defaultValue: RunDetailsModel)
   @override
   final RunDetailsModel runDetailsModel;
 
@@ -228,8 +226,8 @@ abstract class _TimerState implements TimerState {
   factory _TimerState(
       {TimerStatus status,
       bool isTimerRunning,
-      ElapsedTimeModel elapsedTimeModel,
-      RunDetailsModel runDetailsModel}) = _$_TimerState;
+      required ElapsedTimeModel elapsedTimeModel,
+      required RunDetailsModel runDetailsModel}) = _$_TimerState;
 
   @override
   TimerStatus get status => throw _privateConstructorUsedError;

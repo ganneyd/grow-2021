@@ -19,7 +19,16 @@ enum TimerStatus {
   runResumed,
 
   ///The running session has been ended
-  runEnded
+  runEnded,
+
+  ///The run session is being  added
+  runSessionAdding,
+
+  ///The run session was added successfully
+  runSessionAddedSuccessfully,
+
+  ///The run session was added unsuccessfully
+  runSessionAddedUnsuccessfully,
 }
 
 ///Exposes methods to determine which status is currently
@@ -38,6 +47,17 @@ extension RunPageStatusExtensions on TimerStatus {
 
   ///if the timer has ended
   bool isRunningEnded() => this == TimerStatus.runEnded;
+
+  /// if the run session is being added
+  bool isSessionBeingAdded() => this == TimerStatus.runSessionAdding;
+
+  /// if the run session was added successfully
+  bool isSessionAddedSuccessfully() =>
+      this == TimerStatus.runSessionAddedSuccessfully;
+
+  /// if the run session was not added successfully
+  bool isSessionAddedUnsuccessfully() =>
+      this == TimerStatus.runSessionAddedUnsuccessfully;
 }
 
 @freezed
@@ -48,7 +68,7 @@ class TimerState with _$TimerState {
   factory TimerState({
     @Default(TimerStatus.fresh) TimerStatus status,
     @Default(false) bool isTimerRunning,
-    @Default(ElapsedTimeModel) ElapsedTimeModel elapsedTimeModel,
-    @Default(RunDetailsModel) RunDetailsModel runDetailsModel,
+    required ElapsedTimeModel elapsedTimeModel,
+    required RunDetailsModel runDetailsModel,
   }) = _TimerState;
 }
