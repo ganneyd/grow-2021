@@ -142,6 +142,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   @override
   Stream<UserEntity> get user {
     //TODO fix this shit, cleaner code
+
     _authLogger.fine('auth user changed');
     return _firebaseAuth
         .authStateChanges()
@@ -154,7 +155,8 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   Future<Either<Failure, UserEntity>> getCredentials() async {
     _authLogger.finer('get credentials called');
     if (firebase_auth.FirebaseAuth.instance.currentUser != null) {
-      _authLogger.fine(' user was not null',
+      _authLogger.fine(
+          ' user was not null the user is : ${firebase_auth.FirebaseAuth.instance.currentUser}',
           firebase_auth.FirebaseAuth.instance.currentUser);
       try {
         final firebase_auth.User user =
@@ -182,7 +184,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
         return Right<Failure, UserEntity>(_getUserEntity(user));
       } on FirebaseException catch (e) {
         _authLogger.severe(
-            'Firebase Exception ${e.message} ${e.code} ${e.plugin}',
+            'Firebase Exception ${e.message} ${e.code} ${e.plugin} ${e.stackTrace}',
             e,
             e.stackTrace);
 
@@ -255,6 +257,16 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
     } catch (e) {
       return Left<Failure, UserEntity>(
           AuthenticationFailure(errMsg: e.toString()));
+    }
+  }
+
+  @override
+  Either<Failure, String> getCurrentUserID() {
+    try {
+      return Right<Failure, String>(_firebaseAuth.currentUser!.uid);
+    } catch (e) {
+      return const Left<Failure, String>(
+          AuthenticationFailure(errMsg: "Couldn't get user id"));
     }
   }
 }
