@@ -24,7 +24,24 @@ class _RunLoadedPageState extends State<RunLoadedPage> {
     return BlocProvider<TimerCubit>(
       create: (_) => serviceLocator<TimerCubit>()..init(context),
       child: BlocConsumer<TimerCubit, TimerState>(
-        listener: (BuildContext context, TimerState state) {},
+        listener: (BuildContext context, TimerState state) {
+          if (state.status.isSessionAddedUnsuccessfully()) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(const SnackBar(
+                content: Text("Couldn't add run session."),
+                backgroundColor: Colors.red,
+              ));
+          }
+          if (state.status.isSessionAddedSuccessfully()) {
+            Navigator.of(context).pushNamed('/child/home');
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                  content: const Text('Added add run session.'),
+                  backgroundColor: Theme.of(context).primaryColor));
+          }
+        },
         builder: (BuildContext context, TimerState state) {
           const TextStyle bodyTextStyle = TextStyle(color: Colors.white);
           final TextStyle bodyTextStyle2 =
