@@ -61,4 +61,7 @@ abstract class AuthenticationRepository {
   ///corresponding [user_type]
   ///user types such as [child] [parent]
   Future<Either<Failure, UserEntity>> getCredentials();
+
+  ///get the current user id
+  Either<Failure, String> getCurrentUserID();
 }
