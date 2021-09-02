@@ -73,7 +73,7 @@ class _AppViewState extends State<AppView> {
     return MaterialApp(
       theme: theme,
       navigatorKey: _navigatorKey,
-      initialRoute: '/child/home',
+      initialRoute: '/login',
       builder: (BuildContext context, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (BuildContext context, AuthenticationState state) {
@@ -81,13 +81,13 @@ class _AppViewState extends State<AppView> {
               _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
             }
             if (state.status == AuthenticationStatus.unauthenticated) {
-              _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
+              _navigator.pushNamedAndRemoveUntil('/login', (_) => false);
             }
             if (state.status == AuthenticationStatus.parentAuthenticated) {
               _navigator.pushNamedAndRemoveUntil('/parent/home', (_) => false);
             }
             if (state.status == AuthenticationStatus.uninitialized) {
-              _navigator.pushNamedAndRemoveUntil('/child/home', (_) => false);
+              _navigator.pushNamedAndRemoveUntil('/login', (_) => false);
             }
           },
           child: child,
