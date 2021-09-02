@@ -6,6 +6,7 @@ enum RunStatus { running, stopped, unknown }
 class RunDetailsEntity {
   ///Takes in [latitude], [longitude] and [pace]
   RunDetailsEntity({
+    required this.uid,
     required this.longitudeList,
     required this.latitudeList,
     required this.distance,
@@ -21,6 +22,9 @@ class RunDetailsEntity {
   ///List of the GPS longitude points
   final List<double> latitudeList;
 
+  ///the uid of the user the run dets belong to
+  final String uid;
+
   ///the distance ran so far
   final double distance;
 
@@ -33,6 +37,6 @@ class RunDetailsEntity {
   ///whether the user is walking, stopped or unknown
   final RunStatus status;
 
-  ///when the runsession was recorded
+  ///when the run session was recorded
   final DateTime timeStamp;
 }
