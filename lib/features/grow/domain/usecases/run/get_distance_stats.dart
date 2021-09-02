@@ -8,20 +8,21 @@ import 'package:grow_run_v1/features/grow/domain/repositories/run_details_reposi
 
 ///Retrieves the distance a user ran for a daily bassis or weekly as
 ///specified by the [Params]
-class GetDistanceStats implements UseCase<RunStatsEntity, Params> {
+class GetDistanceStats implements UseCase<List<RunStatsEntity>, Params> {
   ///takes an instance of [RunDetailsRepository]
   const GetDistanceStats({
     required RunDetailsRepository runDetailsRepository,
   }) : _runDetailsRepository = runDetailsRepository;
   final RunDetailsRepository _runDetailsRepository;
   @override
-  Future<Either<Failure, RunStatsEntity>> call(Params params) async {
+  Future<Either<Failure, List<RunStatsEntity>>> call(Params params) async {
+    final List<RunStatsEntity> runStatsList = <RunStatsEntity>[];
     Either<Failure, List<RunDetailsEntity>> results =
         await _runDetailsRepository.getRunSession();
 
-    return results
-        .fold((_) => const Left<Failure, RunStatsEntity>(FetchDataFailure()),
-            (List<RunDetailsEntity> runDetsList) {
+    return results.fold(
+        (_) => const Left<Failure, List<RunStatsEntity>>(FetchDataFailure()),
+        (List<RunDetailsEntity> runDetsList) {
       if (runDetsList.isNotEmpty) {
         double distance = 0;
         //TODO might not sort sessions according to date, make sure they are
@@ -30,13 +31,17 @@ class GetDistanceStats implements UseCase<RunStatsEntity, Params> {
           if (dateTime.day == runDetailsEntity.timeStamp.day) {
             distance += runDetailsEntity.distance;
           } else {
+            runStatsList.add(RunStatsEntity(
+                startDate: dateTime,
+                statValue: distance,
+                statName: 'Distance'));
+            distance = 0;
             dateTime = runDetailsEntity.timeStamp;
           }
         }
-        return Future.value(Right<Failure, RunStatsEntity>(RunStatsEntity(
-            startDate: DateTime.now(),
-            statName: 'Distance',
-            statValue: distance)));
+        return Future.value(Right<Failure, List<RunStatsEntity>>(runStatsList));
+      } else {
+        return const Left<Failure, List<RunStatsEntity>>(FetchDataFailure());
       }
     });
   }
