@@ -1,6 +1,6 @@
 export 'pages/goals/view/goals_page.dart';
 export 'pages/home/view/home_page.dart';
-export 'pages/leaderboard/view/leaderboard_page.dart';
+export 'pages/routes/leaderboard/view/leaderboard_page.dart';
 export 'pages/profile/view/profile_page.dart';
 export 'pages/routes/view/routes_page.dart';
 export 'pages/run/view/run_page.dart';
