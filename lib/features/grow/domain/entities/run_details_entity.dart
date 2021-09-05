@@ -3,14 +3,14 @@ enum RunStatus { running, stopped, unknown }
 
 ///Provides details about the run, such as the gps coordinates and the pace of
 ///the user
-class RunDetailsEntity {
+class RunSessionEntity {
   ///Takes in [latitude], [longitude] and [pace]
-  RunDetailsEntity({
+  RunSessionEntity({
     required this.uid,
     required this.longitudeList,
     required this.latitudeList,
     required this.distance,
-    required this.elapsedSeconds,
+    required this.duration,
     required this.pace,
     required this.status,
     DateTime? timeStamp,
@@ -29,7 +29,7 @@ class RunDetailsEntity {
   final double distance;
 
   ///the seconds that have elapsed so far
-  final double elapsedSeconds;
+  final double duration;
 
   ///Pace of the user
   final double pace;
