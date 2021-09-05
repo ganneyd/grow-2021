@@ -16,14 +16,14 @@ class RunRepositoryImplementation extends RunDetailsRepository {
   final RemoteDataSource _remoteDataSource;
 
   Map<String, dynamic> runSessionJSON(
-      {required RunDetailsEntity runDetailsEntity}) {
-    return RunDetailsModel.toRunModel(runDetailsEntity).toJson();
+      {required RunSessionEntity runDetailsEntity}) {
+    return RunSessionModel.toRunModel(runDetailsEntity).toJson();
   }
 
   @override
   Future<Either<Failure, void>> addRunSession(
       {required String uid,
-      required RunDetailsEntity runSession,
+      required RunSessionEntity runSession,
       required DateTime sessionDate}) async {
     try {
       await _remoteDataSource.createData(
@@ -39,21 +39,21 @@ class RunRepositoryImplementation extends RunDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, List<RunDetailsEntity>>> getRunSession() async {
+  Future<Either<Failure, List<RunSessionEntity>>> getRunSession() async {
     try {
-      final List<RunDetailsModel> models = <RunDetailsModel>[];
+      final List<RunSessionModel> models = <RunSessionModel>[];
 
       final List<Map<String, dynamic>> results =
           await _remoteDataSource.getCollection('run-sessions');
       for (final Map<String, dynamic> element in results) {
-        models.add(RunDetailsModel.fromJson(element));
+        models.add(RunSessionModel.fromJson(element));
       }
 
-      return Future<Either<Failure, List<RunDetailsEntity>>>.value(
-          Right<Failure, List<RunDetailsModel>>(models));
+      return Future<Either<Failure, List<RunSessionEntity>>>.value(
+          Right<Failure, List<RunSessionModel>>(models));
     } catch (e) {
-      return Future<Either<Failure, List<RunDetailsEntity>>>.value(
-          const Left<Failure, List<RunDetailsEntity>>(FetchDataFailure()));
+      return Future<Either<Failure, List<RunSessionEntity>>>.value(
+          const Left<Failure, List<RunSessionEntity>>(FetchDataFailure()));
     }
   }
 
@@ -64,7 +64,7 @@ class RunRepositoryImplementation extends RunDetailsRepository {
   }
 
   @override
-  Future<Either<Failure, List<RunDetailsEntity>>> queryRunSessions({required}) {
+  Future<Either<Failure, List<RunSessionEntity>>> queryRunSessions({required}) {
     // TODO: implement queryRunSessions
     throw UnimplementedError();
   }

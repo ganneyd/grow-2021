@@ -9,15 +9,15 @@ abstract class RunDetailsRepository {
   ///Add a newly completed run session
   Future<Either<Failure, void>> addRunSession(
       {required String uid,
-      required RunDetailsEntity runSession,
+      required RunSessionEntity runSession,
       required DateTime sessionDate});
 
   ///Retrieve all the run sessions
-  Future<Either<Failure, List<RunDetailsEntity>>> getRunSession();
+  Future<Either<Failure, List<RunSessionEntity>>> getRunSession();
 
   ///Set a new goal
   Future<Either<Failure, void>> setGoal({required GoalEntity goal});
 
   ///query the run sessions based on the [query] passed
-  Future<Either<Failure, List<RunDetailsEntity>>> queryRunSessions({required});
+  Future<Either<Failure, List<RunSessionEntity>>> queryRunSessions({required});
 }
