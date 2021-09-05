@@ -6,8 +6,8 @@ part of 'run_details_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RunDetails _$_$_RunDetailsFromJson(Map<String, dynamic> json) {
-  return _$_RunDetails(
+_$_RunSession _$_$_RunSessionFromJson(Map<String, dynamic> json) {
+  return _$_RunSession(
     longitudeList: (json['longitudeList'] as List<dynamic>?)
             ?.map((e) => (e as num).toDouble())
             .toList() ??
@@ -17,7 +17,7 @@ _$_RunDetails _$_$_RunDetailsFromJson(Map<String, dynamic> json) {
             .toList() ??
         [0.0],
     distance: (json['distance'] as num?)?.toDouble() ?? 0,
-    elapsedSeconds: (json['elapsedSeconds'] as num?)?.toDouble() ?? 0,
+    duration: (json['duration'] as num?)?.toDouble() ?? 0,
     pace: (json['pace'] as num?)?.toDouble() ?? 0,
     uid: json['uid'] as String? ?? '',
     timeStamp: DateTime.parse(json['timeStamp'] as String),
@@ -26,12 +26,12 @@ _$_RunDetails _$_$_RunDetailsFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_RunDetailsToJson(_$_RunDetails instance) =>
+Map<String, dynamic> _$_$_RunSessionToJson(_$_RunSession instance) =>
     <String, dynamic>{
       'longitudeList': instance.longitudeList,
       'latitudeList': instance.latitudeList,
       'distance': instance.distance,
-      'elapsedSeconds': instance.elapsedSeconds,
+      'duration': instance.duration,
       'pace': instance.pace,
       'uid': instance.uid,
       'timeStamp': instance.timeStamp.toIso8601String(),

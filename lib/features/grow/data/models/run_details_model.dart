@@ -6,31 +6,31 @@ part 'run_details_model.g.dart';
 
 ///
 @freezed
-class RunDetailsModel extends RunDetailsEntity with _$RunDetailsModel {
+class RunSessionModel extends RunSessionEntity with _$RunSessionModel {
   ///
-  const factory RunDetailsModel(
+  const factory RunSessionModel(
       {@Default(<double>[0]) List<double> longitudeList,
       @Default(<double>[0]) List<double> latitudeList,
       @Default(0) double distance,
-      @Default(0) double elapsedSeconds,
+      @Default(0) double duration,
       @Default(0) double pace,
       @Default('') String uid,
       required DateTime timeStamp,
-      @Default(RunStatus.unknown) RunStatus status}) = _RunDetails;
+      @Default(RunStatus.unknown) RunStatus status}) = _RunSession;
 
   ///returns a instance from JSON data
-  factory RunDetailsModel.fromJson(Map<String, dynamic> json) =>
-      _$RunDetailsModelFromJson(json);
+  factory RunSessionModel.fromJson(Map<String, dynamic> json) =>
+      _$RunSessionModelFromJson(json);
 
   ///returns a model instance from a entity instance
-  factory RunDetailsModel.toRunModel(RunDetailsEntity runDetailsEntity) =>
-      RunDetailsModel(
+  factory RunSessionModel.toRunModel(RunSessionEntity runDetailsEntity) =>
+      RunSessionModel(
         uid: runDetailsEntity.uid,
         timeStamp: runDetailsEntity.timeStamp,
         longitudeList: runDetailsEntity.longitudeList,
         latitudeList: runDetailsEntity.latitudeList,
         distance: runDetailsEntity.distance,
-        elapsedSeconds: runDetailsEntity.elapsedSeconds,
+        duration: runDetailsEntity.duration,
         pace: runDetailsEntity.pace,
         status: runDetailsEntity.status,
       );

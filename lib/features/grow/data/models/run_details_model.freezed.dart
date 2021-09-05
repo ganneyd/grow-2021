@@ -12,28 +12,28 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-RunDetailsModel _$RunDetailsModelFromJson(Map<String, dynamic> json) {
-  return _RunDetails.fromJson(json);
+RunSessionModel _$RunSessionModelFromJson(Map<String, dynamic> json) {
+  return _RunSession.fromJson(json);
 }
 
 /// @nodoc
-class _$RunDetailsModelTearOff {
-  const _$RunDetailsModelTearOff();
+class _$RunSessionModelTearOff {
+  const _$RunSessionModelTearOff();
 
-  _RunDetails call(
+  _RunSession call(
       {List<double> longitudeList = const <double>[0],
       List<double> latitudeList = const <double>[0],
       double distance = 0,
-      double elapsedSeconds = 0,
+      double duration = 0,
       double pace = 0,
       String uid = '',
       required DateTime timeStamp,
       RunStatus status = RunStatus.unknown}) {
-    return _RunDetails(
+    return _RunSession(
       longitudeList: longitudeList,
       latitudeList: latitudeList,
       distance: distance,
-      elapsedSeconds: elapsedSeconds,
+      duration: duration,
       pace: pace,
       uid: uid,
       timeStamp: timeStamp,
@@ -41,20 +41,20 @@ class _$RunDetailsModelTearOff {
     );
   }
 
-  RunDetailsModel fromJson(Map<String, Object> json) {
-    return RunDetailsModel.fromJson(json);
+  RunSessionModel fromJson(Map<String, Object> json) {
+    return RunSessionModel.fromJson(json);
   }
 }
 
 /// @nodoc
-const $RunDetailsModel = _$RunDetailsModelTearOff();
+const $RunSessionModel = _$RunSessionModelTearOff();
 
 /// @nodoc
-mixin _$RunDetailsModel {
+mixin _$RunSessionModel {
   List<double> get longitudeList => throw _privateConstructorUsedError;
   List<double> get latitudeList => throw _privateConstructorUsedError;
   double get distance => throw _privateConstructorUsedError;
-  double get elapsedSeconds => throw _privateConstructorUsedError;
+  double get duration => throw _privateConstructorUsedError;
   double get pace => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   DateTime get timeStamp => throw _privateConstructorUsedError;
@@ -62,20 +62,20 @@ mixin _$RunDetailsModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RunDetailsModelCopyWith<RunDetailsModel> get copyWith =>
+  $RunSessionModelCopyWith<RunSessionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RunDetailsModelCopyWith<$Res> {
-  factory $RunDetailsModelCopyWith(
-          RunDetailsModel value, $Res Function(RunDetailsModel) then) =
-      _$RunDetailsModelCopyWithImpl<$Res>;
+abstract class $RunSessionModelCopyWith<$Res> {
+  factory $RunSessionModelCopyWith(
+          RunSessionModel value, $Res Function(RunSessionModel) then) =
+      _$RunSessionModelCopyWithImpl<$Res>;
   $Res call(
       {List<double> longitudeList,
       List<double> latitudeList,
       double distance,
-      double elapsedSeconds,
+      double duration,
       double pace,
       String uid,
       DateTime timeStamp,
@@ -83,20 +83,20 @@ abstract class $RunDetailsModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RunDetailsModelCopyWithImpl<$Res>
-    implements $RunDetailsModelCopyWith<$Res> {
-  _$RunDetailsModelCopyWithImpl(this._value, this._then);
+class _$RunSessionModelCopyWithImpl<$Res>
+    implements $RunSessionModelCopyWith<$Res> {
+  _$RunSessionModelCopyWithImpl(this._value, this._then);
 
-  final RunDetailsModel _value;
+  final RunSessionModel _value;
   // ignore: unused_field
-  final $Res Function(RunDetailsModel) _then;
+  final $Res Function(RunSessionModel) _then;
 
   @override
   $Res call({
     Object? longitudeList = freezed,
     Object? latitudeList = freezed,
     Object? distance = freezed,
-    Object? elapsedSeconds = freezed,
+    Object? duration = freezed,
     Object? pace = freezed,
     Object? uid = freezed,
     Object? timeStamp = freezed,
@@ -115,9 +115,9 @@ class _$RunDetailsModelCopyWithImpl<$Res>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double,
-      elapsedSeconds: elapsedSeconds == freezed
-          ? _value.elapsedSeconds
-          : elapsedSeconds // ignore: cast_nullable_to_non_nullable
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
               as double,
       pace: pace == freezed
           ? _value.pace
@@ -140,17 +140,17 @@ class _$RunDetailsModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$RunDetailsCopyWith<$Res>
-    implements $RunDetailsModelCopyWith<$Res> {
-  factory _$RunDetailsCopyWith(
-          _RunDetails value, $Res Function(_RunDetails) then) =
-      __$RunDetailsCopyWithImpl<$Res>;
+abstract class _$RunSessionCopyWith<$Res>
+    implements $RunSessionModelCopyWith<$Res> {
+  factory _$RunSessionCopyWith(
+          _RunSession value, $Res Function(_RunSession) then) =
+      __$RunSessionCopyWithImpl<$Res>;
   @override
   $Res call(
       {List<double> longitudeList,
       List<double> latitudeList,
       double distance,
-      double elapsedSeconds,
+      double duration,
       double pace,
       String uid,
       DateTime timeStamp,
@@ -158,28 +158,28 @@ abstract class _$RunDetailsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$RunDetailsCopyWithImpl<$Res>
-    extends _$RunDetailsModelCopyWithImpl<$Res>
-    implements _$RunDetailsCopyWith<$Res> {
-  __$RunDetailsCopyWithImpl(
-      _RunDetails _value, $Res Function(_RunDetails) _then)
-      : super(_value, (v) => _then(v as _RunDetails));
+class __$RunSessionCopyWithImpl<$Res>
+    extends _$RunSessionModelCopyWithImpl<$Res>
+    implements _$RunSessionCopyWith<$Res> {
+  __$RunSessionCopyWithImpl(
+      _RunSession _value, $Res Function(_RunSession) _then)
+      : super(_value, (v) => _then(v as _RunSession));
 
   @override
-  _RunDetails get _value => super._value as _RunDetails;
+  _RunSession get _value => super._value as _RunSession;
 
   @override
   $Res call({
     Object? longitudeList = freezed,
     Object? latitudeList = freezed,
     Object? distance = freezed,
-    Object? elapsedSeconds = freezed,
+    Object? duration = freezed,
     Object? pace = freezed,
     Object? uid = freezed,
     Object? timeStamp = freezed,
     Object? status = freezed,
   }) {
-    return _then(_RunDetails(
+    return _then(_RunSession(
       longitudeList: longitudeList == freezed
           ? _value.longitudeList
           : longitudeList // ignore: cast_nullable_to_non_nullable
@@ -192,9 +192,9 @@ class __$RunDetailsCopyWithImpl<$Res>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double,
-      elapsedSeconds: elapsedSeconds == freezed
-          ? _value.elapsedSeconds
-          : elapsedSeconds // ignore: cast_nullable_to_non_nullable
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
               as double,
       pace: pace == freezed
           ? _value.pace
@@ -218,19 +218,19 @@ class __$RunDetailsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RunDetails implements _RunDetails {
-  const _$_RunDetails(
+class _$_RunSession implements _RunSession {
+  const _$_RunSession(
       {this.longitudeList = const <double>[0],
       this.latitudeList = const <double>[0],
       this.distance = 0,
-      this.elapsedSeconds = 0,
+      this.duration = 0,
       this.pace = 0,
       this.uid = '',
       required this.timeStamp,
       this.status = RunStatus.unknown});
 
-  factory _$_RunDetails.fromJson(Map<String, dynamic> json) =>
-      _$_$_RunDetailsFromJson(json);
+  factory _$_RunSession.fromJson(Map<String, dynamic> json) =>
+      _$_$_RunSessionFromJson(json);
 
   @JsonKey(defaultValue: const <double>[0])
   @override
@@ -243,7 +243,7 @@ class _$_RunDetails implements _RunDetails {
   final double distance;
   @JsonKey(defaultValue: 0)
   @override
-  final double elapsedSeconds;
+  final double duration;
   @JsonKey(defaultValue: 0)
   @override
   final double pace;
@@ -258,13 +258,13 @@ class _$_RunDetails implements _RunDetails {
 
   @override
   String toString() {
-    return 'RunDetailsModel(longitudeList: $longitudeList, latitudeList: $latitudeList, distance: $distance, elapsedSeconds: $elapsedSeconds, pace: $pace, uid: $uid, timeStamp: $timeStamp, status: $status)';
+    return 'RunSessionModel(longitudeList: $longitudeList, latitudeList: $latitudeList, distance: $distance, duration: $duration, pace: $pace, uid: $uid, timeStamp: $timeStamp, status: $status)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RunDetails &&
+        (other is _RunSession &&
             (identical(other.longitudeList, longitudeList) ||
                 const DeepCollectionEquality()
                     .equals(other.longitudeList, longitudeList)) &&
@@ -274,9 +274,9 @@ class _$_RunDetails implements _RunDetails {
             (identical(other.distance, distance) ||
                 const DeepCollectionEquality()
                     .equals(other.distance, distance)) &&
-            (identical(other.elapsedSeconds, elapsedSeconds) ||
+            (identical(other.duration, duration) ||
                 const DeepCollectionEquality()
-                    .equals(other.elapsedSeconds, elapsedSeconds)) &&
+                    .equals(other.duration, duration)) &&
             (identical(other.pace, pace) ||
                 const DeepCollectionEquality().equals(other.pace, pace)) &&
             (identical(other.uid, uid) ||
@@ -294,7 +294,7 @@ class _$_RunDetails implements _RunDetails {
       const DeepCollectionEquality().hash(longitudeList) ^
       const DeepCollectionEquality().hash(latitudeList) ^
       const DeepCollectionEquality().hash(distance) ^
-      const DeepCollectionEquality().hash(elapsedSeconds) ^
+      const DeepCollectionEquality().hash(duration) ^
       const DeepCollectionEquality().hash(pace) ^
       const DeepCollectionEquality().hash(uid) ^
       const DeepCollectionEquality().hash(timeStamp) ^
@@ -302,28 +302,28 @@ class _$_RunDetails implements _RunDetails {
 
   @JsonKey(ignore: true)
   @override
-  _$RunDetailsCopyWith<_RunDetails> get copyWith =>
-      __$RunDetailsCopyWithImpl<_RunDetails>(this, _$identity);
+  _$RunSessionCopyWith<_RunSession> get copyWith =>
+      __$RunSessionCopyWithImpl<_RunSession>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_RunDetailsToJson(this);
+    return _$_$_RunSessionToJson(this);
   }
 }
 
-abstract class _RunDetails implements RunDetailsModel {
-  const factory _RunDetails(
+abstract class _RunSession implements RunSessionModel {
+  const factory _RunSession(
       {List<double> longitudeList,
       List<double> latitudeList,
       double distance,
-      double elapsedSeconds,
+      double duration,
       double pace,
       String uid,
       required DateTime timeStamp,
-      RunStatus status}) = _$_RunDetails;
+      RunStatus status}) = _$_RunSession;
 
-  factory _RunDetails.fromJson(Map<String, dynamic> json) =
-      _$_RunDetails.fromJson;
+  factory _RunSession.fromJson(Map<String, dynamic> json) =
+      _$_RunSession.fromJson;
 
   @override
   List<double> get longitudeList => throw _privateConstructorUsedError;
@@ -332,7 +332,7 @@ abstract class _RunDetails implements RunDetailsModel {
   @override
   double get distance => throw _privateConstructorUsedError;
   @override
-  double get elapsedSeconds => throw _privateConstructorUsedError;
+  double get duration => throw _privateConstructorUsedError;
   @override
   double get pace => throw _privateConstructorUsedError;
   @override
@@ -343,6 +343,6 @@ abstract class _RunDetails implements RunDetailsModel {
   RunStatus get status => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RunDetailsCopyWith<_RunDetails> get copyWith =>
+  _$RunSessionCopyWith<_RunSession> get copyWith =>
       throw _privateConstructorUsedError;
 }
