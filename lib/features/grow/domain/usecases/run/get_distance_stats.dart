@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/core/usecases/usecases.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
-import 'package:grow_run_v1/features/grow/domain/entities/run_stats.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/run_daily_stats.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/run_details_repository.dart';
 
 ///Retrieves the distance a user ran for a daily bassis or weekly as

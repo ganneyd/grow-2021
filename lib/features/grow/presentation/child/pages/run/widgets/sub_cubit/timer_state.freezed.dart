@@ -57,7 +57,6 @@ abstract class $TimerStateCopyWith<$Res> {
       RunDetailsModel runDetailsModel});
 
   $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel;
-  $RunDetailsModelCopyWith<$Res> get runDetailsModel;
 }
 
 /// @nodoc
@@ -101,13 +100,6 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
       return _then(_value.copyWith(elapsedTimeModel: value));
     });
   }
-
-  @override
-  $RunDetailsModelCopyWith<$Res> get runDetailsModel {
-    return $RunDetailsModelCopyWith<$Res>(_value.runDetailsModel, (value) {
-      return _then(_value.copyWith(runDetailsModel: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -124,8 +116,6 @@ abstract class _$TimerStateCopyWith<$Res> implements $TimerStateCopyWith<$Res> {
 
   @override
   $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel;
-  @override
-  $RunDetailsModelCopyWith<$Res> get runDetailsModel;
 }
 
 /// @nodoc

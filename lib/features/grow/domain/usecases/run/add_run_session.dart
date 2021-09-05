@@ -38,7 +38,7 @@ class Params extends Equatable {
   });
 
   ///The run session the user has just completed
-  final RunDetailsEntity runSession;
+  final RunSessionEntity runSession;
 
   @override
   List<Object?> get props => <Object>[
