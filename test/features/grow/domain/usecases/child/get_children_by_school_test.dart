@@ -24,47 +24,41 @@ void main() {
       GetChildUserBySchool(mockChildRepository);
   const String collectionName = 'children';
   final Child child0 = Child(
-      uid: 'child00',
       username: 'ganneyd15',
       firstname: 'Ganney',
       lastname: 'Dortch',
       gender: Gender.male,
       dateOfBirth: DateTime(1999, 8, 8),
       gradeLevel: 12,
-      parentID: 'parent01',
       schoolID: 'school01');
   final Child child1 = Child(
-      uid: 'child01',
       username: 'gannphill',
       firstname: 'Gannphill',
       lastname: 'Ramclam',
       gender: Gender.unknown,
       dateOfBirth: DateTime(2007, 3, 13),
       gradeLevel: 12,
-      parentID: 'parent01',
       schoolID: 'school01');
   final Child child2 = Child(
-      uid: 'child02',
       username: 'baamon501',
       firstname: 'Ganna',
       lastname: 'Rogers',
       gender: Gender.female,
       dateOfBirth: DateTime(1997, 7, 10),
       gradeLevel: 2,
-      parentID: 'parent02',
       schoolID: 'school03');
   void populateDatabaseWithAllChildren() {
     mockFirestoreInstance
         .collection(collectionName)
-        .doc(child0.uid)
+        .doc('child_01')
         .set(child0.toJson());
     mockFirestoreInstance
         .collection(collectionName)
-        .doc(child1.uid)
+        .doc('child_02')
         .set(child1.toJson());
     mockFirestoreInstance
         .collection(collectionName)
-        .doc(child2.uid)
+        .doc('child_03')
         .set(child2.toJson());
     print('The data in the firestore mock database is :');
     print(mockFirestoreInstance.dump());

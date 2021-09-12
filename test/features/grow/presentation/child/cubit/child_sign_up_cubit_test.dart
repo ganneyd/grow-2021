@@ -78,14 +78,12 @@ void main() {
         expect: () => [
               ChildSignUpState(
                   childModel: Child(
-                      uid: 'no-id',
                       username: 'GanneyD501',
                       firstname: 'Ganney',
                       lastname: 'Dortch',
                       gender: Gender.male,
                       dateOfBirth: null,
                       gradeLevel: 0,
-                      parentID: 'no-parentID',
                       schoolID: 'no-schoolID'),
                   error: null,
                   status: FormStatus.pure),

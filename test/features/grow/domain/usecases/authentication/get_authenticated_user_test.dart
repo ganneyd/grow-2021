@@ -25,14 +25,14 @@ void main() {
       'should return a UserEntity containing the currently authenticated user',
       () async {
         // arrange
-        when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+        when(mockAuthenticationRepository.getCredentials()).thenAnswer(
             (_) async => const Right<Failure, UserEntity>(expectedUserEntity));
 
         // act
         final Either<Failure, UserEntity> result =
             await usecase.call(NoParams());
         // assert
-        verify(mockAuthenticationRepository.getAuthenticatedUser()).called(1);
+        verify(mockAuthenticationRepository.getCredentials()).called(1);
 
         final UserEntity resultUserEntity = result.getOrElse(() =>
             const UserEntity(
@@ -50,13 +50,13 @@ void main() {
     test('should return a AuthenticationFailure when an error occurs',
         () async {
       // arrange
-      when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+      when(mockAuthenticationRepository.getCredentials()).thenAnswer(
           (_) async => Left<Failure, UserEntity>(AuthenticationFailure()));
 
       // act
       final Either<Failure, UserEntity> result = await usecase.call(NoParams());
       // assert
-      verify(mockAuthenticationRepository.getAuthenticatedUser()).called(1);
+      verify(mockAuthenticationRepository.getCredentials()).called(1);
 
       final Failure resultUserEntity =
           result.swap().getOrElse(() => SignUpFailure());

@@ -29,34 +29,28 @@ void main() {
   ///Children collection
   const String collectionName = 'children';
   final Child child0 = Child(
-      uid: 'child00',
       username: 'ganneyd15',
       firstname: 'Ganney',
       lastname: 'Dortch',
       gender: Gender.male,
       dateOfBirth: DateTime(1999, 8, 8),
       gradeLevel: 12,
-      parentID: 'parent01',
       schoolID: 'school01');
   final Child child1 = Child(
-      uid: 'child01',
       username: 'gannphill',
       firstname: 'Gannphill',
       lastname: 'Ramclam',
       gender: Gender.unknown,
       dateOfBirth: DateTime(2007, 3, 13),
       gradeLevel: 12,
-      parentID: 'parent01',
       schoolID: 'school01');
   final Child child2 = Child(
-      uid: 'child02',
       username: 'baamon501',
       firstname: 'Ganna',
       lastname: 'Rogers',
       gender: Gender.female,
       dateOfBirth: DateTime(1997, 7, 10),
       gradeLevel: 2,
-      parentID: 'parent02',
       schoolID: 'school03');
 
 //List of children
@@ -71,18 +65,9 @@ void main() {
 //test Varibales
   setUp(() {});
   void populateDatabaseWithAllChildren() {
-    firestoreInstance
-        .collection(collectionName)
-        .doc(child0.uid)
-        .set(child0.toJson());
-    firestoreInstance
-        .collection(collectionName)
-        .doc(child1.uid)
-        .set(child1.toJson());
-    firestoreInstance
-        .collection(collectionName)
-        .doc(child2.uid)
-        .set(child2.toJson());
+    firestoreInstance.collection(collectionName).doc().set(child0.toJson());
+    firestoreInstance.collection(collectionName).doc().set(child1.toJson());
+    firestoreInstance.collection(collectionName).doc().set(child2.toJson());
     print('The data in the firestore mock database is :');
     print(firestoreInstance.dump());
     return;
@@ -93,7 +78,7 @@ void main() {
       'should return void when a child data is being created in the database',
       () async {
         final Either<Failure, void> result =
-            await repository.createChildData(child0);
+            await repository.createChildData(child0, 'child_01');
         // assert
 
         //verify(repository.createChildData(child0.uid!, child0));
@@ -104,15 +89,12 @@ void main() {
     test('should return void/null when a child data has been updated ',
         () async {
       // arrange
-      firestoreInstance
-          .collection(collectionName)
-          .doc(child0.uid)
-          .set(child0.toJson());
+      firestoreInstance.collection(collectionName).doc().set(child0.toJson());
       print('This is before the update');
       print(firestoreInstance.dump());
       print('---------------------------');
-      final Either<Failure, void> result = await repository
-          .editChildUser(child0.copyWith(username: 'updated username'));
+      final Either<Failure, void> result = await repository.editChildUser(
+          child0.copyWith(username: 'updated username'), 'child_01');
       // assert
       print('This is after the update');
       print(firestoreInstance.dump());
@@ -148,7 +130,7 @@ void main() {
         final List<Child> expectedList = <Child>[child0, child1];
         // act
         final Either<Failure, List<ChildEntity>> result = await repository
-            .getChildrenByID(<String>[child0.uid!, child1.uid!], 'requestedBy');
+            .getChildrenByID(<String>['child_01', 'child_02'], 'requestedBy');
         result.fold((Failure l) => null, (List<ChildEntity> list) {
           for (final ChildEntity childEntity in list) {
             actualList.add(Child.toChild(childEntity));
@@ -190,7 +172,7 @@ void main() {
           // arrange
           // act
           final Either<Failure, void> result =
-              await repositoryWithMockDS.createChildData(child0);
+              await repositoryWithMockDS.createChildData(child0, 'child_01');
 
           // assert
 
@@ -208,7 +190,7 @@ void main() {
 
         // act
         final Either<Failure, void> result =
-            await repositoryWithMockDS.editChildUser(child0);
+            await repositoryWithMockDS.editChildUser(child0, 'child_01');
         // assert
         expect(result, Left<Failure, void>(UpdateDataFailure()));
       },
@@ -239,7 +221,7 @@ void main() {
         // act
         final Either<Failure, List<ChildEntity>> result =
             await repositoryWithMockDS
-                .getChildrenByID(<String>[child0.uid!], 'requestedBy');
+                .getChildrenByID(<String>['child_01'], 'requestedBy');
 
         // assert
         expect(result, Left<Failure, List<ChildEntity>>(FetchDataFailure()));

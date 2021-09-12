@@ -6,6 +6,7 @@ import 'package:grow_run_v1/features/grow/domain/entities/user/user_entity.dart'
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/child_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/usecases/child/register_new_child_user.dart';
+import 'package:grow_run_v1/features/grow/domain/usecases/child/sign_up_new_child_user.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,12 +23,11 @@ void main() {
       gender: Gender.male,
       dateOfBirth: DateTime(1999, 8, 8),
       gradeLevel: 12,
-      parentID: 'parent01',
       schoolID: 'school01');
 
   final UserEntity expectedUserEntity = UserEntity(
       userEmail: email1,
-      userID: childModel.uid!,
+      userID: 'child_01',
       name: childModel.username,
       userType: UserType.child);
 
@@ -36,24 +36,23 @@ void main() {
   final MockAuthenticationRepository mockAuthenticationRepository =
       MockAuthenticationRepository();
 
-  final RegisterNewChildUser usecase = RegisterNewChildUser(
-      authenticationRepository: mockAuthenticationRepository,
-      childRepository: mockChildRepository);
+  final SignUpNewChildUser usecase =
+      SignUpNewChildUser(mockAuthenticationRepository);
 
   group('Tests that should run without errors', () {
     test(
       'should return a UserEntity insatance when call() is evoked',
       () async {
         // arrange
-        when(mockAuthenticationRepository.getAuthenticatedUser()).thenAnswer(
+        when(mockAuthenticationRepository.getCredentials()).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
         when(mockAuthenticationRepository.registerUser(any, any)).thenAnswer(
             (_) async => Right<Failure, UserEntity>(expectedUserEntity));
-        when(mockChildRepository.createChildData(any))
+        when(mockChildRepository.createChildData(any, any))
             .thenAnswer((_) async => Right<Failure, void>(() {}));
         // act
-        final Either<Failure, UserEntity> result =
-            await usecase.call(Params(child: childModel, email: email1));
+        final Either<Failure, String> result =
+            await usecase.call(Params(child: childModel, email: email1, parentEmail:));
         // assert
         verify(mockAuthenticationRepository.registerUser(email1, 'password12'))
             .called(1);
