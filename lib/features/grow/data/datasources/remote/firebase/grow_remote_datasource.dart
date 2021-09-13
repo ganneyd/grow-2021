@@ -1,6 +1,7 @@
 ///Datasource that connects to the firestore database
 import 'package:grow_run_v1/core/error/exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:logging/logging.dart';
 
 ///Contract for the RemoteDatasources
 abstract class RemoteDataSource {
@@ -69,10 +70,12 @@ abstract class RemoteDataSource {
 ///can be manipulated and fetched;
 class RemoteDataSourceImplementation extends RemoteDataSource {
   ///constructor
-  RemoteDataSourceImplementation(this.database);
+  RemoteDataSourceImplementation(this.database)
+      : _remoteDatabaseLogger = Logger('Remote_Database');
 
   ///reference to firestore database;
   final FirebaseFirestore database;
+  final Logger _remoteDatabaseLogger;
 
   ///Function that returns a list of JSON data
   List<Map<String, dynamic>> _getJsonList(
@@ -82,10 +85,10 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
     if (snapshot.docs.isNotEmpty) {
       for (final DocumentSnapshot<Map<String, dynamic>> docSnapshot
           in snapshot.docs) {
-        print('found a doc');
+        _remoteDatabaseLogger.finest('found a doc');
         final Map<String, dynamic> data = docSnapshot.data()!;
         data['uid'] = docSnapshot.reference.id;
-        print(data);
+        _remoteDatabaseLogger.finest(data);
         jsonList.add(data);
       }
     }
@@ -154,14 +157,13 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
       final QuerySnapshot<Map<String, dynamic>> snapshots =
           await database.collection(collectionName).get();
       if (snapshots.docs.isEmpty) {
-        print('snapshots is empty');
         throw Exception();
       }
       jsonList = _getJsonList(snapshots);
-      print(jsonList);
+      _remoteDatabaseLogger.finest(jsonList);
       return Future<List<Map<String, dynamic>>>.value(jsonList);
     } catch (e) {
-      print('error in datasources $e');
+      _remoteDatabaseLogger.finest('error in datasources $e');
       throw ReadDataException();
     }
   }
