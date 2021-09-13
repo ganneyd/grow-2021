@@ -245,9 +245,13 @@ class _$_ParentModel with DiagnosticableTreeMixin implements _ParentModel {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
+      // ignore: always_specify_types
       ..add(DiagnosticsProperty('type', 'ParentModel'))
+      // ignore: always_specify_types
       ..add(DiagnosticsProperty('uid', uid))
+      // ignore: always_specify_types
       ..add(DiagnosticsProperty('firstname', firstname))
+      // ignore: always_specify_types
       ..add(DiagnosticsProperty('lastname', lastname))
       ..add(DiagnosticsProperty('childrenIDs', childrenIDs))
       ..add(DiagnosticsProperty('phonenumber', phonenumber))

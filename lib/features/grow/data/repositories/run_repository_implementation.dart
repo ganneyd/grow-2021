@@ -46,6 +46,7 @@ class RunRepositoryImplementation extends RunDetailsRepository {
       final List<Map<String, dynamic>> results =
           await _remoteDataSource.getCollection('run-sessions');
       for (final Map<String, dynamic> element in results) {
+        
         models.add(RunSessionModel.fromJson(element));
       }
 

@@ -16,4 +16,13 @@ class RunDailyStatsEntity {
 
   ///List of run sessions for the specified [date]
   final List<RunSessionEntity> runSessions;
+
+  ///returns the total distance covered by the sessions
+  double getDistance() {
+    double distance = 0;
+    for (final RunSessionEntity runSessionEntity in runSessions) {
+      distance += runSessionEntity.distance;
+    }
+    return distance;
+  }
 }

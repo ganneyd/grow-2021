@@ -13,211 +13,159 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$RunStatsModelTearOff {
-  const _$RunStatsModelTearOff();
+class _$RunDailyStatsModelTearOff {
+  const _$RunDailyStatsModelTearOff();
 
-  _RunStats call(
-      {required DateTime startDate,
-      DateTime? endDate,
-      double statValue = 0.0,
-      String statName = 'no-name'}) {
-    return _RunStats(
-      startDate: startDate,
-      endDate: endDate,
-      statValue: statValue,
-      statName: statName,
+  _RunDailyStats call(
+      {required DateTime date,
+      List<RunSessionModel> runSessions = const <RunSessionModel>[]}) {
+    return _RunDailyStats(
+      date: date,
+      runSessions: runSessions,
     );
   }
 }
 
 /// @nodoc
-const $RunStatsModel = _$RunStatsModelTearOff();
+const $RunDailyStatsModel = _$RunDailyStatsModelTearOff();
 
 /// @nodoc
-mixin _$RunStatsModel {
-  DateTime get startDate => throw _privateConstructorUsedError;
-  DateTime? get endDate => throw _privateConstructorUsedError;
-  double get statValue => throw _privateConstructorUsedError;
-  String get statName => throw _privateConstructorUsedError;
+mixin _$RunDailyStatsModel {
+  DateTime get date => throw _privateConstructorUsedError;
+  List<RunSessionModel> get runSessions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $RunStatsModelCopyWith<RunStatsModel> get copyWith =>
+  $RunDailyStatsModelCopyWith<RunDailyStatsModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RunStatsModelCopyWith<$Res> {
-  factory $RunStatsModelCopyWith(
-          RunStatsModel value, $Res Function(RunStatsModel) then) =
-      _$RunStatsModelCopyWithImpl<$Res>;
-  $Res call(
-      {DateTime startDate,
-      DateTime? endDate,
-      double statValue,
-      String statName});
+abstract class $RunDailyStatsModelCopyWith<$Res> {
+  factory $RunDailyStatsModelCopyWith(
+          RunDailyStatsModel value, $Res Function(RunDailyStatsModel) then) =
+      _$RunDailyStatsModelCopyWithImpl<$Res>;
+  $Res call({DateTime date, List<RunSessionModel> runSessions});
 }
 
 /// @nodoc
-class _$RunStatsModelCopyWithImpl<$Res>
-    implements $RunStatsModelCopyWith<$Res> {
-  _$RunStatsModelCopyWithImpl(this._value, this._then);
+class _$RunDailyStatsModelCopyWithImpl<$Res>
+    implements $RunDailyStatsModelCopyWith<$Res> {
+  _$RunDailyStatsModelCopyWithImpl(this._value, this._then);
 
-  final RunStatsModel _value;
+  final RunDailyStatsModel _value;
   // ignore: unused_field
-  final $Res Function(RunStatsModel) _then;
+  final $Res Function(RunDailyStatsModel) _then;
 
   @override
   $Res call({
-    Object? startDate = freezed,
-    Object? endDate = freezed,
-    Object? statValue = freezed,
-    Object? statName = freezed,
+    Object? date = freezed,
+    Object? runSessions = freezed,
   }) {
     return _then(_value.copyWith(
-      startDate: startDate == freezed
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      endDate: endDate == freezed
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      statValue: statValue == freezed
-          ? _value.statValue
-          : statValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      statName: statName == freezed
-          ? _value.statName
-          : statName // ignore: cast_nullable_to_non_nullable
-              as String,
+      runSessions: runSessions == freezed
+          ? _value.runSessions
+          : runSessions // ignore: cast_nullable_to_non_nullable
+              as List<RunSessionModel>,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$RunStatsCopyWith<$Res>
-    implements $RunStatsModelCopyWith<$Res> {
-  factory _$RunStatsCopyWith(_RunStats value, $Res Function(_RunStats) then) =
-      __$RunStatsCopyWithImpl<$Res>;
+abstract class _$RunDailyStatsCopyWith<$Res>
+    implements $RunDailyStatsModelCopyWith<$Res> {
+  factory _$RunDailyStatsCopyWith(
+          _RunDailyStats value, $Res Function(_RunDailyStats) then) =
+      __$RunDailyStatsCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {DateTime startDate,
-      DateTime? endDate,
-      double statValue,
-      String statName});
+  $Res call({DateTime date, List<RunSessionModel> runSessions});
 }
 
 /// @nodoc
-class __$RunStatsCopyWithImpl<$Res> extends _$RunStatsModelCopyWithImpl<$Res>
-    implements _$RunStatsCopyWith<$Res> {
-  __$RunStatsCopyWithImpl(_RunStats _value, $Res Function(_RunStats) _then)
-      : super(_value, (v) => _then(v as _RunStats));
+class __$RunDailyStatsCopyWithImpl<$Res>
+    extends _$RunDailyStatsModelCopyWithImpl<$Res>
+    implements _$RunDailyStatsCopyWith<$Res> {
+  __$RunDailyStatsCopyWithImpl(
+      _RunDailyStats _value, $Res Function(_RunDailyStats) _then)
+      : super(_value, (v) => _then(v as _RunDailyStats));
 
   @override
-  _RunStats get _value => super._value as _RunStats;
+  _RunDailyStats get _value => super._value as _RunDailyStats;
 
   @override
   $Res call({
-    Object? startDate = freezed,
-    Object? endDate = freezed,
-    Object? statValue = freezed,
-    Object? statName = freezed,
+    Object? date = freezed,
+    Object? runSessions = freezed,
   }) {
-    return _then(_RunStats(
-      startDate: startDate == freezed
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
+    return _then(_RunDailyStats(
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      endDate: endDate == freezed
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      statValue: statValue == freezed
-          ? _value.statValue
-          : statValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      statName: statName == freezed
-          ? _value.statName
-          : statName // ignore: cast_nullable_to_non_nullable
-              as String,
+      runSessions: runSessions == freezed
+          ? _value.runSessions
+          : runSessions // ignore: cast_nullable_to_non_nullable
+              as List<RunSessionModel>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_RunStats implements _RunStats {
-  _$_RunStats(
-      {required this.startDate,
-      this.endDate,
-      this.statValue = 0.0,
-      this.statName = 'no-name'});
+class _$_RunDailyStats extends _RunDailyStats {
+  _$_RunDailyStats(
+      {required this.date, this.runSessions = const <RunSessionModel>[]})
+      : super._();
 
   @override
-  final DateTime startDate;
+  final DateTime date;
+  @JsonKey(defaultValue: const <RunSessionModel>[])
   @override
-  final DateTime? endDate;
-  @JsonKey(defaultValue: 0.0)
-  @override
-  final double statValue;
-  @JsonKey(defaultValue: 'no-name')
-  @override
-  final String statName;
+  final List<RunSessionModel> runSessions;
 
   @override
   String toString() {
-    return 'RunStatsModel(startDate: $startDate, endDate: $endDate, statValue: $statValue, statName: $statName)';
+    return 'RunDailyStatsModel(date: $date, runSessions: $runSessions)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RunStats &&
-            (identical(other.startDate, startDate) ||
+        (other is _RunDailyStats &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.runSessions, runSessions) ||
                 const DeepCollectionEquality()
-                    .equals(other.startDate, startDate)) &&
-            (identical(other.endDate, endDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.endDate, endDate)) &&
-            (identical(other.statValue, statValue) ||
-                const DeepCollectionEquality()
-                    .equals(other.statValue, statValue)) &&
-            (identical(other.statName, statName) ||
-                const DeepCollectionEquality()
-                    .equals(other.statName, statName)));
+                    .equals(other.runSessions, runSessions)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(startDate) ^
-      const DeepCollectionEquality().hash(endDate) ^
-      const DeepCollectionEquality().hash(statValue) ^
-      const DeepCollectionEquality().hash(statName);
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(runSessions);
 
   @JsonKey(ignore: true)
   @override
-  _$RunStatsCopyWith<_RunStats> get copyWith =>
-      __$RunStatsCopyWithImpl<_RunStats>(this, _$identity);
+  _$RunDailyStatsCopyWith<_RunDailyStats> get copyWith =>
+      __$RunDailyStatsCopyWithImpl<_RunDailyStats>(this, _$identity);
 }
 
-abstract class _RunStats implements RunStatsModel {
-  factory _RunStats(
-      {required DateTime startDate,
-      DateTime? endDate,
-      double statValue,
-      String statName}) = _$_RunStats;
+abstract class _RunDailyStats extends RunDailyStatsModel {
+  factory _RunDailyStats(
+      {required DateTime date,
+      List<RunSessionModel> runSessions}) = _$_RunDailyStats;
+  _RunDailyStats._() : super._();
 
   @override
-  DateTime get startDate => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
   @override
-  DateTime? get endDate => throw _privateConstructorUsedError;
-  @override
-  double get statValue => throw _privateConstructorUsedError;
-  @override
-  String get statName => throw _privateConstructorUsedError;
+  List<RunSessionModel> get runSessions => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RunStatsCopyWith<_RunStats> get copyWith =>
+  _$RunDailyStatsCopyWith<_RunDailyStats> get copyWith =>
       throw _privateConstructorUsedError;
 }

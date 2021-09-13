@@ -36,8 +36,8 @@ class LocationRepositoryImplementation extends LocationRepository {
     double lat = 0, long = 0, distance = 0;
     void startTracking() {
       subscription = Geolocator.getPositionStream().listen((Position position) {
-        _locationLogger.fine(
-            'The current speed ${position.speed} with coords ${position.latitude} and ${position.longitude} ');
+        _locationLogger.fine('''
+The current speed ${position.speed} with coords ${position.latitude} and ${position.longitude} ''');
 
         if (position.speed > paceThreshold) {
           _locationLogger.fine('Point over Threshold');
@@ -96,6 +96,7 @@ class LocationRepositoryImplementation extends LocationRepository {
     double avgLong = 0;
     for (final PreviousModel previous in previousLatNLong) {
       _locationLogger.fine(
+          // ignore: lines_longer_than_80_chars
           'Points are lat: ${previous.latitude} and long: ${previous.longitude}');
       avgLat += previous.latitude;
       avgLong += previous.longitude;

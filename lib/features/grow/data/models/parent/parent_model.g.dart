@@ -24,6 +24,7 @@ _$_ParentModel _$_$_ParentModelFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_ParentModelToJson(_$_ParentModel instance) =>
     <String, dynamic>{
       'uid': instance.uid,

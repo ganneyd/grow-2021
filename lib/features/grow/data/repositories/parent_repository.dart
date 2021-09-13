@@ -57,9 +57,9 @@ class ParentRepositoryImplementation extends ParentRepository {
       return Right<Failure, void>(await _remoteDataSource.updateData(
           collectionName, _convertEntityToJson(user), user.uid!));
     } on UpdateDataException {
-      return Left<Failure, void>(UpdateDataFailure());
+      return const Left<Failure, void>(UpdateDataFailure());
     } catch (e) {
-      return Left<Failure, void>(UpdateDataFailure());
+      return const Left<Failure, void>(UpdateDataFailure());
     }
   }
 
@@ -70,7 +70,7 @@ class ParentRepositoryImplementation extends ParentRepository {
     try {
       //check to see if list is empty, if it is return a failure
       if (parentIDs.isEmpty) {
-        return Left<Failure, List<ParentModel>>(FetchDataFailure());
+        return const Left<Failure, List<ParentModel>>(FetchDataFailure());
       }
       for (final String parentID in parentIDs) {
 //retrive the document snapshot

@@ -19,5 +19,5 @@ abstract class RunDetailsRepository {
   Future<Either<Failure, void>> setGoal({required GoalEntity goal});
 
   ///query the run sessions based on the [query] passed
-  Future<Either<Failure, List<RunSessionEntity>>> queryRunSessions({required});
+  Future<Either<Failure, List<RunSessionEntity>>> queryRunSessions();
 }

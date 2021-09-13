@@ -99,7 +99,7 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
       await app.delete();
       //return the UserModel for the newly registered user
 
-      return Right<Failure, UserEntity>(_getUserEntity(userCredential.user!));
+      return Right<Failure, UserEntity>(_getUserEntity(userCredential.user));
     } on firebase_auth.FirebaseAuthException catch (e) {
       // Do something with exception. This try/catch is here to make sure
       // that even if the user creation fails, app.delete() runs, if is not,
@@ -155,8 +155,8 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
   Future<Either<Failure, UserEntity>> getCredentials() async {
     _authLogger.finer('get credentials called');
     if (firebase_auth.FirebaseAuth.instance.currentUser != null) {
-      _authLogger.fine(
-          ' user was not null the user is : ${firebase_auth.FirebaseAuth.instance.currentUser}',
+      _authLogger.fine('''
+ user was not null the user is : ${firebase_auth.FirebaseAuth.instance.currentUser}''',
           firebase_auth.FirebaseAuth.instance.currentUser);
       try {
         final firebase_auth.User user =
@@ -183,10 +183,9 @@ class AuthenticationRepositoryImplementation extends AuthenticationRepository
 
         return Right<Failure, UserEntity>(_getUserEntity(user));
       } on FirebaseException catch (e) {
-        _authLogger.severe(
-            'Firebase Exception ${e.message} ${e.code} ${e.plugin} ${e.stackTrace}',
-            e,
-            e.stackTrace);
+        _authLogger.severe('''
+Firebase Exception ${e.message} ${e.code} 
+${e.plugin} ${e.stackTrace}''', e, e.stackTrace);
 
         return Left<Failure, UserEntity>(
             AuthenticationFailure(errMsg: e.message ?? ''));

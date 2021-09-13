@@ -3,12 +3,9 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grow_run_v1/core/error/exceptions.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/core/util/build_info.dart';
-import 'package:grow_run_v1/features/grow/data/models/school/school_model.dart';
 import 'package:grow_run_v1/features/grow/data/models/stop_watch/stop_watch_model.dart';
-import 'package:grow_run_v1/features/grow/domain/entities/school/school_entity.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../domain/repositories/grow_repository.dart';
 import '../datasources/datasources.dart';
@@ -24,9 +21,8 @@ enum Collections {
 class GROWRepositoryImplementation extends GROWRepository {
   ///Constructor , takes a [FireBaseAuth] instance
   GROWRepositoryImplementation(RemoteDataSource remoteDataSource)
-      : _firebaseAuth = FirebaseAuth.instance,
-        _remoteDataSource = remoteDataSource;
-  final FirebaseAuth _firebaseAuth;
+      : _remoteDataSource = remoteDataSource;
+
   final RemoteDataSource _remoteDataSource;
 
   @override
@@ -50,8 +46,7 @@ class GROWRepositoryImplementation extends GROWRepository {
   @override
   Stream<ElapsedTimeModel> stopWatchStream() {
     late Timer timer;
-    Stopwatch stopwatch = Stopwatch();
-    double hours, minutes, seconds, milliseconds;
+    final Stopwatch stopwatch = Stopwatch();
     late StreamController<ElapsedTimeModel> streamController;
 
     void stopTimer() {
