@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_stats/run_stats_model.dart';
-import 'package:grow_run_v1/features/grow/domain/entities/run_stats.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/run_daily_stats.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/chart.dart';
 
 part 'stats_state.freezed.dart';
