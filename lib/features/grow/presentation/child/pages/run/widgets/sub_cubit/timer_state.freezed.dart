@@ -20,7 +20,7 @@ class _$TimerStateTearOff {
       {TimerStatus status = TimerStatus.fresh,
       bool isTimerRunning = false,
       required ElapsedTimeModel elapsedTimeModel,
-      required RunDetailsModel runDetailsModel}) {
+      required RunSessionModel runDetailsModel}) {
     return _TimerState(
       status: status,
       isTimerRunning: isTimerRunning,
@@ -38,7 +38,7 @@ mixin _$TimerState {
   TimerStatus get status => throw _privateConstructorUsedError;
   bool get isTimerRunning => throw _privateConstructorUsedError;
   ElapsedTimeModel get elapsedTimeModel => throw _privateConstructorUsedError;
-  RunDetailsModel get runDetailsModel => throw _privateConstructorUsedError;
+  RunSessionModel get runDetailsModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TimerStateCopyWith<TimerState> get copyWith =>
@@ -54,9 +54,10 @@ abstract class $TimerStateCopyWith<$Res> {
       {TimerStatus status,
       bool isTimerRunning,
       ElapsedTimeModel elapsedTimeModel,
-      RunDetailsModel runDetailsModel});
+      RunSessionModel runDetailsModel});
 
   $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel;
+  $RunSessionModelCopyWith<$Res> get runDetailsModel;
 }
 
 /// @nodoc
@@ -90,7 +91,7 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
       runDetailsModel: runDetailsModel == freezed
           ? _value.runDetailsModel
           : runDetailsModel // ignore: cast_nullable_to_non_nullable
-              as RunDetailsModel,
+              as RunSessionModel,
     ));
   }
 
@@ -98,6 +99,13 @@ class _$TimerStateCopyWithImpl<$Res> implements $TimerStateCopyWith<$Res> {
   $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel {
     return $ElapsedTimeModelCopyWith<$Res>(_value.elapsedTimeModel, (value) {
       return _then(_value.copyWith(elapsedTimeModel: value));
+    });
+  }
+
+  @override
+  $RunSessionModelCopyWith<$Res> get runDetailsModel {
+    return $RunSessionModelCopyWith<$Res>(_value.runDetailsModel, (value) {
+      return _then(_value.copyWith(runDetailsModel: value));
     });
   }
 }
@@ -112,10 +120,12 @@ abstract class _$TimerStateCopyWith<$Res> implements $TimerStateCopyWith<$Res> {
       {TimerStatus status,
       bool isTimerRunning,
       ElapsedTimeModel elapsedTimeModel,
-      RunDetailsModel runDetailsModel});
+      RunSessionModel runDetailsModel});
 
   @override
   $ElapsedTimeModelCopyWith<$Res> get elapsedTimeModel;
+  @override
+  $RunSessionModelCopyWith<$Res> get runDetailsModel;
 }
 
 /// @nodoc
@@ -151,7 +161,7 @@ class __$TimerStateCopyWithImpl<$Res> extends _$TimerStateCopyWithImpl<$Res>
       runDetailsModel: runDetailsModel == freezed
           ? _value.runDetailsModel
           : runDetailsModel // ignore: cast_nullable_to_non_nullable
-              as RunDetailsModel,
+              as RunSessionModel,
     ));
   }
 }
@@ -174,7 +184,7 @@ class _$_TimerState implements _TimerState {
   @override
   final ElapsedTimeModel elapsedTimeModel;
   @override
-  final RunDetailsModel runDetailsModel;
+  final RunSessionModel runDetailsModel;
 
   @override
   String toString() {
@@ -217,7 +227,7 @@ abstract class _TimerState implements TimerState {
       {TimerStatus status,
       bool isTimerRunning,
       required ElapsedTimeModel elapsedTimeModel,
-      required RunDetailsModel runDetailsModel}) = _$_TimerState;
+      required RunSessionModel runDetailsModel}) = _$_TimerState;
 
   @override
   TimerStatus get status => throw _privateConstructorUsedError;
@@ -226,7 +236,7 @@ abstract class _TimerState implements TimerState {
   @override
   ElapsedTimeModel get elapsedTimeModel => throw _privateConstructorUsedError;
   @override
-  RunDetailsModel get runDetailsModel => throw _privateConstructorUsedError;
+  RunSessionModel get runDetailsModel => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TimerStateCopyWith<_TimerState> get copyWith =>

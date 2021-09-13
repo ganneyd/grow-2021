@@ -69,6 +69,6 @@ class TimerState with _$TimerState {
     @Default(TimerStatus.fresh) TimerStatus status,
     @Default(false) bool isTimerRunning,
     required ElapsedTimeModel elapsedTimeModel,
-    required RunDetailsModel runDetailsModel,
+    required RunSessionModel runDetailsModel,
   }) = _TimerState;
 }

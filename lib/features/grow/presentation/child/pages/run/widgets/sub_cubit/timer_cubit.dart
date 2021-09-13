@@ -32,7 +32,7 @@ class TimerCubit extends Cubit<TimerState> {
             authenticationRepository: authenticationRepository),
         super(TimerState(
             elapsedTimeModel: const ElapsedTimeModel(),
-            runDetailsModel: RunDetailsModel(timeStamp: DateTime.now())));
+            runDetailsModel: RunSessionModel(timeStamp: DateTime.now())));
 
   //grow repo
   final GROWRepository _growRepository;
@@ -121,7 +121,7 @@ class TimerCubit extends Cubit<TimerState> {
     emit(state.copyWith(
       status: TimerStatus.runEnded,
       isTimerRunning: false,
-      runDetailsModel: RunDetailsModel(timeStamp: DateTime.now()),
+      runDetailsModel: RunSessionModel(timeStamp: DateTime.now()),
       elapsedTimeModel: const ElapsedTimeModel(),
     ));
     previousModelStreamSubscription.cancel();
