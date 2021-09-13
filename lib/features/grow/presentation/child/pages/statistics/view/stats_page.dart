@@ -22,7 +22,9 @@ class StatsPage extends StatelessWidget {
           if (state.status.isLoading()) {
             return SplashPage();
           } else if (state.status.loadedUnsuccessfully()) {
-          } else if (state.status.loadedSuccessfully()) {
+            return Text(state.errMsg);
+          } else if (state.status.loadedSuccessfully() &&
+              state.distanceStatsList.isNotEmpty) {
             return Theme(
                 data: ThemeData(accentColor: Theme.of(context).primaryColor),
                 child: Scaffold(
@@ -35,11 +37,11 @@ class StatsPage extends StatelessWidget {
                           titleName: 'Goals',
                           backgroundColor: Theme.of(context).primaryColor,
                           background: Align(
-                            child: Text('Hey'),
+                            child: Text(state.status.toString()),
                           )),
                       SliverList(delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                        Chart<DistanceChartData>(
+                        return Chart<DistanceChartData>(
                           dataList: state.distanceStatsList,
                         );
                       }))
