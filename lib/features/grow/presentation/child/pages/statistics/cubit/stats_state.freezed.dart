@@ -19,12 +19,11 @@ class _$StatsStateTearOff {
   _StatsState call(
       {String errMsg = '',
       StatsStatus status = StatsStatus.loading,
-      List<DistanceChartData> distanceStatsList =
-          const <DistanceChartData>[]}) {
+      List<List<DailyChartData>> chartList = const <List<DailyChartData>>[]}) {
     return _StatsState(
       errMsg: errMsg,
       status: status,
-      distanceStatsList: distanceStatsList,
+      chartList: chartList,
     );
   }
 }
@@ -36,7 +35,7 @@ const $StatsState = _$StatsStateTearOff();
 mixin _$StatsState {
   String get errMsg => throw _privateConstructorUsedError;
   StatsStatus get status => throw _privateConstructorUsedError;
-  List<DistanceChartData> get distanceStatsList =>
+  List<List<DailyChartData>> get chartList =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -52,7 +51,7 @@ abstract class $StatsStateCopyWith<$Res> {
   $Res call(
       {String errMsg,
       StatsStatus status,
-      List<DistanceChartData> distanceStatsList});
+      List<List<DailyChartData>> chartList});
 }
 
 /// @nodoc
@@ -67,7 +66,7 @@ class _$StatsStateCopyWithImpl<$Res> implements $StatsStateCopyWith<$Res> {
   $Res call({
     Object? errMsg = freezed,
     Object? status = freezed,
-    Object? distanceStatsList = freezed,
+    Object? chartList = freezed,
   }) {
     return _then(_value.copyWith(
       errMsg: errMsg == freezed
@@ -78,10 +77,10 @@ class _$StatsStateCopyWithImpl<$Res> implements $StatsStateCopyWith<$Res> {
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as StatsStatus,
-      distanceStatsList: distanceStatsList == freezed
-          ? _value.distanceStatsList
-          : distanceStatsList // ignore: cast_nullable_to_non_nullable
-              as List<DistanceChartData>,
+      chartList: chartList == freezed
+          ? _value.chartList
+          : chartList // ignore: cast_nullable_to_non_nullable
+              as List<List<DailyChartData>>,
     ));
   }
 }
@@ -95,7 +94,7 @@ abstract class _$StatsStateCopyWith<$Res> implements $StatsStateCopyWith<$Res> {
   $Res call(
       {String errMsg,
       StatsStatus status,
-      List<DistanceChartData> distanceStatsList});
+      List<List<DailyChartData>> chartList});
 }
 
 /// @nodoc
@@ -112,7 +111,7 @@ class __$StatsStateCopyWithImpl<$Res> extends _$StatsStateCopyWithImpl<$Res>
   $Res call({
     Object? errMsg = freezed,
     Object? status = freezed,
-    Object? distanceStatsList = freezed,
+    Object? chartList = freezed,
   }) {
     return _then(_StatsState(
       errMsg: errMsg == freezed
@@ -123,10 +122,10 @@ class __$StatsStateCopyWithImpl<$Res> extends _$StatsStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as StatsStatus,
-      distanceStatsList: distanceStatsList == freezed
-          ? _value.distanceStatsList
-          : distanceStatsList // ignore: cast_nullable_to_non_nullable
-              as List<DistanceChartData>,
+      chartList: chartList == freezed
+          ? _value.chartList
+          : chartList // ignore: cast_nullable_to_non_nullable
+              as List<List<DailyChartData>>,
     ));
   }
 }
@@ -137,7 +136,7 @@ class _$_StatsState implements _StatsState {
   _$_StatsState(
       {this.errMsg = '',
       this.status = StatsStatus.loading,
-      this.distanceStatsList = const <DistanceChartData>[]});
+      this.chartList = const <List<DailyChartData>>[]});
 
   @JsonKey(defaultValue: '')
   @override
@@ -145,13 +144,13 @@ class _$_StatsState implements _StatsState {
   @JsonKey(defaultValue: StatsStatus.loading)
   @override
   final StatsStatus status;
-  @JsonKey(defaultValue: const <DistanceChartData>[])
+  @JsonKey(defaultValue: const <List<DailyChartData>>[])
   @override
-  final List<DistanceChartData> distanceStatsList;
+  final List<List<DailyChartData>> chartList;
 
   @override
   String toString() {
-    return 'StatsState(errMsg: $errMsg, status: $status, distanceStatsList: $distanceStatsList)';
+    return 'StatsState(errMsg: $errMsg, status: $status, chartList: $chartList)';
   }
 
   @override
@@ -162,9 +161,9 @@ class _$_StatsState implements _StatsState {
                 const DeepCollectionEquality().equals(other.errMsg, errMsg)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
-            (identical(other.distanceStatsList, distanceStatsList) ||
+            (identical(other.chartList, chartList) ||
                 const DeepCollectionEquality()
-                    .equals(other.distanceStatsList, distanceStatsList)));
+                    .equals(other.chartList, chartList)));
   }
 
   @override
@@ -172,7 +171,7 @@ class _$_StatsState implements _StatsState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(errMsg) ^
       const DeepCollectionEquality().hash(status) ^
-      const DeepCollectionEquality().hash(distanceStatsList);
+      const DeepCollectionEquality().hash(chartList);
 
   @JsonKey(ignore: true)
   @override
@@ -184,14 +183,14 @@ abstract class _StatsState implements StatsState {
   factory _StatsState(
       {String errMsg,
       StatsStatus status,
-      List<DistanceChartData> distanceStatsList}) = _$_StatsState;
+      List<List<DailyChartData>> chartList}) = _$_StatsState;
 
   @override
   String get errMsg => throw _privateConstructorUsedError;
   @override
   StatsStatus get status => throw _privateConstructorUsedError;
   @override
-  List<DistanceChartData> get distanceStatsList =>
+  List<List<DailyChartData>> get chartList =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

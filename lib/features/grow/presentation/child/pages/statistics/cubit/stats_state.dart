@@ -36,6 +36,6 @@ class StatsState with _$StatsState {
   factory StatsState({
     @Default('') String errMsg,
     @Default(StatsStatus.loading) StatsStatus status,
-    @Default(<DistanceChartData>[]) List<DistanceChartData> distanceStatsList,
+    @Default(<List<DailyChartData>>[]) List<List<DailyChartData>> chartList,
   }) = _StatsState;
 }
