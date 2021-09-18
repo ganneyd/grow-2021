@@ -24,8 +24,9 @@ Future<void> init() async {
 //!Child
 //BLOCs
 //Stats page
-  serviceLocator.registerFactory<StatsCubit>(
-      () => StatsCubit(runDetailsRepository: serviceLocator()));
+  serviceLocator.registerFactory<StatsCubit>(() => StatsCubit(
+      runDetailsRepository: serviceLocator(),
+      authenticationRepository: serviceLocator()));
 //RunPage
   serviceLocator.registerFactory<TimerCubit>(() => TimerCubit(
       authenticationRepository: serviceLocator(),
