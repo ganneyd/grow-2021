@@ -41,14 +41,28 @@ class RunRepositoryImplementation extends RunDetailsRepository {
   @override
   Future<Either<Failure, List<RunSessionEntity>>> getRunSession() async {
     try {
-      final List<RunSessionModel> models = <RunSessionModel>[];
+      final List<RunSessionModel> models = <RunSessionModel>[
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 12), distance: 500, pace: 40),
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 13), distance: 300, pace: 4),
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 14), distance: 800, pace: 20),
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 15), distance: 900, pace: 50),
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 16), distance: 100, pace: 90),
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 17), distance: 660, pace: 15),
+        RunSessionModel(
+            timeStamp: DateTime(2021, 9, 18), distance: 690, pace: 15),
+      ];
 
-      final List<Map<String, dynamic>> results =
-          await _remoteDataSource.getCollection('run-sessions');
-      for (final Map<String, dynamic> element in results) {
-        
-        models.add(RunSessionModel.fromJson(element));
-      }
+      // final List<Map<String, dynamic>> results =
+      //     await _remoteDataSource.getCollection('run-sessions');
+      // for (final Map<String, dynamic> element in results) {
+      //   models.add(RunSessionModel.fromJson(element));
+      // }
 
       return Future<Either<Failure, List<RunSessionEntity>>>.value(
           Right<Failure, List<RunSessionModel>>(models));

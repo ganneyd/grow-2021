@@ -3,42 +3,54 @@ import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 ///Chart to display [ChartData]
-class Chart<T extends ChartData> extends StatelessWidget {
+class Chart<T extends DailyChartData> extends StatelessWidget {
   ///provide the chart with the chart data
-  const Chart({required this.dataList});
+  const Chart(
+      {Color primaryColor = const Color.fromRGBO(144, 223, 43, 1),
+      Color complimentaryColor = Colors.black,
+      required this.dataList})
+      : _primaryColor = primaryColor,
+        _complimentaryColor = complimentaryColor;
 
   final List<T> dataList;
+  final Color _primaryColor;
+  final Color _complimentaryColor;
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
       primaryXAxis: CategoryAxis(
-        majorGridLines: const MajorGridLines(color: Colors.transparent),
+        arrangeByIndex: true,
+        // majorGridLines: const MajorGridLines(color: Colors.transparent),
         edgeLabelPlacement: EdgeLabelPlacement.shift,
+        title: AxisTitle(text: dataList[0].chartName),
       ),
       primaryYAxis: NumericAxis(
-          isVisible: false,
-          axisLine: const AxisLine(width: 0, color: Colors.white),
-          majorGridLines: const MajorGridLines(color: Colors.transparent),
-          minorGridLines: const MinorGridLines(color: Colors.red)),
+
+          ///isVisible: false,
+          axisLine: const AxisLine(width: 5, color: Colors.grey),
+          majorGridLines: const MajorGridLines(color: Colors.grey),
+          minorGridLines: const MinorGridLines(color: Colors.grey)),
       series: <SplineAreaSeries<T, String>>[
         SplineAreaSeries<T, String>(
-            borderColor: const Color.fromRGBO(230, 33, 75, 1),
+            borderColor: _complimentaryColor.withOpacity(0.65),
             borderWidth: 3,
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: <Color>[
-                  Color.fromRGBO(255, 31, 75, 0.5),
+                  _primaryColor
+                    ..withOpacity(0.5)
+                    ..withAlpha(150),
                   Colors.white
                 ]),
-            markerSettings: const MarkerSettings(
-                color: Colors.red,
+            markerSettings: MarkerSettings(
+                color: _complimentaryColor,
                 isVisible: true,
                 height: 15,
                 width: 15,
                 shape: DataMarkerType.circle,
                 borderWidth: 3,
-                borderColor: Colors.red),
+                borderColor: _complimentaryColor),
             dataSource: dataList,
             xValueMapper: (T data, _) => data.getXAxisValueName(),
             yValueMapper: (T data, _) => data.getYAxisValue())
@@ -48,29 +60,28 @@ class Chart<T extends ChartData> extends StatelessWidget {
 }
 
 ///Override this class to provide the chart with data
-abstract class ChartData {
+class DailyChartData {
+  ///[dateTime] is used to determine the day of the week the caculated stat
+  ///belongs to
+  ///[value] is the quantitative value for the statistic
+  ///[chartName] is the name given to chart being displayed
+  DailyChartData(
+      {required this.dateTime, required this.value, required this.chartName});
+
+  ///Date time for the stat
+  final DateTime dateTime;
+
+  ///qunatitative value for the stat
+  final double value;
+
+  ///the chart's name
+  final String chartName;
+
   ///returns the x axis name
-  String getXAxisValueName();
-
-  ///returns the y axis value
-  double getYAxisValue();
-}
-
-///Distance chart data that
-class DistanceChartData extends ChartData {
-  ///Provide the [dateTime] and the [distanceForDay] so
-  DistanceChartData({
-    required this.distanceForDay,
-    required DateTime dateTime,
-  }) : day = dateTime.weekday;
-  final int day;
-  final double distanceForDay;
-
-  @override
   String getXAxisValueName() {
-    switch (day) {
+    switch (dateTime.weekday) {
       case 1:
-        return 'Monday';
+        return 'Mon';
       case 2:
         return 'Tues';
       case 3:
@@ -88,6 +99,9 @@ class DistanceChartData extends ChartData {
     }
   }
 
-  @override
-  double getYAxisValue() => distanceForDay;
+  ///returns the y axis value
+  double getYAxisValue() => value;
+
+  ///
+  bool isHighlighted() => DateTime.now() == dateTime;
 }

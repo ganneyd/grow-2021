@@ -19,11 +19,11 @@ Future<void> main() async {
   });
   // final String host =
   //     Platform.isAndroid ? '192.168.1.2:8080' : 'http://localhost:8080';
-  await FirebaseAuth.instance.useAuthEmulator('192.168.1.58', 9099);
-  FirebaseFunctions.instance.useFunctionsEmulator('192.168.1.58', 5001);
+  await FirebaseAuth.instance.useAuthEmulator('192.168.2.185', 9099);
+  FirebaseFunctions.instance.useFunctionsEmulator('192.168.2.185', 5001);
 
   FirebaseFirestore.instance.settings = const Settings(
-    host: '192.168.1.58:8080',
+    host: '192.168.2.185:8080',
     sslEnabled: false,
   );
   await init();

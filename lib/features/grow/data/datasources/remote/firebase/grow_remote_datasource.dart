@@ -156,9 +156,9 @@ class RemoteDataSourceImplementation extends RemoteDataSource {
       //returns the query snapshot of the document retrieved
       final QuerySnapshot<Map<String, dynamic>> snapshots =
           await database.collection(collectionName).get();
-      if (snapshots.docs.isEmpty) {
-        throw Exception();
-      }
+      // if (snapshots.docs.isEmpty) {
+      //   throw Exception();
+      // }
       jsonList = _getJsonList(snapshots);
       _remoteDatabaseLogger.finest(jsonList);
       return Future<List<Map<String, dynamic>>>.value(jsonList);

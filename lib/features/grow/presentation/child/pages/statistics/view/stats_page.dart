@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/chart.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/date_slider.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/sliver_app_bar_with_shape.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/statistics/cubit/stats_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/statistics/cubit/stats_state.dart';
@@ -22,11 +23,14 @@ class StatsPage extends StatelessWidget {
           if (state.status.isLoading()) {
             return SplashPage();
           } else if (state.status.loadedUnsuccessfully()) {
-            return Text(state.errMsg);
+            return Scaffold(
+                appBar: AppBar(), body: Center(child: Text(state.errMsg)));
           } else if (state.status.loadedSuccessfully() &&
-              state.distanceStatsList.isNotEmpty) {
+              state.chartList.isNotEmpty) {
             return Theme(
-                data: ThemeData(accentColor: Theme.of(context).primaryColor),
+                data: ThemeData(
+                    colorScheme: ColorScheme.fromSwatch()
+                        .copyWith(secondary: Theme.of(context).primaryColor)),
                 child: Scaffold(
                   body: CustomScrollView(
                     controller: _myScrollController,
@@ -39,11 +43,13 @@ class StatsPage extends StatelessWidget {
                           background: Align(
                             child: Text(state.status.toString()),
                           )),
+                      DateSlider(dateCallback: (int index) {}),
                       SliverList(delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                        return Chart<DistanceChartData>(
-                          dataList: state.distanceStatsList,
-                        );
+                        if (index < state.chartList.length) {
+                          return Chart<DailyChartData>(
+                              dataList: state.chartList[index]);
+                        }
                       }))
                     ],
                   ),

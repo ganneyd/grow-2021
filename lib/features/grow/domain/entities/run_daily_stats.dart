@@ -25,4 +25,36 @@ class RunDailyStatsEntity {
     }
     return distance;
   }
+
+  double getMaxDistance() {
+    double max = 0;
+    for (final RunSessionEntity runSessionEntity in runSessions) {
+      if (runSessionEntity.distance > max) {
+        max = runSessionEntity.distance;
+      }
+    }
+    return max;
+  }
+
+  double getAvgPace() {
+    double avgPace = 0;
+    for (final RunSessionEntity runSessionEntity in runSessions) {
+      avgPace += runSessionEntity.pace;
+    }
+    return avgPace /= runSessions.length;
+  }
+
+  double getMaxPace() {
+    double maxPace = 0;
+    for (final RunSessionEntity runSessionEntity in runSessions) {
+      if (runSessionEntity.pace > maxPace) {
+        maxPace = runSessionEntity.pace;
+      }
+    }
+    return maxPace;
+  }
+
+  int getNumRunSessions() {
+    return runSessions.length;
+  }
 }

@@ -31,23 +31,23 @@ class GetSessionByDay implements UseCase<List<RunDailyStatsEntity>, Params> {
       if (runDetsList.isNotEmpty) {
         //TODO might not sort sessions according to date, make sure they are
         DateTime dateTime = runDetsList.first.timeStamp;
+        runStatsList.add(RunDailyStatsEntity(
+            date: dateTime,
+            runSessions: <RunSessionEntity>[runDetsList.first]));
         for (final RunSessionEntity runDetailsEntity in runDetsList) {
+          print('This is the entity date ${runDetailsEntity.timeStamp}');
           if (dateTime.day == runDetailsEntity.timeStamp.day) {
-            if (runStatsList.isEmpty) {
-              runStatsList.add(RunDailyStatsEntity(
-                  date: dateTime,
-                  runSessions: <RunSessionEntity>[runDetailsEntity]));
-            } else {
+            if (!runStatsList.last.runSessions.contains(runDetailsEntity)) {
               runStatsList.last.runSessions.add(runDetailsEntity);
             }
           } else {
+            dateTime = runDetailsEntity.timeStamp;
             runStatsList.add(RunDailyStatsEntity(
                 date: dateTime,
                 runSessions: <RunSessionEntity>[runDetailsEntity]));
-            dateTime = runDetailsEntity.timeStamp;
           }
         }
-        return Future.value(
+        return Future<Either<Failure, List<RunDailyStatsEntity>>>.value(
             Right<Failure, List<RunDailyStatsEntity>>(runStatsList));
       } else {
         return const Left<Failure, List<RunDailyStatsEntity>>(
