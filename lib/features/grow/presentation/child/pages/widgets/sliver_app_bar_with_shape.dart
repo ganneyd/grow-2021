@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,10 +84,19 @@ class _SliverAppBarWithShapeState extends State<SliverAppBarWithShape> {
       expandedHeight: 300,
       flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
-          title: Text(sliverCollapsed ? '' : widget._titleName),
+          title: Transform(
+              transform: Matrix4.rotationZ(7 * pi / 180),
+              child: ClipPath(
+                  clipBehavior: Clip.hardEdge,
+                  clipper:
+                      RectangleClipping(slantRight: widget._isSlantedRight),
+                  child: Container(
+                    color: Colors.pink,
+                    height: 45,
+                  ))),
           background: ClipPath(
               clipBehavior: Clip.hardEdge,
-              clipper: RectangleClipping(slantRight: widget._isSlantedRight),
+              clipper: RectangleClipping(),
               child: widget._background)),
       centerTitle: true,
     );
