@@ -15,12 +15,12 @@ class _DateSliderState extends State<DateSlider> {
   final PageController _pageController = PageController();
 
   int numberOfDays() =>
-      (DateTime.now()
+      DateTime.now()
           .difference(DateTime(
             DateTime.now().year,
           ))
-          .inDays) +
-      (7 - DateTime.now().weekday);
+          .inDays +
+      (7 - DateTime.now().day);
 
   List<Widget> dateWidgets = <Widget>[];
   @override
@@ -41,11 +41,16 @@ class _DateSliderState extends State<DateSlider> {
         ),
       );
     });
-    return SliverAnimatedList(
-        initialItemCount: dateWidgets.length,
-        itemBuilder: (context, index, animation) {
-          return dateWidgets[index];
-        });
+
+    return PageView(
+        controller: _pageController,
+        onPageChanged: (int index) {
+          setState(() {
+            currentIndex = index;
+          });
+          widget.dateCallback(index);
+        },
+        children: dateWidgets);
   }
 
   String getMonth(month) {
