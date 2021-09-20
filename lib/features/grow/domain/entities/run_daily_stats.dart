@@ -20,8 +20,10 @@ class RunDailyStatsEntity {
   ///returns the total distance covered by the sessions
   double getDistance() {
     double distance = 0;
-    for (final RunSessionEntity runSessionEntity in runSessions) {
-      distance += runSessionEntity.distance;
+    if (runSessions.isNotEmpty) {
+      for (final RunSessionEntity runSessionEntity in runSessions) {
+        distance += runSessionEntity.distance;
+      }
     }
     return distance;
   }
@@ -38,10 +40,13 @@ class RunDailyStatsEntity {
 
   double getAvgPace() {
     double avgPace = 0;
-    for (final RunSessionEntity runSessionEntity in runSessions) {
-      avgPace += runSessionEntity.pace;
+    if (runSessions.isNotEmpty) {
+      for (final RunSessionEntity runSessionEntity in runSessions) {
+        avgPace += runSessionEntity.pace;
+      }
+      avgPace /= runSessions.length;
     }
-    return avgPace /= runSessions.length;
+    return avgPace;
   }
 
   double getMaxPace() {
@@ -56,5 +61,9 @@ class RunDailyStatsEntity {
 
   int getNumRunSessions() {
     return runSessions.length;
+  }
+
+  double getDuration() {
+    return 0;
   }
 }
