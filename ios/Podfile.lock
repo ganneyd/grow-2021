@@ -417,7 +417,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: cad03be1904b975f845e632f2720c3337da27faf
   FirebaseFirestore: f4f42828c6d82f6945575611c23dd343e0e7d0aa
   FirebaseFunctions: f391cdeef45d2e85ef4e16a6ecca05f30e162c41
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   geolocator_apple: 60a1c3f5930c090d2f5164ba8bf25f4f89121e3c
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
@@ -437,4 +437,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 21b64fbb12492d731c9be90cbe0f2d328bef4b49
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.10.1
