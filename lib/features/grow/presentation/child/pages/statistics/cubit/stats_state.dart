@@ -37,5 +37,10 @@ class StatsState with _$StatsState {
     @Default('') String errMsg,
     @Default(StatsStatus.loading) StatsStatus status,
     @Default(<List<DailyChartData>>[]) List<List<DailyChartData>> chartList,
+    @Default(<RunDailyStatsEntity>[]) List<RunDailyStatsEntity> displayList,
+    @Default(0) int maxDay,
+    @Default(0) int minDay,
+    @Default(0) int month,
+    @Default(0) int numberOfDays,
   }) = _StatsState;
 }

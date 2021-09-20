@@ -19,11 +19,21 @@ class _$StatsStateTearOff {
   _StatsState call(
       {String errMsg = '',
       StatsStatus status = StatsStatus.loading,
-      List<List<DailyChartData>> chartList = const <List<DailyChartData>>[]}) {
+      List<List<DailyChartData>> chartList = const <List<DailyChartData>>[],
+      List<RunDailyStatsEntity> displayList = const <RunDailyStatsEntity>[],
+      int maxDay = 0,
+      int minDay = 0,
+      int month = 0,
+      int numberOfDays = 0}) {
     return _StatsState(
       errMsg: errMsg,
       status: status,
       chartList: chartList,
+      displayList: displayList,
+      maxDay: maxDay,
+      minDay: minDay,
+      month: month,
+      numberOfDays: numberOfDays,
     );
   }
 }
@@ -37,6 +47,12 @@ mixin _$StatsState {
   StatsStatus get status => throw _privateConstructorUsedError;
   List<List<DailyChartData>> get chartList =>
       throw _privateConstructorUsedError;
+  List<RunDailyStatsEntity> get displayList =>
+      throw _privateConstructorUsedError;
+  int get maxDay => throw _privateConstructorUsedError;
+  int get minDay => throw _privateConstructorUsedError;
+  int get month => throw _privateConstructorUsedError;
+  int get numberOfDays => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StatsStateCopyWith<StatsState> get copyWith =>
@@ -51,7 +67,12 @@ abstract class $StatsStateCopyWith<$Res> {
   $Res call(
       {String errMsg,
       StatsStatus status,
-      List<List<DailyChartData>> chartList});
+      List<List<DailyChartData>> chartList,
+      List<RunDailyStatsEntity> displayList,
+      int maxDay,
+      int minDay,
+      int month,
+      int numberOfDays});
 }
 
 /// @nodoc
@@ -67,6 +88,11 @@ class _$StatsStateCopyWithImpl<$Res> implements $StatsStateCopyWith<$Res> {
     Object? errMsg = freezed,
     Object? status = freezed,
     Object? chartList = freezed,
+    Object? displayList = freezed,
+    Object? maxDay = freezed,
+    Object? minDay = freezed,
+    Object? month = freezed,
+    Object? numberOfDays = freezed,
   }) {
     return _then(_value.copyWith(
       errMsg: errMsg == freezed
@@ -81,6 +107,26 @@ class _$StatsStateCopyWithImpl<$Res> implements $StatsStateCopyWith<$Res> {
           ? _value.chartList
           : chartList // ignore: cast_nullable_to_non_nullable
               as List<List<DailyChartData>>,
+      displayList: displayList == freezed
+          ? _value.displayList
+          : displayList // ignore: cast_nullable_to_non_nullable
+              as List<RunDailyStatsEntity>,
+      maxDay: maxDay == freezed
+          ? _value.maxDay
+          : maxDay // ignore: cast_nullable_to_non_nullable
+              as int,
+      minDay: minDay == freezed
+          ? _value.minDay
+          : minDay // ignore: cast_nullable_to_non_nullable
+              as int,
+      month: month == freezed
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int,
+      numberOfDays: numberOfDays == freezed
+          ? _value.numberOfDays
+          : numberOfDays // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -94,7 +140,12 @@ abstract class _$StatsStateCopyWith<$Res> implements $StatsStateCopyWith<$Res> {
   $Res call(
       {String errMsg,
       StatsStatus status,
-      List<List<DailyChartData>> chartList});
+      List<List<DailyChartData>> chartList,
+      List<RunDailyStatsEntity> displayList,
+      int maxDay,
+      int minDay,
+      int month,
+      int numberOfDays});
 }
 
 /// @nodoc
@@ -112,6 +163,11 @@ class __$StatsStateCopyWithImpl<$Res> extends _$StatsStateCopyWithImpl<$Res>
     Object? errMsg = freezed,
     Object? status = freezed,
     Object? chartList = freezed,
+    Object? displayList = freezed,
+    Object? maxDay = freezed,
+    Object? minDay = freezed,
+    Object? month = freezed,
+    Object? numberOfDays = freezed,
   }) {
     return _then(_StatsState(
       errMsg: errMsg == freezed
@@ -126,6 +182,26 @@ class __$StatsStateCopyWithImpl<$Res> extends _$StatsStateCopyWithImpl<$Res>
           ? _value.chartList
           : chartList // ignore: cast_nullable_to_non_nullable
               as List<List<DailyChartData>>,
+      displayList: displayList == freezed
+          ? _value.displayList
+          : displayList // ignore: cast_nullable_to_non_nullable
+              as List<RunDailyStatsEntity>,
+      maxDay: maxDay == freezed
+          ? _value.maxDay
+          : maxDay // ignore: cast_nullable_to_non_nullable
+              as int,
+      minDay: minDay == freezed
+          ? _value.minDay
+          : minDay // ignore: cast_nullable_to_non_nullable
+              as int,
+      month: month == freezed
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int,
+      numberOfDays: numberOfDays == freezed
+          ? _value.numberOfDays
+          : numberOfDays // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -136,7 +212,12 @@ class _$_StatsState implements _StatsState {
   _$_StatsState(
       {this.errMsg = '',
       this.status = StatsStatus.loading,
-      this.chartList = const <List<DailyChartData>>[]});
+      this.chartList = const <List<DailyChartData>>[],
+      this.displayList = const <RunDailyStatsEntity>[],
+      this.maxDay = 0,
+      this.minDay = 0,
+      this.month = 0,
+      this.numberOfDays = 0});
 
   @JsonKey(defaultValue: '')
   @override
@@ -147,10 +228,25 @@ class _$_StatsState implements _StatsState {
   @JsonKey(defaultValue: const <List<DailyChartData>>[])
   @override
   final List<List<DailyChartData>> chartList;
+  @JsonKey(defaultValue: const <RunDailyStatsEntity>[])
+  @override
+  final List<RunDailyStatsEntity> displayList;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int maxDay;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int minDay;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int month;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int numberOfDays;
 
   @override
   String toString() {
-    return 'StatsState(errMsg: $errMsg, status: $status, chartList: $chartList)';
+    return 'StatsState(errMsg: $errMsg, status: $status, chartList: $chartList, displayList: $displayList, maxDay: $maxDay, minDay: $minDay, month: $month, numberOfDays: $numberOfDays)';
   }
 
   @override
@@ -163,7 +259,19 @@ class _$_StatsState implements _StatsState {
                 const DeepCollectionEquality().equals(other.status, status)) &&
             (identical(other.chartList, chartList) ||
                 const DeepCollectionEquality()
-                    .equals(other.chartList, chartList)));
+                    .equals(other.chartList, chartList)) &&
+            (identical(other.displayList, displayList) ||
+                const DeepCollectionEquality()
+                    .equals(other.displayList, displayList)) &&
+            (identical(other.maxDay, maxDay) ||
+                const DeepCollectionEquality().equals(other.maxDay, maxDay)) &&
+            (identical(other.minDay, minDay) ||
+                const DeepCollectionEquality().equals(other.minDay, minDay)) &&
+            (identical(other.month, month) ||
+                const DeepCollectionEquality().equals(other.month, month)) &&
+            (identical(other.numberOfDays, numberOfDays) ||
+                const DeepCollectionEquality()
+                    .equals(other.numberOfDays, numberOfDays)));
   }
 
   @override
@@ -171,7 +279,12 @@ class _$_StatsState implements _StatsState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(errMsg) ^
       const DeepCollectionEquality().hash(status) ^
-      const DeepCollectionEquality().hash(chartList);
+      const DeepCollectionEquality().hash(chartList) ^
+      const DeepCollectionEquality().hash(displayList) ^
+      const DeepCollectionEquality().hash(maxDay) ^
+      const DeepCollectionEquality().hash(minDay) ^
+      const DeepCollectionEquality().hash(month) ^
+      const DeepCollectionEquality().hash(numberOfDays);
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +296,12 @@ abstract class _StatsState implements StatsState {
   factory _StatsState(
       {String errMsg,
       StatsStatus status,
-      List<List<DailyChartData>> chartList}) = _$_StatsState;
+      List<List<DailyChartData>> chartList,
+      List<RunDailyStatsEntity> displayList,
+      int maxDay,
+      int minDay,
+      int month,
+      int numberOfDays}) = _$_StatsState;
 
   @override
   String get errMsg => throw _privateConstructorUsedError;
@@ -192,6 +310,17 @@ abstract class _StatsState implements StatsState {
   @override
   List<List<DailyChartData>> get chartList =>
       throw _privateConstructorUsedError;
+  @override
+  List<RunDailyStatsEntity> get displayList =>
+      throw _privateConstructorUsedError;
+  @override
+  int get maxDay => throw _privateConstructorUsedError;
+  @override
+  int get minDay => throw _privateConstructorUsedError;
+  @override
+  int get month => throw _privateConstructorUsedError;
+  @override
+  int get numberOfDays => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$StatsStateCopyWith<_StatsState> get copyWith =>
