@@ -36,6 +36,11 @@ class StatsPage extends StatelessWidget {
                     controller: _myScrollController,
                     slivers: <Widget>[
                       SliverAppBarWithShape(
+                          slider: DateSlider(
+                            numberOfDays: state.numberOfDays,
+                            dateCallback: (index) =>
+                                context.read<StatsCubit>().dateChanged(index),
+                          ),
                           pageName: 'Stats',
                           scrollController: _myScrollController,
                           titleName: 'Goals',
@@ -43,7 +48,6 @@ class StatsPage extends StatelessWidget {
                           background: Align(
                             child: Text(state.status.toString()),
                           )),
-                      DateSlider(dateCallback: (int index) {}),
                       SliverList(delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                         if (index < state.chartList.length) {
