@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/date_slider.dart';
 import 'package:grow_run_v1/features/grow/presentation/widgets/app_bar_icons.dart';
 
 ///
@@ -14,6 +15,7 @@ class SliverAppBarWithShape extends StatefulWidget {
       required String titleName,
       required Widget background,
       required String pageName,
+      Widget slider = const SizedBox.shrink(),
       bool slantedRight = true,
       Color? backgroundColor})
       : _scrollController = scrollController,
@@ -22,10 +24,12 @@ class SliverAppBarWithShape extends StatefulWidget {
         _isSlantedRight = slantedRight,
         _background = background,
         _backgroundColor = backgroundColor,
+        _slider = slider,
         super(key: key);
   final ScrollController _scrollController;
   final String _titleName;
   final Widget _background;
+  final Widget _slider;
   final Color? _backgroundColor;
   final String _pageName;
   final bool _isSlantedRight;
@@ -36,9 +40,13 @@ class SliverAppBarWithShape extends StatefulWidget {
 class _SliverAppBarWithShapeState extends State<SliverAppBarWithShape> {
   bool sliverCollapsed = false;
   String myTitle = 'TEst';
-
+  double angle = 0;
+  final double containerSize = 60;
+  final double expandedSize = 400;
   @override
   Widget build(BuildContext context) {
+    angle = atan(50 / MediaQuery.of(context).size.width) *
+        (widget._isSlantedRight ? 1 : -1);
     widget._scrollController.addListener(() {
       if (widget._scrollController.offset > 220 &&
           !widget._scrollController.position.outOfRange) {
@@ -81,22 +89,56 @@ class _SliverAppBarWithShapeState extends State<SliverAppBarWithShape> {
                 ),
               ])),
       backgroundColor: widget._backgroundColor,
-      expandedHeight: 300,
+      collapsedHeight: kToolbarHeight + containerSize,
+      expandedHeight: expandedSize,
       flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
           title: Transform(
-              transform: Matrix4.rotationZ(7 * pi / 180),
-              child: ClipPath(
-                  clipBehavior: Clip.hardEdge,
-                  clipper:
-                      RectangleClipping(slantRight: widget._isSlantedRight),
-                  child: Container(
-                    color: Colors.pink,
-                    height: 45,
-                  ))),
+              transform: sliverCollapsed
+                  ? Matrix4(
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      15.8,
+                      0,
+                      1,
+                    )
+                  : Matrix4(
+                      1,
+                      angle,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      widget._isSlantedRight ? -22.5 : 10.7,
+                      0,
+                      1,
+                    ),
+              child: Container(
+                color: const Color.fromRGBO(0, 0, 0, 0.25),
+                height: containerSize,
+                child: widget._slider,
+              )),
           background: ClipPath(
               clipBehavior: Clip.hardEdge,
-              clipper: RectangleClipping(),
+              clipper: const RectangleClipping(),
               child: widget._background)),
       centerTitle: true,
     );
