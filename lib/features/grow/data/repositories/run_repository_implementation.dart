@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:grow_run_v1/features/grow/data/datasources/remote/firebase/grow_remote_datasource.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_details_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/goal/goal_entity.dart';
@@ -41,22 +43,15 @@ class RunRepositoryImplementation extends RunDetailsRepository {
   @override
   Future<Either<Failure, List<RunSessionEntity>>> getRunSession() async {
     try {
-      final List<RunSessionModel> models = <RunSessionModel>[
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 12), distance: 500, pace: 40),
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 13), distance: 300, pace: 4),
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 14), distance: 800, pace: 20),
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 15), distance: 900, pace: 50),
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 16), distance: 100, pace: 90),
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 17), distance: 660, pace: 15),
-        RunSessionModel(
-            timeStamp: DateTime(2021, 9, 18), distance: 690, pace: 15),
-      ];
+      final List<RunSessionModel> models = List<RunSessionModel>.generate(
+        50,
+        (int index) => RunSessionModel(
+          timeStamp: DateTime.now()
+              .subtract(Duration(days: 50 - (index - Random().nextInt(5)))),
+          pace: Random().nextDouble() * 50,
+          distance: Random().nextDouble() * 2000,
+        ),
+      );
 
       // final List<Map<String, dynamic>> results =
       //     await _remoteDataSource.getCollection('run-sessions');
