@@ -18,20 +18,34 @@ class Chart<T extends DailyChartData> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      plotAreaBorderColor: Colors.transparent,
+      borderColor: Colors.transparent,
+      borderWidth: 0,
       primaryXAxis: CategoryAxis(
+        labelStyle: Theme.of(context).textTheme.headline6,
         arrangeByIndex: true,
-        // majorGridLines: const MajorGridLines(color: Colors.transparent),
+        majorGridLines: const MajorGridLines(color: Colors.transparent),
         edgeLabelPlacement: EdgeLabelPlacement.shift,
         title: AxisTitle(text: dataList[0].chartName),
       ),
       primaryYAxis: NumericAxis(
-
-          ///isVisible: false,
-          axisLine: const AxisLine(width: 5, color: Colors.grey),
-          majorGridLines: const MajorGridLines(color: Colors.grey),
-          minorGridLines: const MinorGridLines(color: Colors.grey)),
+          labelStyle: Theme.of(context).textTheme.headline6,
+          minimum: 0,
+          decimalPlaces: 0,
+          anchorRangeToVisiblePoints: true,
+          desiredIntervals: 5,
+          rangePadding: ChartRangePadding.additional,
+          isVisible: false,
+          axisLine: const AxisLine(width: 0, color: Colors.transparent),
+          majorGridLines: const MajorGridLines(color: Colors.transparent),
+          minorGridLines: const MinorGridLines(color: Colors.transparent)),
       series: <SplineAreaSeries<T, String>>[
         SplineAreaSeries<T, String>(
+            enableTooltip: true,
+            onPointTap: (ChartPointDetails details) {
+              print(
+                  'This is the point series index ${details.seriesIndex}, and its point index: ${details.pointIndex} ');
+            },
             borderColor: _complimentaryColor.withOpacity(0.65),
             borderWidth: 3,
             gradient: LinearGradient(
@@ -81,19 +95,19 @@ class DailyChartData {
   String getXAxisValueName() {
     switch (dateTime.weekday) {
       case 1:
-        return 'Mon';
+        return 'M';
       case 2:
-        return 'Tues';
+        return 'T';
       case 3:
-        return 'Weds';
+        return 'W';
       case 4:
-        return 'Thurs';
+        return 'T';
       case 5:
-        return 'Fri';
+        return 'F';
       case 6:
-        return 'Sat';
+        return 'S';
       case 7:
-        return 'Sun';
+        return 'S';
       default:
         return 'Unknown';
     }
