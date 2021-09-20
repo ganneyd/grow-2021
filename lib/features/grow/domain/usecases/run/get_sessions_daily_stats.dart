@@ -18,9 +18,29 @@ class GetSessionByDay implements UseCase<List<RunDailyStatsEntity>, Params> {
         _authenticationRepository = authenticationRepository;
   final RunDetailsRepository _runDetailsRepository;
   final AuthenticationRepository _authenticationRepository;
+  List<RunDailyStatsEntity> getDailyStats(List<RunSessionEntity> sessionList) {
+    List<RunDailyStatsEntity> runStatsList = <RunDailyStatsEntity>[];
+    //TODO might not sort sessions according to date, make sure they are
+    DateTime dateTime = sessionList.first.timeStamp;
+    runStatsList.add(RunDailyStatsEntity(
+        date: dateTime, runSessions: <RunSessionEntity>[sessionList.first]));
+    for (final RunSessionEntity runDetailsEntity in sessionList) {
+      print('This is the entity date ${runDetailsEntity.timeStamp}');
+      if (dateTime.day == runDetailsEntity.timeStamp.day) {
+        if (!runStatsList.last.runSessions.contains(runDetailsEntity)) {
+          runStatsList.last.runSessions.add(runDetailsEntity);
+        }
+      } else {
+        dateTime = runDetailsEntity.timeStamp;
+        runStatsList.add(RunDailyStatsEntity(
+            date: dateTime, runSessions: <RunSessionEntity>[runDetailsEntity]));
+      }
+    }
+    return runStatsList;
+  }
+
   @override
   Future<Either<Failure, List<RunDailyStatsEntity>>> call(Params params) async {
-    final List<RunDailyStatsEntity> runStatsList = <RunDailyStatsEntity>[];
     Either<Failure, List<RunSessionEntity>> results =
         await _runDetailsRepository.getRunSession();
 
@@ -28,27 +48,15 @@ class GetSessionByDay implements UseCase<List<RunDailyStatsEntity>, Params> {
         (_) =>
             const Left<Failure, List<RunDailyStatsEntity>>(FetchDataFailure()),
         (List<RunSessionEntity> runDetsList) {
-      if (runDetsList.isNotEmpty) {
-        //TODO might not sort sessions according to date, make sure they are
-        DateTime dateTime = runDetsList.first.timeStamp;
-        runStatsList.add(RunDailyStatsEntity(
-            date: dateTime,
-            runSessions: <RunSessionEntity>[runDetsList.first]));
-        for (final RunSessionEntity runDetailsEntity in runDetsList) {
-          print('This is the entity date ${runDetailsEntity.timeStamp}');
-          if (dateTime.day == runDetailsEntity.timeStamp.day) {
-            if (!runStatsList.last.runSessions.contains(runDetailsEntity)) {
-              runStatsList.last.runSessions.add(runDetailsEntity);
-            }
-          } else {
-            dateTime = runDetailsEntity.timeStamp;
-            runStatsList.add(RunDailyStatsEntity(
-                date: dateTime,
-                runSessions: <RunSessionEntity>[runDetailsEntity]));
-          }
-        }
+      List<RunSessionEntity> sessionList = params.list;
+      if (sessionList.isEmpty) {
+        sessionList = runDetsList;
+      }
+
+      if (sessionList.isNotEmpty) {
         return Future<Either<Failure, List<RunDailyStatsEntity>>>.value(
-            Right<Failure, List<RunDailyStatsEntity>>(runStatsList));
+            Right<Failure, List<RunDailyStatsEntity>>(
+                getDailyStats(sessionList)));
       } else {
         return const Left<Failure, List<RunDailyStatsEntity>>(
             FetchDataFailure(errMsg: 'Data set is empty'));
@@ -61,12 +69,14 @@ class GetSessionByDay implements UseCase<List<RunDailyStatsEntity>, Params> {
 class Params extends Equatable {
   ///[isWeekly] true if the stats should be calculated for the week
   ///or for a day to day basis [false]
-  const Params({required this.isWeekly});
+  const Params(
+      {required this.isWeekly, this.list = const <RunSessionEntity>[]});
 
   ///whether the stats if for the week[true] or for a day [false]
   final bool isWeekly;
+  final List<RunSessionEntity> list;
 
   @override
   // TODO: implement props
-  List<Object?> get props => <Object>[isWeekly];
+  List<Object?> get props => <Object>[isWeekly, list];
 }
