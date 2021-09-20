@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 ///Widget that displays the dates in a left to right horizontal manner
 class DateSlider extends StatefulWidget {
   ///
-  DateSlider({required this.dateCallback, Key? key}) : super(key: key);
+  DateSlider({required this.dateCallback, required this.numberOfDays, Key? key})
+      : super(key: key);
+
+  final int numberOfDays;
 
   DateCallback dateCallback;
   @override
@@ -12,40 +15,66 @@ class DateSlider extends StatefulWidget {
 
 class _DateSliderState extends State<DateSlider> {
   int currentIndex = 0;
-  final PageController _pageController = PageController();
+  late PageController _pageController;
 
-  int numberOfDays() =>
-      (DateTime.now()
-          .difference(DateTime(
-            DateTime.now().year,
-          ))
-          .inDays) +
-      (7 - DateTime.now().weekday);
+  @override
+  void initState() {
+    currentIndex = widget.numberOfDays - 1;
+    _pageController =
+        PageController(initialPage: currentIndex, viewportFraction: .25);
+    super.initState();
+  }
 
   List<Widget> dateWidgets = <Widget>[];
   @override
   Widget build(BuildContext context) {
-    dateWidgets = List<Widget>.generate(numberOfDays(), (int index) {
-      DateTime todaysDate =
-          DateTime(DateTime.now().year).add(Duration(days: index));
-      return Container(
-        decoration: BoxDecoration(
-            color: todaysDate == DateTime.now()
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).cardColor),
-        child: Column(
-          children: [
-            Text(getMonth(todaysDate.month)),
-            Text(' ${todaysDate.day}'),
-          ],
+    dateWidgets = List<Widget>.generate(widget.numberOfDays, (int index) {
+      final DateTime todaysDate =
+          DateTime(DateTime.now().year).add(Duration(days: index + 1));
+
+      return Padding(
+        padding: index == currentIndex ? EdgeInsets.all(4) : EdgeInsets.all(8),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: (index == currentIndex)
+                ? Colors.white
+                : const Color.fromRGBO(144, 223, 43, 1),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Flexible(
+                child: Center(
+                    child: Text(
+                  getMonth(todaysDate.month),
+                  style: TextStyle(
+                      color:
+                          index == currentIndex ? Colors.black : Colors.white),
+                )),
+              ),
+              Flexible(
+                  child: Center(
+                      child: Text(
+                ' ${todaysDate.day}',
+                style: TextStyle(
+                    color: index == currentIndex ? Colors.black : Colors.white),
+              ))),
+            ],
+          ),
         ),
       );
     });
-    return SliverAnimatedList(
-        initialItemCount: dateWidgets.length,
-        itemBuilder: (context, index, animation) {
-          return dateWidgets[index];
-        });
+
+    return PageView(
+        controller: _pageController,
+        onPageChanged: (int index) {
+          setState(() {
+            currentIndex = index;
+          });
+          widget.dateCallback(index);
+        },
+        children: dateWidgets);
   }
 
   String getMonth(month) {
