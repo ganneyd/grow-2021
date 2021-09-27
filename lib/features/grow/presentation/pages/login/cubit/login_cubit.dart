@@ -27,4 +27,6 @@ class LoginPageCubit extends Cubit<LoginPageState> {
             status: LoginStateStatus.submittedUnsuccessfully),
         (_) => state.copyWith(status: LoginStateStatus.submittedSuccessfully)));
   }
+
+
 }

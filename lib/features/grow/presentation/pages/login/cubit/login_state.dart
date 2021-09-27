@@ -3,7 +3,7 @@ part 'login_state.freezed.dart';
 
 ///
 enum LoginStateStatus {
-  ///Inital state
+  ///Initial state
   unknown,
 
   ///The login form is being submitted
