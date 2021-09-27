@@ -112,5 +112,14 @@ class MockAuthenticationRepository extends _i1.Mock
               returnValue: _FakeEither<_i6.Failure, String>())
           as _i2.Either<_i6.Failure, String>);
   @override
+  _i4.Future<_i2.Either<_i6.Failure, void>> resetPassword(
+          {String? email, String? newPassword}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #resetPassword, [], {#email: email, #newPassword: newPassword}),
+          returnValue: Future<_i2.Either<_i6.Failure, void>>.value(
+              _FakeEither<_i6.Failure, void>())) as _i4
+          .Future<_i2.Either<_i6.Failure, void>>);
+  @override
   String toString() => super.toString();
 }

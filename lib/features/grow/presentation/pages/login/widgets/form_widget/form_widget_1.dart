@@ -28,6 +28,17 @@ class LoginForm extends StatelessWidget {
                 formControlName: 'password',
                 decoration: const InputDecoration(hintText: 'Password'),
               ),
+              CupertinoButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/reset_password'),
+                child: Text(
+                  'Forgot password?',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
               ElevatedButton(
                 onPressed: () => form.valid
                     ? handler(form.control('email').value.toString(),

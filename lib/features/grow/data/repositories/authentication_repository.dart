@@ -268,4 +268,19 @@ ${e.plugin} ${e.stackTrace}''', e, e.stackTrace);
           AuthenticationFailure(errMsg: "Couldn't get user id"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> resetPassword(
+      {required String email, String? newPassword}) {
+    try {
+      return Future<Either<Failure, void>>.value(Right<Failure, void>(
+          _firebaseAuth.sendPasswordResetEmail(email: email)));
+    } catch (e) {
+      _authLogger.severe('Exception encounter $e');
+
+      return Future<Either<Failure, void>>.value(const Left<Failure, void>(
+          AuthenticationFailure(
+              errMsg: 'Unable to reset your password, please try again')));
+    }
+  }
 }

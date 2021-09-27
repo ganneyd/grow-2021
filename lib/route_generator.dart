@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grow_run_v1/features/grow/presentation/pages/forgot_password/view/reset_page.dart';
 import 'package:grow_run_v1/features/grow/presentation/parent/pages/home/view/home_page.dart'
     as parent_view;
 import 'features/grow/presentation/child/views_bucket.dart' as child_view;
@@ -16,6 +17,9 @@ class RouteGenerator {
     switch (settings.name) {
       case '/login':
         return MaterialPageRoute<void>(builder: (_) => const LoginPage());
+      case '/reset_password':
+        return MaterialPageRoute<void>(
+            builder: (_) => const ResetPasswordPage());
       //**********************Child routes************************************
       case '/child/goals':
         return MaterialPageRoute<void>(builder: (_) => child_view.GoalsPage());

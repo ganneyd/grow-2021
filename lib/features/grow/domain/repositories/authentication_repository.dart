@@ -64,4 +64,10 @@ abstract class AuthenticationRepository {
 
   ///get the current user id
   Either<Failure, String> getCurrentUserID();
+
+  ///resets the user's password
+  ///if provided the [newPassword] then that becomes the new
+  ///if not a reset link is sent to the [email]
+  Future<Either<Failure, void>> resetPassword(
+      {required String email, String? newPassword});
 }
