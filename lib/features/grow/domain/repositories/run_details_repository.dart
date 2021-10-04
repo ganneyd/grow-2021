@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/entities_bucket.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/level_data/level_data_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_details_entity.dart';
 
 ///Handles the run session details

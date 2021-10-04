@@ -47,9 +47,12 @@ class LoginPageBody extends StatelessWidget {
         if (state.status == LoginStateStatus.submittedSuccessfully) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
+            ..showSnackBar(
+              SnackBar(
                 content: const Text('Found your profile'),
-                backgroundColor: Theme.of(context).primaryColor));
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+            );
         }
       }
     }, builder: (BuildContext context, LoginPageState state) {

@@ -270,17 +270,27 @@ ${e.plugin} ${e.stackTrace}''', e, e.stackTrace);
   }
 
   @override
-  Future<Either<Failure, void>> resetPassword(
-      {required String email, String? newPassword}) {
+  Future<Either<Failure, void>> resetPassword({
+    required String email,
+    String? newPassword,
+  }) {
     try {
-      return Future<Either<Failure, void>>.value(Right<Failure, void>(
-          _firebaseAuth.sendPasswordResetEmail(email: email)));
+      _authLogger.info('Resetting password... email is $email');
+      return Future<Either<Failure, void>>.value(
+        Right<Failure, void>(
+          _firebaseAuth.sendPasswordResetEmail(email: email),
+        ),
+      );
     } catch (e) {
-      _authLogger.severe('Exception encounter $e');
+      _authLogger.severe('Exception in resetting password encounter $e');
 
-      return Future<Either<Failure, void>>.value(const Left<Failure, void>(
+      return Future<Either<Failure, void>>.value(
+        const Left<Failure, void>(
           AuthenticationFailure(
-              errMsg: 'Unable to reset your password, please try again')));
+            errMsg: 'Unable to reset your password, please try again',
+          ),
+        ),
+      );
     }
   }
 }

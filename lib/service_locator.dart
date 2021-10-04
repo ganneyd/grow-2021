@@ -9,10 +9,12 @@ import 'package:grow_run_v1/features/grow/domain/repositories/authentication_rep
 import 'package:grow_run_v1/features/grow/domain/repositories/grow_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/location_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/run_details_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/usecases/authentication/reset_password.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/run/widgets/sub_cubit/timer_cubit.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/statistics/cubit/stats_cubit.dart';
 
 import 'features/grow/data/repositories/run_repository_implementation.dart';
+import 'features/grow/presentation/pages/forgot_password/cubit/rest_password_cubit.dart';
 
 ///Service Locator
 final GetIt serviceLocator = GetIt.instance;
@@ -23,31 +25,46 @@ Future<void> init() async {
 
 //!Child
 //BLOCs
+//Reset Password Page
+  serviceLocator.registerFactory<ResetPasswordCubit>(
+    () => ResetPasswordCubit(authenticationRepository: serviceLocator()),
+  );
 //Stats page
-  serviceLocator.registerFactory<StatsCubit>(() => StatsCubit(
+  serviceLocator.registerFactory<StatsCubit>(
+    () => StatsCubit(
       runDetailsRepository: serviceLocator(),
-      authenticationRepository: serviceLocator()));
+      authenticationRepository: serviceLocator(),
+    ),
+  );
 //RunPage
-  serviceLocator.registerFactory<TimerCubit>(() => TimerCubit(
+  serviceLocator.registerFactory<TimerCubit>(
+    () => TimerCubit(
       authenticationRepository: serviceLocator(),
       runDetailsRepository: serviceLocator(),
       locationRepository: serviceLocator(),
-      growRepository: serviceLocator()));
+      growRepository: serviceLocator(),
+    ),
+  );
 //!UseCases
 //!Repositories
   serviceLocator.registerLazySingleton<AuthenticationRepository>(
-      () => AuthenticationRepositoryImplementation(FirebaseAuth.instance));
+    () => AuthenticationRepositoryImplementation(FirebaseAuth.instance),
+  );
   serviceLocator.registerLazySingleton<LocationRepository>(
-      () => LocationRepositoryImplementation());
+    () => LocationRepositoryImplementation(),
+  );
   serviceLocator.registerLazySingleton<GROWRepository>(
-      () => GROWRepositoryImplementation(serviceLocator()));
+    () => GROWRepositoryImplementation(serviceLocator()),
+  );
   serviceLocator.registerLazySingleton<RunDetailsRepository>(
-      () => RunRepositoryImplementation(remoteDataSource: serviceLocator()));
+    () => RunRepositoryImplementation(remoteDataSource: serviceLocator()),
+  );
 //!Services
 
 //!DataSources
   serviceLocator.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImplementation(FirebaseFirestore.instance));
+    () => RemoteDataSourceImplementation(FirebaseFirestore.instance),
+  );
 //!Core
 //TODO add network checker here
 //!External

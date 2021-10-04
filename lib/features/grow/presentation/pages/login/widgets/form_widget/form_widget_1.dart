@@ -17,57 +17,61 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
-        form: () => LoginFormGroup.buildLoginPageInputs(),
-        builder: (BuildContext context, FormGroup form, Widget? child) {
-          return Column(
-            children: <Widget>[
-              DefaultUIElements.getEmailInput(
-                  formControlName: 'email', hintText: 'Email or Username'),
-              DefaultUIElements.getDefaultFormPadding(),
-              ReactiveTextField<String>(
-                formControlName: 'password',
-                decoration: const InputDecoration(hintText: 'Password'),
+      form: () => LoginFormGroup.buildLoginPageInputs(),
+      builder: (BuildContext context, FormGroup form, Widget? child) {
+        return Column(
+          children: <Widget>[
+            DefaultUIElements.getEmailInput(
+              formControlName: 'email',
+              hintText: 'Email or Username',
+            ),
+            DefaultUIElements.getDefaultFormPadding(),
+            ReactiveTextField<String>(
+              formControlName: 'password',
+              decoration: const InputDecoration(hintText: 'Password'),
+            ),
+            CupertinoButton(
+              onPressed: () => Navigator.pushNamed(context, '/reset_password'),
+              child: Text(
+                'Forgot password?',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
-              CupertinoButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, '/reset_password'),
-                child: Text(
-                  'Forgot password?',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontWeight: FontWeight.bold),
+            ),
+            ElevatedButton(
+              onPressed: () => form.valid
+                  ? handler(
+                      form.control('email').value.toString(),
+                      form.control('password').value.toString(),
+                    )
+                  : null,
+              child: const Text('SUBMIT'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Don't have an account?",
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () => form.valid
-                    ? handler(form.control('email').value.toString(),
-                        form.control('password').value.toString())
-                    : null,
-                child: const Text('SUBMIT'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Don't have an account?",
-                    style: Theme.of(context).textTheme.bodyText2,
+                CupertinoButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/child/sign-up'),
+                  child: Text(
+                    'Sign up',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  CupertinoButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, '/child/sign-up'),
-                    child: Text(
-                      'Sign up',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          );
-        });
+                )
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }

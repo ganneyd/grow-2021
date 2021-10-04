@@ -24,7 +24,8 @@ class _$StatsStateTearOff {
       int maxDay = 0,
       int minDay = 0,
       int month = 0,
-      int numberOfDays = 0}) {
+      int numberOfDays = 0,
+      LevelDataModel levelDataModel = const LevelDataModel()}) {
     return _StatsState(
       errMsg: errMsg,
       status: status,
@@ -34,6 +35,7 @@ class _$StatsStateTearOff {
       minDay: minDay,
       month: month,
       numberOfDays: numberOfDays,
+      levelDataModel: levelDataModel,
     );
   }
 }
@@ -53,6 +55,7 @@ mixin _$StatsState {
   int get minDay => throw _privateConstructorUsedError;
   int get month => throw _privateConstructorUsedError;
   int get numberOfDays => throw _privateConstructorUsedError;
+  LevelDataModel get levelDataModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StatsStateCopyWith<StatsState> get copyWith =>
@@ -72,7 +75,10 @@ abstract class $StatsStateCopyWith<$Res> {
       int maxDay,
       int minDay,
       int month,
-      int numberOfDays});
+      int numberOfDays,
+      LevelDataModel levelDataModel});
+
+  $LevelDataModelCopyWith<$Res> get levelDataModel;
 }
 
 /// @nodoc
@@ -93,6 +99,7 @@ class _$StatsStateCopyWithImpl<$Res> implements $StatsStateCopyWith<$Res> {
     Object? minDay = freezed,
     Object? month = freezed,
     Object? numberOfDays = freezed,
+    Object? levelDataModel = freezed,
   }) {
     return _then(_value.copyWith(
       errMsg: errMsg == freezed
@@ -127,7 +134,18 @@ class _$StatsStateCopyWithImpl<$Res> implements $StatsStateCopyWith<$Res> {
           ? _value.numberOfDays
           : numberOfDays // ignore: cast_nullable_to_non_nullable
               as int,
+      levelDataModel: levelDataModel == freezed
+          ? _value.levelDataModel
+          : levelDataModel // ignore: cast_nullable_to_non_nullable
+              as LevelDataModel,
     ));
+  }
+
+  @override
+  $LevelDataModelCopyWith<$Res> get levelDataModel {
+    return $LevelDataModelCopyWith<$Res>(_value.levelDataModel, (value) {
+      return _then(_value.copyWith(levelDataModel: value));
+    });
   }
 }
 
@@ -145,7 +163,11 @@ abstract class _$StatsStateCopyWith<$Res> implements $StatsStateCopyWith<$Res> {
       int maxDay,
       int minDay,
       int month,
-      int numberOfDays});
+      int numberOfDays,
+      LevelDataModel levelDataModel});
+
+  @override
+  $LevelDataModelCopyWith<$Res> get levelDataModel;
 }
 
 /// @nodoc
@@ -168,6 +190,7 @@ class __$StatsStateCopyWithImpl<$Res> extends _$StatsStateCopyWithImpl<$Res>
     Object? minDay = freezed,
     Object? month = freezed,
     Object? numberOfDays = freezed,
+    Object? levelDataModel = freezed,
   }) {
     return _then(_StatsState(
       errMsg: errMsg == freezed
@@ -202,6 +225,10 @@ class __$StatsStateCopyWithImpl<$Res> extends _$StatsStateCopyWithImpl<$Res>
           ? _value.numberOfDays
           : numberOfDays // ignore: cast_nullable_to_non_nullable
               as int,
+      levelDataModel: levelDataModel == freezed
+          ? _value.levelDataModel
+          : levelDataModel // ignore: cast_nullable_to_non_nullable
+              as LevelDataModel,
     ));
   }
 }
@@ -217,7 +244,8 @@ class _$_StatsState implements _StatsState {
       this.maxDay = 0,
       this.minDay = 0,
       this.month = 0,
-      this.numberOfDays = 0});
+      this.numberOfDays = 0,
+      this.levelDataModel = const LevelDataModel()});
 
   @JsonKey(defaultValue: '')
   @override
@@ -243,10 +271,13 @@ class _$_StatsState implements _StatsState {
   @JsonKey(defaultValue: 0)
   @override
   final int numberOfDays;
+  @JsonKey(defaultValue: LevelDataModel)
+  @override
+  final LevelDataModel levelDataModel;
 
   @override
   String toString() {
-    return 'StatsState(errMsg: $errMsg, status: $status, chartList: $chartList, displayList: $displayList, maxDay: $maxDay, minDay: $minDay, month: $month, numberOfDays: $numberOfDays)';
+    return 'StatsState(errMsg: $errMsg, status: $status, chartList: $chartList, displayList: $displayList, maxDay: $maxDay, minDay: $minDay, month: $month, numberOfDays: $numberOfDays, levelDataModel: $levelDataModel)';
   }
 
   @override
@@ -271,7 +302,10 @@ class _$_StatsState implements _StatsState {
                 const DeepCollectionEquality().equals(other.month, month)) &&
             (identical(other.numberOfDays, numberOfDays) ||
                 const DeepCollectionEquality()
-                    .equals(other.numberOfDays, numberOfDays)));
+                    .equals(other.numberOfDays, numberOfDays)) &&
+            (identical(other.levelDataModel, levelDataModel) ||
+                const DeepCollectionEquality()
+                    .equals(other.levelDataModel, levelDataModel)));
   }
 
   @override
@@ -284,7 +318,8 @@ class _$_StatsState implements _StatsState {
       const DeepCollectionEquality().hash(maxDay) ^
       const DeepCollectionEquality().hash(minDay) ^
       const DeepCollectionEquality().hash(month) ^
-      const DeepCollectionEquality().hash(numberOfDays);
+      const DeepCollectionEquality().hash(numberOfDays) ^
+      const DeepCollectionEquality().hash(levelDataModel);
 
   @JsonKey(ignore: true)
   @override
@@ -301,7 +336,8 @@ abstract class _StatsState implements StatsState {
       int maxDay,
       int minDay,
       int month,
-      int numberOfDays}) = _$_StatsState;
+      int numberOfDays,
+      LevelDataModel levelDataModel}) = _$_StatsState;
 
   @override
   String get errMsg => throw _privateConstructorUsedError;
@@ -321,6 +357,8 @@ abstract class _StatsState implements StatsState {
   int get month => throw _privateConstructorUsedError;
   @override
   int get numberOfDays => throw _privateConstructorUsedError;
+  @override
+  LevelDataModel get levelDataModel => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$StatsStateCopyWith<_StatsState> get copyWith =>

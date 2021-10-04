@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_stats/run_stats_model.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_daily_stats.dart';
 import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/chart.dart';
-
+import 'package:grow_run_v1/features/grow/data/models/level_data/level_data_model.dart';
 part 'stats_state.freezed.dart';
 
 ///The different states the leaderboard can be in
@@ -33,14 +33,14 @@ extension StatsStatusExtension on StatsStatus {
 @freezed
 class StatsState with _$StatsState {
   ///
-  factory StatsState({
-    @Default('') String errMsg,
-    @Default(StatsStatus.loading) StatsStatus status,
-    @Default(<List<DailyChartData>>[]) List<List<DailyChartData>> chartList,
-    @Default(<RunDailyStatsEntity>[]) List<RunDailyStatsEntity> displayList,
-    @Default(0) int maxDay,
-    @Default(0) int minDay,
-    @Default(0) int month,
-    @Default(0) int numberOfDays,
-  }) = _StatsState;
+  factory StatsState(
+      {@Default('') String errMsg,
+      @Default(StatsStatus.loading) StatsStatus status,
+      @Default(<List<DailyChartData>>[]) List<List<DailyChartData>> chartList,
+      @Default(<RunDailyStatsEntity>[]) List<RunDailyStatsEntity> displayList,
+      @Default(0) int maxDay,
+      @Default(0) int minDay,
+      @Default(0) int month,
+      @Default(0) int numberOfDays,
+      @Default(LevelDataModel) LevelDataModel levelDataModel}) = _StatsState;
 }

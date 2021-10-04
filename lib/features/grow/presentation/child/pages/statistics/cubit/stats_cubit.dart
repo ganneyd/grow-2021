@@ -1,14 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grow_run_v1/core/error/failures.dart';
+import 'package:grow_run_v1/core/usecases/usecases.dart';
 import 'package:grow_run_v1/features/grow/data/models/run_stats/run_stats_model.dart';
+import 'package:grow_run_v1/features/grow/domain/entities/level_data/level_data_entity.dart';
 import 'package:grow_run_v1/features/grow/domain/entities/run_daily_stats.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/authentication_repository.dart';
 import 'package:grow_run_v1/features/grow/domain/repositories/run_details_repository.dart';
+import 'package:grow_run_v1/features/grow/domain/usecases/run/get_level_data.dart';
 import 'package:grow_run_v1/features/grow/domain/usecases/run/get_run_session_between_dates.dart'
     as between;
 import 'package:grow_run_v1/features/grow/domain/usecases/run/get_sessions_daily_stats.dart'
     as date;
+import 'package:grow_run_v1/features/grow/data/models/level_data/level_data_model.dart';
+
 import 'package:grow_run_v1/features/grow/presentation/child/pages/widgets/chart.dart';
 
 import 'stats_state.dart';
@@ -22,15 +27,19 @@ class StatsCubit extends Cubit<StatsState> {
       : _getDailyStats = date.GetSessionByDay(
             runDetailsRepository: runDetailsRepository,
             authenticationRepository: authenticationRepository),
-        _getSessionBetweenDays = between.GetSessionBetweenDays(),
+        _getSessionBetweenDays = const between.GetSessionBetweenDays(),
+        _getLevelData =
+            GetLevelData(runDetailsRepository: runDetailsRepository),
         super(StatsState());
 
   final date.GetSessionByDay _getDailyStats;
   final between.GetSessionBetweenDays _getSessionBetweenDays;
+  final GetLevelData _getLevelData;
 
   Future<void> init() async {
     final int minDate = DateTime.now().day - DateTime.now().weekday;
     final int maxDate = DateTime.now().day + 6 - DateTime.now().weekday;
+
     emit(state.copyWith(
       status: StatsStatus.loading,
       minDay: minDate,
@@ -43,6 +52,8 @@ class StatsCubit extends Cubit<StatsState> {
               .inDays +
           (7 - DateTime.now().weekday),
     ));
+    final Either<Failure, LevelDataEntity> levelData =
+        await _getLevelData.call(NoParams());
 
     final Either<Failure, List<RunDailyStatsEntity>> results =
         await _getDailyStats.call(const date.Params(isWeekly: false));
@@ -51,10 +62,16 @@ class StatsCubit extends Cubit<StatsState> {
         (l) => state.copyWith(
             status: StatsStatus.loadedUnsuccessfully,
             errMsg: l.message), (List<RunDailyStatsEntity> list) {
-      return state.copyWith(
-        status: StatsStatus.loadedSuccessfully,
-        displayList: list,
-      );
+      return levelData.fold(
+          (l) => state.copyWith(
+              status: StatsStatus.loadedUnsuccessfully,
+              errMsg: l.message), (LevelDataEntity r) {
+        return state.copyWith(
+          levelDataModel: LevelDataModel(distance: r.distance, level: r.level),
+          status: StatsStatus.loadedSuccessfully,
+          displayList: list,
+        );
+      });
     }));
 
     final Either<Failure, List<RunDailyStatsEntity>> thisWeeksStats =

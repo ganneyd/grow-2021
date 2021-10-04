@@ -19,7 +19,8 @@ class RouteGenerator {
         return MaterialPageRoute<void>(builder: (_) => const LoginPage());
       case '/reset_password':
         return MaterialPageRoute<void>(
-            builder: (_) => const ResetPasswordPage());
+          builder: (_) => const ResetPasswordPage(),
+        );
       //**********************Child routes************************************
       case '/child/goals':
         return MaterialPageRoute<void>(builder: (_) => child_view.GoalsPage());
